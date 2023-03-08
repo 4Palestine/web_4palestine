@@ -17,6 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    // protected $guard = 'mobile';
     protected $fillable = [
         'name',
         'email',

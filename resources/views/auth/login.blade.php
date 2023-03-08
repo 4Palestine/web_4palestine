@@ -8,7 +8,7 @@
                     style="background-image: url('{{ asset('admin/assets/images/login-background-02.png') }}')">
                     <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
                         <div>
-                            <h2 class="text-6xl font-bold text-white">Waves</h2>
+                            <h2 class="text-6xl font-bold text-white">Bees4Palestine</h2>
 
                             <p class="max-w-xl text-xl mt-3 text-gray-300">Lorem ipsum dolor sit, amet consectetur
                                 adipisicing elit.
@@ -31,7 +31,7 @@
                                 :errors="$errors" /> --}}
                         </div>
                         <div class="text-center">
-                            <h2 class="text-4xl font-bold text-center text-teal-600 dark::text-white">Waves</h2>
+                            <h2 class="text-4xl font-bold text-center text-teal-600 dark::text-white">Bees4Palestine</h2>
 
                             <p class="mt-3 text-gray-500 dark::text-gray-300">Sign in to access your account</p>
                         </div>

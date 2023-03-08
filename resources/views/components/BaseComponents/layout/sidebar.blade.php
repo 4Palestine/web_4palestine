@@ -5,7 +5,7 @@
                         alt="logo icon">
                 </div>
                 <div>
-                    <h4 class="logo-text fw-bolder">Waves</h4>
+                    <h4 class="logo-text fw-bolder">B4P</h4>
                 </div>
                 <div class="toggle-icon ms-auto"> <i class="bi bi-list"></i>
                 </div>

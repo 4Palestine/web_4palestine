@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exports\BaseExport;
-use App\Http\Requests\BaseRequest\BaseRequest;
-use App\Http\Resources\BaseResource\BaseResource;
 use App\Imports\BaseImport;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -12,6 +10,9 @@ use App\Http\Traits\uploadFile;
 use App\Models\BaseModel\BaseModel;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\Http\Requests\BaseRequest\BaseRequest;
+use Mccarlosen\LaravelMpdf\Facades\LaravelMpdf;
+use App\Http\Resources\BaseResource\BaseResource;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -49,19 +50,7 @@ class Base5Controller extends BaseController
     }
 
 
-    // public function index()
-    // {
-    //     $model = $this->indexQuery();
-    //     dd($model->getCollection());
-    //     $models = $this->resource::collection($model->getCollection());
-    //     $paginator = $models->toArray();
-    //     $bara = $paginator['items'];
-    //     $models['items'] = $bara;
-    //     dd($model);
-    //     // IN blade $models['$paginator']->links()
-    //     $additionalData = $this->indexAdditionalData();
-    //     return view($this->view_index(), compact('models', 'additionalData'));
-    // }
+    
     public function index()
     {
         $model = $this->indexQuery();
@@ -95,17 +84,6 @@ class Base5Controller extends BaseController
     }
 
 
-
-
-    // public function show($id)
-    // {
-    //     $model = $this->getModel()::find($id);
-    //     $additionalData = $this->showAdditionalData($id);
-    //     if (!$model) {
-    //         return redirect()->route($this->route_index())->with('fail', $this->printModelText() . ' Doesn`t Exist');
-    //     }
-    //     return view($this->view_show(), compact('model', 'additionalData'));
-    // }
     public function show($id)
     {
         $object = $this->getModel()::find($id);
@@ -139,7 +117,7 @@ class Base5Controller extends BaseController
             return redirect()->route($this->route_index())->with('fail', $this->printModelText() . ' Doesn`t Exist');
         }
 
-        $old_image = $model->image;
+        $old_image = count($model->getImages()) == 1 ? $model[$model->getImages()[0]] : $model->image;
 
         $request->validate($this->getRequest()->rules($id), $this->getRequest()->messages());
         $newModel = $model->update($this->setUpdateAttributes($request, $old_image));
@@ -151,9 +129,6 @@ class Base5Controller extends BaseController
             return redirect()->route($this->route_index())->with('success', $this->printModelText() . ' Updated Successfully');
         }
     }
-
-
-
 
 
 
@@ -264,7 +239,7 @@ class Base5Controller extends BaseController
         $collection_array = $this->exportPdfCollection();
         // $collection = $this->getModel()::get($this->exportPdfCollection());
         $collection = $this->resource::collection($this->getModel()::all())->resolve();
-        $pdf = \Meneses\LaravelMpdf\Facades\LaravelMpdf::loadView('components.BaseComponents.tabel.export_templates.template_pdf', compact('collection', 'collection_array', 'headings'));
+        $pdf = LaravelMpdf::loadView('components.BaseComponents.tabel.export_templates.template_pdf', compact('collection', 'collection_array', 'headings'));
         return $pdf->stream($this->printModelText() . '.pdf');
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////

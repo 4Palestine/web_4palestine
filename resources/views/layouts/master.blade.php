@@ -44,7 +44,7 @@
 
     @stack('style')
 
-    <title>Waves</title>
+    <title>Bees4Palestine</title>
     {{-- <title>{{ __('messages.app_name') }}</title> --}}
 
     <style>
