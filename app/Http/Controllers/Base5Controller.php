@@ -50,7 +50,7 @@ class Base5Controller extends BaseController
     }
 
 
-    
+
     public function index()
     {
         $model = $this->indexQuery();
@@ -100,15 +100,34 @@ class Base5Controller extends BaseController
 
 
 
+    // public function edit($id)
+    // {
+    //     $model = $this->getModel()::find($id);
+    //     if (!$model) {
+    //         return redirect()->route($this->route_index())->with('fail', $this->printModelText() . ' Doesn`t Exist');
+    //     }
+    //     $additionalData = $this->editAdditionalData($id);
+    //     return view($this->view_edit(), compact('model', 'additionalData'));
+    // }
+
     public function edit($id)
     {
-        $model = $this->getModel()::find($id);
+        // $model = $this->getModel()::find($id);
+
+        $object = $this->getModel()::find($id);
+
+        $objectResource = $this->getResource($object);
+        $model = $objectResource->resolve();
+
         if (!$model) {
             return redirect()->route($this->route_index())->with('fail', $this->printModelText() . ' Doesn`t Exist');
         }
+
         $additionalData = $this->editAdditionalData($id);
+
         return view($this->view_edit(), compact('model', 'additionalData'));
     }
+
 
     public function update(Request $request, $id)
     {
@@ -297,11 +316,11 @@ class Base5Controller extends BaseController
     // same as Resource
     public function setCreateAttributes($request)
     {
-        return array_merge($this->setResource($request), $this->setCreateResource($request));
+        return array_merge($this->setResource($request), $this->serializeTranslatableOptions($request) , $this->setCreateResource($request));
     }
     public function setUpdateAttributes($request, $old_image)
     {
-        return array_merge($this->setResource($request), $this->setUpdateResource($request, $old_image));
+        return array_merge($this->setResource($request), $this->serializeTranslatableOptions($request) , $this->setUpdateResource($request, $old_image));
     }
     // use it when Update has new different data than normal [e.g. 'image' => uploadFile(request, path)]
     public function setCreateResource($request)
@@ -316,8 +335,23 @@ class Base5Controller extends BaseController
     // use it when Update & Create has new different data than normal [e.g. 'parts' => $model->parts->name]
     public function setCreateUpdateResource($request, $old_image = null)
     {
-        return null;
+        return [];
     }
+
+    public function serializeTranslatableOptions($request)
+    {
+        $translatabelOptions = app($this->getModel())->getTranslatableOptions();
+        $serializedOptions = [];
+        foreach($translatabelOptions as $option){
+            $serializedOptions[$option] = [
+                'en' => $request->input($option . '_en'),
+                'ar' => $request->input($option . '_ar')
+            ];
+        }
+        return $serializedOptions;
+    }
+
+
     // use it when create & update has the same data, [default = $request->all()]
     public function setResource($request)
     {

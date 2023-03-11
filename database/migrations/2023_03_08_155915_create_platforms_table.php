@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('platforms', function (Blueprint $table) {
             $table->id();
             $table->string('slug');
-            $table->string('name');
-            $table->text('description');
+            $table->json('name');
+            $table->json('description');
             $table->string('image')->nullable();
             $table->boolean('is_active')->default(1);
             $table->json('admin_data')->nullable();

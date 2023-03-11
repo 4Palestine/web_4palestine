@@ -21,17 +21,19 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown dropdown-user-setting">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
+                            data-bs-toggle="dropdown">
                             <div class="user-setting d-flex align-items-center">
-                                <img src="{{ asset('admin/assets/images/avatars/avatar-1.png') }}" class="user-img" alt="">
+                                <img src="{{ asset('admin/assets/images/avatars/avatar-1.png') }}" class="user-img"
+                                    alt="">
                             </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>
                                 <a class="dropdown-item" href="#">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ asset('admin/assets/images/avatars/avatar-1.png') }}" alt="" class="rounded-circle"
-                                            width="54" height="54">
+                                        <img src="{{ asset('admin/assets/images/avatars/avatar-1.png') }}"
+                                            alt="" class="rounded-circle" width="54" height="54">
                                         <div class="ms-3">
                                             <h6 class="mb-0 dropdown-user-name">Jhon Deo</h6>
                                             <small class="mb-0 dropdown-user-designation text-secondary">HR
@@ -103,7 +105,8 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown dropdown-large">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
+                            data-bs-toggle="dropdown">
                             <div class="projects">
                                 <i class="bi bi-grid-3x3-gap-fill"></i>
                             </div>
@@ -205,7 +208,8 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown dropdown-large">
-                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
+                            data-bs-toggle="dropdown">
                             <div class="notifications">
                                 <span class="notify-badge">8</span>
                                 <i class="bi bi-bell-fill"></i>
@@ -370,6 +374,28 @@
                             </div>
                         </div>
                     </li>
+                    {{-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
+                            data-bs-toggle="dropdown">
+                            <div class="user-setting d-flex align-items-center">
+                                {{ Config::get('languages')[App::getLocale()] }}
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            @foreach (Config::get('languages') as $lang => $language)
+                                @if ($lang != App::getLocale())
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}">
+                                            <div class="d-flex align-items-center">
+                                                <div class=""><i class="bi bi-piggy-bank-fill"></i></div>
+                                                <div class="ms-3"><span>{{ $language }}</span></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </li> --}}
                 </ul>
             </div>
         </nav>

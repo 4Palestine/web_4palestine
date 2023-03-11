@@ -2,7 +2,7 @@
     'name',
     'model' => $model,
     'options' => [],
-    'label' => class_basename($model) . ' ' . preg_quote($name, '_') ? str_replace("_", " ", $name) : $name ,
+    'label' => class_basename((object)$model) . ' ' . preg_quote($name, '_') ? str_replace("_", " ", $name) : $name ,
     'cols' => '6',
 ])
 <div class="mb-3 col-12 col-sm-{{ $cols }}">

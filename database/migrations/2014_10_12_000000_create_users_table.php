@@ -25,6 +25,7 @@ return new class extends Migration
             $table->json('admin_data')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

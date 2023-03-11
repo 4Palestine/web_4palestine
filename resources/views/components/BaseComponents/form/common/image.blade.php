@@ -2,8 +2,8 @@
     'name',
     'model' => $model,
     'path' => 'storage/',
-    'label' => class_basename($model) . ' ' . $name,
-    'placeholder' => Str::ucfirst('enter '. class_basename($model) . ' ' . $name),
+    'label' => class_basename((object)$model) . ' ' . $name,
+    'placeholder' => Str::ucfirst('enter '. class_basename((object)$model) . ' ' . $name),
     'cols' => '6',
 ])
 
@@ -17,7 +17,7 @@
         <small class="text-danger">{{ $message }}</small>
     @enderror
     @isset($model[$name])
-        <div><img src="{{ asset($path . $model[$name]) }}" class="mt-2 rounded" width="50px" height="50px"
+        <div><img src="{{ $model[$name] }}" class="mt-2 rounded" width="50px" height="50px"
                 alt="uploaded image"></div>
     @endisset
 </div>

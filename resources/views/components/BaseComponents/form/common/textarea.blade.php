@@ -2,8 +2,8 @@
     'name',
     'model' => $model,
     'rows' => 2,
-    'label' => class_basename($model) . ' ' . $name,
-    'placeholder' => Str::ucfirst('enter '. class_basename($model) . ' ' . $name),
+    'label' => class_basename((object)$model) . ' ' . $name,
+    'placeholder' => Str::ucfirst('enter '. class_basename((object)$model) . ' ' . $name),
     'cols' => '12',
 ])
 

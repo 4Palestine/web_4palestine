@@ -16,8 +16,8 @@ class BaseModel extends Model
     // protected $columnsForSheets = basename(__FILE__)->getFillable() ?? [];
     protected $columnsForSheets = null;
     protected $images = [];
+    public $translatable = [];
 
-    
     // protected $primaryKey = 'id';
     // protected $with = ['relationMethod:attr1,attr2'];
 
@@ -48,6 +48,9 @@ class BaseModel extends Model
 
 
 
+    public function getTranslatableOptions() {
+        return $this->translatable;
+    }
 
 
     public function getColumnsForSheets() {

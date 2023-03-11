@@ -428,4 +428,17 @@
             </div>
         </div>
     </div>
+
+
+    <div class="row">
+        <div class="col">
+            <form action="{{ route('test_mission_done') }}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-primary">mission done (by user) - API</button>
+            </form>
+        </div>
+    </div>
+
+
+    
 @endsection

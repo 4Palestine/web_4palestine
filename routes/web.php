@@ -1,7 +1,13 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\LanguageController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+    // return to_route('login');
 });
 
 Route::get('/dashboard', function () {
@@ -29,7 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+// هاد الراوت معمول مؤقت لاختبار عملية تاكيد المهمة من طرف اليوزر
+Route::post('dashboard/test-mission-done', [AdminController::class, 'test_mission_done'])->name('test_mission_done');
 
 
 
@@ -38,10 +46,13 @@ Route::middleware('auth')->group(function () {
 
 $routes_all = [
     'platform' => PlatformController::class,
+    'mission' => MissionController::class,
+    'user' => UserController::class,
+    // 'mission' => ::class,
 ];
 $routes_without_softdelete = [
+    'tag' => TagController::class,
 ];
-
 foreach($routes_all as $route_name => $route_controller) {
     Route::controller($route_controller)->name('dashboard.')->prefix('/dashboard')->middleware(['auth'])->group(function () use ($route_name, $route_controller) {
         Route::get($route_name.'/export-excel/', 'exportExcel')->name($route_name.'.exportExcel');
@@ -68,8 +79,6 @@ foreach($routes_without_softdelete as $route_name => $route_controller) {
         Route::resource($route_name, $route_controller);
     });
 }
-
-
 
 
 require __DIR__.'/auth.php';

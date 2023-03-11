@@ -22,6 +22,21 @@ return [
                 'label' => 'platforms',
                 'active' => 'dashboard.platform.*',
             ],
+            [
+                'route' => 'dashboard.mission.index',
+                'label' => 'missions',
+                'active' => 'dashboard.mission.*',
+            ],
+            [
+                'route' => 'dashboard.tag.index',
+                'label' => 'tags',
+                'active' => 'dashboard.tag.*',
+            ],
+            [
+                'route' => 'dashboard.user.index',
+                'label' => 'users',
+                'active' => 'dashboard.user.*',
+            ],
         ],
     ],
     [
@@ -36,7 +51,12 @@ return [
                 'active' => 'dashboard.platform.*',
                 'icon' => 'bi bi-circle',
             ],
-
+            [
+                'route' => 'dashboard.mission.trash',
+                'label' => 'Missions trash',
+                'active' => 'dashboard.mission.*',
+                'icon' => 'bi bi-circle',
+            ],
         ]
     ]
 ];

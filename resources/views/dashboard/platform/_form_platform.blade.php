@@ -14,9 +14,12 @@
 <div class="card-body table-responsive p-4">
     <div class="row">
 
-        <x-BaseComponents.form.common.input type="text" name="name" :model="$model" />
+        <x-BaseComponents.form.common.input type="text" name="name_en" :model="$model" label="Platform Name (EN)" placeholder="Enter platform Name (EN)" />
+        <x-BaseComponents.form.common.input type="text" name="name_ar" :model="$model" label="Platform Name (AR)" placeholder="Enter platform Name (AR)" />
 
-        <x-BaseComponents.form.common.textarea name="description" :model="$model" rows="3" label="platform Description" placeholder="Enter platform Description" />
+        <x-BaseComponents.form.common.textarea name="description_en" :model="$model" rows="3" label="Platform Description (EN)" placeholder="Enter platform Description (EN)" />
+        <x-BaseComponents.form.common.textarea name="description_ar" :model="$model" rows="3" label="Platform Description (AR)" placeholder="Enter platform Description (AR)" />
+
 
         <x-BaseComponents.form.common.select_fixed name="is_active" :model="$model"
         :options="[

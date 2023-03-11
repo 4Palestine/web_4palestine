@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Mission;
 use App\Models\BaseModel\BaseModel;
+use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Platform extends BaseModel
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasTranslations;
 
     protected $fillable = [
         'slug',
@@ -20,10 +22,19 @@ class Platform extends BaseModel
         'admin_data',
     ];
 
+    public $translatable = [
+        'name',
+        'description'
+    ];
+
     protected $images = [
         'image',
     ];
 
+
+    protected $casts = [
+        'admin_data' => 'array',
+    ];
 
 
     public function scopeSearch(Builder $query, $request)
@@ -38,6 +49,15 @@ class Platform extends BaseModel
 
     public function scopeActive(Builder $query) {
         return $query->where('is_active', 1);
+    }
+
+
+
+    public function tags(){
+        return $this->hasMany(Tag::class);
+    }
+    public function missions(){
+        return $this->hasMany(Mission::class);
     }
 
 }

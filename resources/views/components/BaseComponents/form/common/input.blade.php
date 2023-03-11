@@ -2,8 +2,8 @@
     'type' => 'text', // email, hidden, number, password, file, date, month, week, time, datetime-local, color, url
     'name',
     'model' => $model,
-    'label' => class_basename($model) . ' ' . str_replace("_"," ",$name),
-    'placeholder' => Str::ucfirst('enter '. class_basename($model) . ' ' . $name),
+    'label' => class_basename((object)$model) . ' ' . str_replace("_"," ",$name),
+    'placeholder' => Str::ucfirst('enter '. class_basename((object)$model) . ' ' . $name),
     'cols' => '6',
 ])
 

@@ -5,7 +5,7 @@
     'default_option' => '',
     'option_value_column' => 'id',
     'option_label_column' => 'name',
-    'label' => class_basename($model) . ' ' . preg_quote($name, '_') ? str_replace("_", " ", $name) : $name ,
+    'label' => class_basename((object)$model) . ' ' . preg_quote($name, '_') ? str_replace("_", " ", $name) : $name ,
     'cols' => '6',
 ])
 
