@@ -24,7 +24,7 @@
         .customSuggestionsList > div{
             max-height: 100px;
             min-height: 20px;
-            border: 2px solid pink;
+            border: 2px solid #e2f5df !important;
             overflow: auto;
         }
 
