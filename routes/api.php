@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Models\Mission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,11 +25,13 @@ Route::name('user.')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login'])->name('login');
 });
 
-Route::middleware('auth:mobile')->name('user.')->prefix('user')->group(function () {
+Route::middleware(['auth:mobile'])->name('user.')->prefix('user')->group(function () {
     Route::get('/test', function(){
-        return response()->json([
-            'status' => true,
-            'message' => 'tested successfully',
-        ], 200);
+        $data = Mission::all();
+        return response()->success(message: 'data returned succeefully', data: $data);
+        // return response()->json([
+        //     'status' => true,
+        //     'data' => 'tested successfully',
+        // ], 200);
     })->name('test');
 });
