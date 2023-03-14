@@ -2,7 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ChangeLanguage;
 use App\Http\Middleware\checkApiB4pPassword;
+use App\Http\Middleware\IsSuperUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -65,6 +67,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        'checkApiPassword' => checkApiB4pPassword::class
+        'checkApiPassword' => checkApiB4pPassword::class,
+        'changeLanguage' => ChangeLanguage::class,
+        'isSuper' => IsSuperUser::class,
     ];
 }

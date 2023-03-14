@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Resources\MissionResource;
 use App\Models\Mission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,13 +26,12 @@ Route::name('user.')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login'])->name('login');
 });
 
-Route::middleware(['auth:mobile'])->name('user.')->prefix('user')->group(function () {
-    Route::get('/test', function(){
-        $data = Mission::all();
+Route::middleware(['auth:mobile', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
+    Route::post('/test', function(){
+        $data = MissionResource::collection(Mission::get());
+        if(!$data) {
+            return response()->error(status: 400, message: 'there is no data yet');
+        }
         return response()->success(message: 'data returned succeefully', data: $data);
-        // return response()->json([
-        //     'status' => true,
-        //     'data' => 'tested successfully',
-        // ], 200);
     })->name('test');
 });

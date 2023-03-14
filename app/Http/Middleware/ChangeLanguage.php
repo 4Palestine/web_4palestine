@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class checkApiB4pPassword
+class ChangeLanguage
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,9 @@ class checkApiB4pPassword
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if( $request->api_password_b4p !== env('API_PASSWORD_B4P', 'kds@k2J#SF*4D98g!85w4')){
-            return response()->json(['message' => 'Unauthenticated.']);
-        }
+        app()->setlocale('ar');
+        if(isset($request->lang) && $request->lang == 'en')
+            app()->setLocale('en');
 
         return $next($request);
     }
