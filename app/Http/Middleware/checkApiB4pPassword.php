@@ -15,7 +15,7 @@ class checkApiB4pPassword
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if( $request->api_password_b4p !== env('API_PASSWORD_B4P', 'kds@k2J#SF*4D98g!85w4')){
+        if($request->header('api-password-b4p') !== env('API_PASSWORD_B4P', 'kds@k2J#SF*4D98g!85w4')){
             return response()->json(['message' => 'Unauthenticated.']);
         }
 

@@ -37,6 +37,11 @@ return [
                 'label' => 'users',
                 'active' => 'dashboard.user.*',
             ],
+            [
+                'route' => 'dashboard.imageLibraryFolder.index',
+                'label' => 'Image Library Folders',
+                'active' => 'dashboard.imageLibraryFolder.*',
+            ],
         ],
     ],
     [

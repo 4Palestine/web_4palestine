@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PlatformResource extends JsonResource
+class ImageLibraryFolderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,15 +18,10 @@ class PlatformResource extends JsonResource
         return [
             'id' => $this->id,
             'slug' => $this->slug,
+            'parent_id' => $this->parent_id,
+            'parent_name' => optional($this->parent)->name ?? 'ROOT',
             'name' => $this->name,
-            'description' => $this->description,
-            'name_en' => $this->getTranslations('name')['en'] ?? '',
-            'name_ar' => $this->getTranslations('name')['ar'] ?? '',
-            'description_en' => $this->getTranslations('description')['en'] ?? '',
-            'description_ar' => $this->getTranslations('description')['ar'] ?? '',
-            'image' => image_url($this->image),
             'is_active' => $this->is_active,
-            'deleted_at' => $this->deleted_at,
         ];
     }
 

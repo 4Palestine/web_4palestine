@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('image_libraries', function (Blueprint $table) {
+        Schema::create('image_library_folders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->string('slug')->nullable();
+            $table->json('name')->nullable();
+            $table->boolean('is_active')->default(0);
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('image_libraries');
+        Schema::dropIfExists('image_library_folders');
     }
 };

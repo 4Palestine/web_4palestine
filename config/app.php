@@ -1,5 +1,6 @@
 <?php
 
+use App\Providers\MacroServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -82,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'ar',
+    'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -194,6 +195,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        MacroServiceProvider::class
 
     ],
 

@@ -16,7 +16,7 @@ class ChangeLanguage
     public function handle(Request $request, Closure $next): Response
     {
         app()->setlocale('ar');
-        if(isset($request->lang) && $request->lang == 'en')
+        if($request->header('lang') && $request->header('lang') == 'en')
             app()->setLocale('en');
 
         return $next($request);

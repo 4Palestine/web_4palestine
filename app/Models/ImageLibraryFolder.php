@@ -2,47 +2,25 @@
 
 namespace App\Models;
 
-use App\Models\User;
-use App\Models\Platform;
 use App\Models\BaseModel\BaseModel;
-use Spatie\Translatable\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
-class Mission extends BaseModel
+class ImageLibraryFolder extends BaseModel
 {
-    use HasFactory, SoftDeletes, HasTranslations;
+    use HasFactory, HasTranslations;
 
     protected $fillable = [
+        'parent_id',
         'slug',
-        'platform_id',
-        'user_id',
-        'image',
-        'mission_link',
-        'description',
-        'mission_duration',
-        'mission_type',
-        'tags',
-        'comments',
-        'mission_stars',
+        'name',
         'is_active',
-        'admin_data',
-    ];
-
-    protected $images = [
-        'image',
     ];
 
     public $translatable = [
-        'description',
-        'comments'
-    ];
-
-    protected $casts = [
-        'admin_data' => 'array',
-        'tags' => 'array',
-        'comments' => 'array',
+        'name'
     ];
 
 
@@ -59,5 +37,15 @@ class Mission extends BaseModel
 
     public function scopeActive(Builder $query) {
         return $query->where('is_active', 1);
+    }
+
+
+
+
+    public function parent(){
+        return $this->belongsTo(static::class);
+    }
+    public function children() {
+        return $this->hasMany(static::class, 'parent_id');
     }
 }

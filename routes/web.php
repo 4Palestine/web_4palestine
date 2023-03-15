@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ImageLibraryFolderController;
 use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -52,6 +53,7 @@ $routes_all = [
 ];
 $routes_without_softdelete = [
     'tag' => TagController::class,
+    'imageLibraryFolder' => ImageLibraryFolderController::class,
 ];
 foreach($routes_all as $route_name => $route_controller) {
     Route::controller($route_controller)->name('dashboard.')->prefix('/dashboard')->middleware(['auth'])->group(function () use ($route_name, $route_controller) {

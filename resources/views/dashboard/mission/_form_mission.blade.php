@@ -75,9 +75,10 @@
                             <div class="mt-2 parent_delete">
                                 <div class="input-group"><input required type="text" value="{{ $comment }}"
                                         name="comments_en[]" id="comments_en" class="form-control rounded-start"
-                                        aria-describedby="comments_en"><a href="#" class="kh_delete input-group-text"
-                                        id="comments_en"><img src="https://freesvg.org/img/trash.png" width="20px"
-                                            alt="delete"></a></div>
+                                        aria-describedby="comments_en"><a href="#"
+                                        class="kh_delete input-group-text" id="comments_en"><img
+                                            src="https://freesvg.org/img/trash.png" width="20px" alt="delete"></a>
+                                </div>
                             </div>
                         @endif
                     @empty
@@ -120,8 +121,9 @@
                             <div class="mt-2 parent_delete">
                                 <div class="input-group"><input required type="text" value="{{ $comment }}"
                                         name="comments_ar[]" id="comments_ar" class="form-control rounded-start"
-                                        aria-describedby="comments_ar"><a href="#" class="kh_delete input-group-text"
-                                        id="comments_ar"><img src="https://freesvg.org/img/trash.png" width="20px"
+                                        aria-describedby="comments_ar"><a href="#"
+                                        class="kh_delete input-group-text" id="comments_ar"><img
+                                            src="https://freesvg.org/img/trash.png" width="20px"
                                             alt="delete"></a></div>
                             </div>
                         @endif
@@ -148,6 +150,44 @@
             @enderror
         </div> --}}
 
+        <div id="radio-folders" class="form-check col-12 d-flex flex-column">
+            <input class="form-check-input" type="radio" name="folder_attr_name" value="folder_1" id="folder_1">
+            <label class="btn bg-light-primary w-25 text-start mb-2" for="folder_1">
+                <i class="bi bi-folder-fill me-2 text-primary"></i>
+                <span class="text-secondary fw-bold">folder 1</span>
+            </label>
+
+            <input class="form-check-input" type="radio" name="folder_attr_name" value="folder_2" id="folder_2" checked>
+            <label class="btn bg-light-primary w-25 text-start mb-2" for="folder_2">
+                <i class="bi bi-folder-fill me-2 text-primary"></i>
+                <span class="text-secondary fw-bold">folder 2</span>
+            </label>
+            <div class="ms-4 d-flex flex-column">
+                <input class="form-check-input" type="radio" name="folder_attr_name" value="folder_2_1" id="folder_2_1" checked>
+                <label class="btn bg-light-primary w-25 text-start mb-2" for="folder_2_1">
+                    <i class="bi bi-folder-fill me-2 text-primary"></i>
+                    <span class="text-secondary fw-bold">folder 2.1</span>
+                </label>
+
+                <input class="form-check-input" type="radio" name="folder_attr_name" value="folder_2_2" id="folder_2_2" checked>
+                <label class="btn bg-light-primary w-25 text-start mb-2" for="folder_2_2">
+                    <i class="bi bi-folder-fill me-2 text-primary"></i>
+                    <span class="text-secondary fw-bold">folder 2.2</span>
+                </label>
+            </div>
+
+            <input class="form-check-input" type="radio" name="folder_attr_name" value="folder_3" id="folder_3" checked>
+            <label class="btn bg-light-primary w-25 text-start mb-2" for="folder_3">
+                <i class="bi bi-folder-fill me-2 text-primary"></i>
+                <span class="text-secondary fw-bold">folder 3</span>
+            </label>
+
+            <input class="form-check-input" type="radio" name="folder_attr_name" value="folder_4" id="folder_4" checked>
+            <label class="btn bg-light-primary w-25 text-start mb-2" for="folder_4">
+                <i class="bi bi-folder-fill me-2 text-primary"></i>
+                <span class="text-secondary fw-bold">folder 4</span>
+            </label>
+        </div>
 
         <x-BaseComponents.form.common.select_fixed name="is_active" :model="$model" :options="[
             '1' => 'Active',
@@ -158,6 +198,21 @@
     </div>
 </div>
 
+
+@push('style')
+    <style>
+        #radio-folders label {
+            border: 2px solid transparent !important;
+        }
+        #radio-folders label:hover {
+            background-color: #315dfa45 !important;
+        }
+        #radio-folders input:checked + label {
+            background-color: #315dfa45 !important;
+            border: 2px solid #315dfa9a !important;
+        }
+    </style>
+@endpush
 
 @push('script')
     <script>
@@ -199,6 +254,14 @@
                 });
                 x--;
             })
+
+
+
+
+
+            $('#radio-folders input[type=radio]').hide();
+
+
         });
     </script>
 @endpush

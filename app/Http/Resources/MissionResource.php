@@ -21,7 +21,7 @@ class MissionResource extends JsonResource
             'platform_id' => $this->platform_id,
             'platform_name' => optional($this->platform)->name,
             'user_id' => $this->user_id,
-            'image' => $this->image ? image_url($this->image) : null,
+            'image' => image_url($this->image),
             'mission_link' => $this->mission_link,
             'description' => $this->description,
             'description_en' => $this->getTranslations('description')['en'] ?? '',

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\PlatformController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\MissionController;
 use App\Http\Resources\MissionResource;
 use App\Models\Mission;
 use Illuminate\Http\Request;
@@ -26,12 +28,27 @@ Route::name('user.')->group(function () {
     Route::post('/auth/login', [AuthController::class, 'login'])->name('login');
 });
 
-Route::middleware(['auth:mobile', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
-    Route::post('/test', function(){
+Route::middleware(['auth:mobile', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
+    Route::get('/test', function(){
         $data = MissionResource::collection(Mission::get());
         if(!$data) {
             return response()->error(status: 400, message: 'there is no data yet');
         }
-        return response()->success(message: 'data returned succeefully', data: $data);
+        return response()->success(message: 'tested success', data: $data);
     })->name('test');
+});
+
+
+// Normal User
+Route::middleware(['auth:mobile', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
+    Route::apiResources([
+        'mission' => MissionController::class,
+        'platform' => PlatformController::class,
+    ]);
+});
+
+
+
+// Super User
+Route::middleware(['auth:mobile', 'checkApiPassword', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
 });

@@ -20,21 +20,18 @@ class MacroServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Response::macro('success', function ($status, $message, $data = [], $additional = []) {
-        //     $response = ['status' => $status, 'message' => $message, 'data' => $data];
-        //     $this->send_response($additional, $response);
-        // });
+        Response::macro('success', function ($status = 200, $message = 'success', $data = [], $additional = null) {
+            $response = ['status' => $status, 'message' => $message, 'data' => $data];
+            if (isset($additional))
+                $response = array_merge($response, ['additional' => $additional]);
+            return Response::json($response);
+        });
 
-        // Response::macro('error', function ($status = 400, $message, $additional = []) {
-        //     $response = ['status' => $status, 'message' => $message];
-        //     $this->send_response($additional, $response);
-        // });
+        Response::macro('error', function ($status = 400, $message, $additional = null) {
+            $response = ['status' => $status, 'message' => $message];
+            if (isset($additional))
+                $response = array_merge($response, ['additional' => $additional]);
+            return Response::json($response);
+        });
     }
-
-    // public function send_response($additional, $response)
-    // {
-    //     if (isset($additional))
-    //         $response = array_merge($response, ['additional' => $additional]);
-    //     return Response::json($response, ['Content-Type' => 'application/json']);
-    // }
 }
