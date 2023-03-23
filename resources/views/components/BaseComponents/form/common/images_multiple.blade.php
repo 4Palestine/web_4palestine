@@ -9,17 +9,17 @@
 
 <div class="mb-3 col-12 col-sm-{{ $cols }}">
     <label for="{{ $name }}" class="form-label">{{ $label }}</label>
-    <input name="{{ $name }}" type="file" id="{{ $name }}" value="{{ old($name, $model[$name]) }}" accept="image/*" {{ $attributes }} {{ $attributes->class([
+    <input name="{{ $name }}" type="file" id="{{ $name }}" accept="image/*" {{ $attributes }} {{ $attributes->class([
         'form-control',
         'is-invalid' => $errors->has($name)
     ]) }}>
     @error($name)
         <small class="text-danger">{{ $message }}</small>
     @enderror
-    @isset($model[$name])
+    {{-- @isset($model[$name])
         <div><img src="{{ $model[$name] }}" class="mt-2 rounded" width="50px" height="50px"
                 alt="uploaded image"></div>
-    @endisset
+    @endisset --}}
 </div>
 
 

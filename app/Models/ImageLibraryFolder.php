@@ -48,4 +48,9 @@ class ImageLibraryFolder extends BaseModel
     public function children() {
         return $this->hasMany(static::class, 'parent_id');
     }
+
+    public function folderImages()
+    {
+        return $this->hasMany(Image::class, 'image_library_folder_id');
+    }
 }

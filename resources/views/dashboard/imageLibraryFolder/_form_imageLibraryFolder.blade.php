@@ -23,12 +23,14 @@
         <x-BaseComponents.form.common.input type="text" name="name_ar" :model="$model" label="Folder Name (AR)" placeholder="Enter Folder Name (AR)" />
 
         <x-BaseComponents.form.common.select_dynamic name="parent_id" :model="$model" label="Parent Folder"
-            :options="$models" default_option=" " option_value_column="id" option_label_column="name" />
+        :options="$additionalData['libraryFolders']" default_option=" " option_value_column="id" option_label_column="name" />
 
         <x-BaseComponents.form.common.select_fixed name="is_active" :model="$model" :options="[
             '0' => 'Not Active',
             '1' => 'Active',
         ]" />
+
+        <x-BaseComponents.form.common.images_multiple name="images[]" :model="$model" multiple />
 
     </div>
 </div>

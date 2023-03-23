@@ -150,45 +150,6 @@
             @enderror
         </div> --}}
 
-        <div id="radio-folders" class="form-check col-12 d-flex flex-column">
-            <input class="form-check-input" type="radio" name="folder_attr_name" value="folder_1" id="folder_1">
-            <label class="btn bg-light-primary w-25 text-start mb-2" for="folder_1">
-                <i class="bi bi-folder-fill me-2 text-primary"></i>
-                <span class="text-secondary fw-bold">folder 1</span>
-            </label>
-
-            <input class="form-check-input" type="radio" name="folder_attr_name" value="folder_2" id="folder_2" checked>
-            <label class="btn bg-light-primary w-25 text-start mb-2" for="folder_2">
-                <i class="bi bi-folder-fill me-2 text-primary"></i>
-                <span class="text-secondary fw-bold">folder 2</span>
-            </label>
-            <div class="ms-4 d-flex flex-column">
-                <input class="form-check-input" type="radio" name="folder_attr_name" value="folder_2_1" id="folder_2_1" checked>
-                <label class="btn bg-light-primary w-25 text-start mb-2" for="folder_2_1">
-                    <i class="bi bi-folder-fill me-2 text-primary"></i>
-                    <span class="text-secondary fw-bold">folder 2.1</span>
-                </label>
-
-                <input class="form-check-input" type="radio" name="folder_attr_name" value="folder_2_2" id="folder_2_2" checked>
-                <label class="btn bg-light-primary w-25 text-start mb-2" for="folder_2_2">
-                    <i class="bi bi-folder-fill me-2 text-primary"></i>
-                    <span class="text-secondary fw-bold">folder 2.2</span>
-                </label>
-            </div>
-
-            <input class="form-check-input" type="radio" name="folder_attr_name" value="folder_3" id="folder_3" checked>
-            <label class="btn bg-light-primary w-25 text-start mb-2" for="folder_3">
-                <i class="bi bi-folder-fill me-2 text-primary"></i>
-                <span class="text-secondary fw-bold">folder 3</span>
-            </label>
-
-            <input class="form-check-input" type="radio" name="folder_attr_name" value="folder_4" id="folder_4" checked>
-            <label class="btn bg-light-primary w-25 text-start mb-2" for="folder_4">
-                <i class="bi bi-folder-fill me-2 text-primary"></i>
-                <span class="text-secondary fw-bold">folder 4</span>
-            </label>
-        </div>
-
         <x-BaseComponents.form.common.select_fixed name="is_active" :model="$model" :options="[
             '1' => 'Active',
             '0' => 'Not Active',
@@ -198,21 +159,6 @@
     </div>
 </div>
 
-
-@push('style')
-    <style>
-        #radio-folders label {
-            border: 2px solid transparent !important;
-        }
-        #radio-folders label:hover {
-            background-color: #315dfa45 !important;
-        }
-        #radio-folders input:checked + label {
-            background-color: #315dfa45 !important;
-            border: 2px solid #315dfa9a !important;
-        }
-    </style>
-@endpush
 
 @push('script')
     <script>
@@ -254,13 +200,6 @@
                 });
                 x--;
             })
-
-
-
-
-
-            $('#radio-folders input[type=radio]').hide();
-
 
         });
     </script>

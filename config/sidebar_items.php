@@ -14,7 +14,7 @@ return [
     [
         'menu_title' => 'sections',
         'menu_title_icon' => 'lni lni-package',
-        'active' => 'dashboard.platform.*',
+        'active' => 'dashboard.*',
         'permission_key_group' => 'sections',
         'menu_title_list' => [
             [
@@ -32,15 +32,40 @@ return [
                 'label' => 'tags',
                 'active' => 'dashboard.tag.*',
             ],
+        ],
+    ],
+    [
+        'menu_title' => 'Actors',
+        'menu_title_icon' => 'lni lni-package',
+        'active' => 'dashboard.*',
+        'permission_key_group' => 'actors',
+        'menu_title_list' => [
             [
                 'route' => 'dashboard.user.index',
                 'label' => 'users',
                 'active' => 'dashboard.user.*',
             ],
+            // [
+            //     'route' => 'dashboard.admin.index',
+            //     'label' => 'admins',
+            //     'active' => 'dashboard.admin.*',
+            // ],
+        ],
+    ],
+    [
+        'menu_title' => 'Images Library',
+        'menu_title_icon' => 'lni lni-package',
+        'active' => 'dashboard.imageLibraryFolder.*',
+        'menu_title_list' => [
             [
                 'route' => 'dashboard.imageLibraryFolder.index',
                 'label' => 'Image Library Folders',
                 'active' => 'dashboard.imageLibraryFolder.*',
+            ],
+            [
+                'route' => 'dashboard.imageLibraryFolder.manage-library',
+                'label' => 'Manage Folders',
+                'active' => 'dashboard.imageLibraryFolder.manage-library',
             ],
         ],
     ],

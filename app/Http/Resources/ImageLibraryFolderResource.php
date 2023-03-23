@@ -21,6 +21,8 @@ class ImageLibraryFolderResource extends JsonResource
             'parent_id' => $this->parent_id,
             'parent_name' => optional($this->parent)->name ?? 'ROOT',
             'name' => $this->name,
+            'name_en' => $this->getTranslations('name')['en'] ?? '',
+            'name_ar' => $this->getTranslations('name')['en'] ?? '',
             'is_active' => $this->is_active,
         ];
     }

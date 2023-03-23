@@ -23,10 +23,34 @@ Route::middleware('auth:mobile')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::name('user.')->group(function () {
-    Route::post('/auth/register', [AuthController::class, 'register'])->name('register');
-    Route::post('/auth/login', [AuthController::class, 'login'])->name('login');
-});
+// Route::name('user.')->group(function () {
+//     Route::post('/auth/register', [AuthController::class, 'register'])->name('register');
+//     Route::post('/auth/login', [AuthController::class, 'login'])->name('login');
+// });
+// Route::middleware(['auth:mobile', 'checkApiPassword', 'changeLanguage'])->name('user.')->group(function () {
+//     Route::post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::middleware(['auth:mobile', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
     Route::get('/test', function(){
@@ -52,3 +76,7 @@ Route::middleware(['auth:mobile', 'checkApiPassword', 'changeLanguage'])->name('
 // Super User
 Route::middleware(['auth:mobile', 'checkApiPassword', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
 });
+
+
+
+require __DIR__.'/auth-api.php';

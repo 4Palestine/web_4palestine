@@ -42,7 +42,10 @@ Route::post('dashboard/test-mission-done', [AdminController::class, 'test_missio
 
 
 
-
+// Custom routes
+Route::name('dashboard.')->prefix('/dashboard')->middleware(['auth'])->group(function() {
+    Route::get('/imageLibraryFolder/manage-library', [ImageLibraryFolderController::class, 'manage_library'])->name('imageLibraryFolder.manage-library');
+});
 
 
 $routes_all = [
