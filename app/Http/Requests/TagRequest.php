@@ -24,7 +24,9 @@ class TagRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'platform_id' => ['required'],
+        ];
     }
 
     public function messages()

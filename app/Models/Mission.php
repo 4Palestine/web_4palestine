@@ -60,4 +60,7 @@ class Mission extends BaseModel
     public function scopeActive(Builder $query) {
         return $query->where('is_active', 1);
     }
+    public function platform(){
+        return $this->belongsTo(Platform::class);
+    }
 }

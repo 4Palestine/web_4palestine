@@ -7,12 +7,16 @@
             'table_title' => 'Users',
             'table_button_route' => 'dashboard.user.create']"
 
-        :ths="['#', 'Name', 'Email',
+        :ths="['#', 'Name', 'Email', 'Is Active' , 'Is Super',
             'Actions']"
 
         :model="$users"
         :models="$users"
         :fillables="['name', 'email']"
+        :fillable_badges="[
+            'is_active' => [1 => ['Active', 'alert-success'], 0 => ['Not Active', 'alert-danger']] ,
+            'is_super' => [1 => ['Super', 'alert-primary'], 0 => ['Not Super', 'alert-secondary']]
+        ]"
         {{-- :fillable_badges_array="['roles_name']" --}}
         :actions="[
             'route_show' => 'dashboard.user.show',

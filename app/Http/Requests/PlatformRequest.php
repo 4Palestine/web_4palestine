@@ -27,7 +27,10 @@ class PlatformRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'image' => [ 'image' , 'max:1024' , 'mimes:jpeg,png,jpg,gif'],
+            'is_active'=>['required' , 'boolean'],
+        ];
     }
 
     public function messages()
