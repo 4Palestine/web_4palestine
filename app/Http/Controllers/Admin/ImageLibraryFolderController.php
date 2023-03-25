@@ -8,6 +8,8 @@ use App\Http\Controllers\Base5Controller;
 use App\Http\Resources\ImageLibraryFolderResource;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ImageLibraryFolderController extends Base5Controller
 {
@@ -26,7 +28,7 @@ class ImageLibraryFolderController extends Base5Controller
 
     public function manage_library(Request $request)
     {
-        $data['libraryFolders'] = ImageLibraryFolder::get();
+        $data['libraryFolders'] = ImageLibraryFolder::withCount(['children', 'folderImages'])->get();
         if ($request->ajax()){
             $folder = ImageLibraryFolder::find($request->get('folder_id'));
             $data['images'] = $folder->folderImages;
@@ -54,46 +56,34 @@ class ImageLibraryFolderController extends Base5Controller
     }
 
 
-    public function afterCreate($request, $model)
+    public function saving($request, $model)
     {
-        // return $this->saving($request, $model);
+        foreach($request->file('images') as $imagefile) {
 
-        // try {
+            $path = $imagefile->store('uploads/library/', 'public');
+            $image_original_name = $imagefile->getClientOriginalName();
+            $image_original_extension = $imagefile->getClientOriginalExtension();
 
-        // } catch()
-        // $images = [];
-        // if ($request->images){
-        //     foreach($request->images as $key => $image)
-        //     {
-        //         $imageName = time().rand(1,99).'.'.$image->getClientOriginalExtension();
-        //         $image->move('/uploads/library', $imageName);
+            Image::create([
+                'image_library_folder_id' => $model->id,
+                'image_path' => $path,
+                'image_name' => $image_original_name,
+                'extiontion' => $image_original_extension
+            ]);
 
-        //         $images[]['image_library_folder_id'] = 1;
-        //         $images[]['image_path'] = $imageName;
-        //         $images[]['image_name'] = $image->getClientOriginalName();
-        //         $images[]['extiontion'] = $image->getClientOriginalExtension();
-        //     }
-        // }
-
-        // foreach ($images as $key => $image) {
-        //     Image::create($image);
-        // }
+        }
+    }
 
 
+    public function delete_image($id)
+    {
+        $image = Image::find($id);
+        $image->delete($id);
 
-            foreach($request->file('images') as $imagefile) {
+        if(Storage::disk('public')->exists($image->image_path)){
+            Storage::disk('public')->delete($image->image_path);
+        }
 
-                $path = $imagefile->store('uploads/library/', 'public');
-                $image_original_name = $imagefile->getClientOriginalName();
-                $image_original_extension = $imagefile->getClientOriginalExtension();
-
-                Image::create([
-                    'image_library_folder_id' => $model->id,
-                    'image_path' => $path,
-                    'image_name' => $image_original_name,
-                    'extiontion' => $image_original_extension
-                ]);
-
-            }
+        // return redirect()->route('dashboard.imageLibraryFolder.manage-library')->with('success', 'Image Deleted Successfully');
     }
 }
