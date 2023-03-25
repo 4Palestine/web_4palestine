@@ -2,7 +2,12 @@
     <h5 class="card-title">{{ $form_title }}</h5>
     <div>
         <a href="{{ url()->previous() }}" class="btn btn-cancel shadow-sm px-2 ms-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-arrow-left">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
             <span>Cancel</span>
         </a>
         <x-BaseComponents.form.common.submit_button />
@@ -23,14 +28,12 @@
         <x-BaseComponents.form.common.password name="confirm-password" :model="$user" />
 
 
-        <x-BaseComponents.form.common.select_fixed name="country" :model="$user"
-        :options="[
+        <x-BaseComponents.form.common.select_fixed name="country" :model="$user" :options="[
             'PAL' => 'Palestine',
             'EGY' => 'Egypt',
         ]" />
 
-        <x-BaseComponents.form.common.select_fixed name="languages" :model="$user"
-        :options="[
+        <x-BaseComponents.form.common.select_fixed name="languages" :model="$user" :options="[
             'ar' => 'Arabic',
             'en' => 'English',
             'fr' => 'French',
@@ -38,17 +41,19 @@
             'tr' => 'Turkish',
         ]" />
 
-        <x-BaseComponents.form.common.checkbox_radio_fixed name="is_active" :model="$user" label="Is Active" cols="6"
-        :options="[
-            '1' => 'Active',
-            '0' => 'Not Active'
-        ]" />
 
-        <x-BaseComponents.form.common.checkbox_radio_fixed name="is_super" :model="$user" label="Is Super" cols="6"
-        :options="[
-            '1' => 'Super',
-            '0' => 'Not Super'
-        ]" />
+        <x-BaseComponents.form.common.select_fixed name="is_active" :model="$user" label="Is Active" cols="6"
+            :options="[
+                '1' => 'Active',
+                '0' => 'Not Active',
+            ]" />
+
+        <x-BaseComponents.form.common.select_fixed name="is_super" :model="$user" label="Is Super" cols="6"
+            :options="[
+                '1' => 'Super',
+                '0' => 'Not Super',
+            ]" />
+
 
 
         <x-BaseComponents.form.common.image name="avatar" :model="$user" />

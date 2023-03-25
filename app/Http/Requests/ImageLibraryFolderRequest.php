@@ -24,7 +24,9 @@ class ImageLibraryFolderRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'is_active'=>['required' , 'boolean'],
+        ];
     }
 
     public function messages()

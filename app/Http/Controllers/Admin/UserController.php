@@ -44,12 +44,12 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'is_active' => '',
-            'is_super' => '',
-            'country' => '',
-            'languages' => '',
-            'avatar' => 'image'
+            'password' => 'required|same:confirm-password|min:8',
+            'is_active' => 'required|boolean',
+            'is_super' => 'required|boolean',
+            'country' => 'string',
+            'languages' => 'string|min:3|max:1000',
+            'avatar' => 'image|max:1024|mimes:jpeg,png,jpg,gif'
         ]);
 
 
@@ -112,7 +112,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
+            'password' => 'required|same:confirm-password|min:8',
             'is_active' => '',
             'is_super' => '',
             'country' => '',

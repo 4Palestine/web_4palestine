@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 
 class UserRequest
 {
@@ -25,14 +26,14 @@ class UserRequest
     public function rules(): array
     {
         return [
-        //     'name' => 'required',
-        //     'email' => 'required|email|unique:users,email,'.$id,
-        //     'password' => 'same:confirm-password',
-        //     'is_active' => '',
-        //     'is_super' => '',
-        //     'country' => '',
-        //     'languages' => '',
-        //     'avatar' => '',
+            'name' => 'required',
+            // 'email' => 'required|email|unique:users,email,'.$id,
+            // 'password' => 'same:confirm-password',
+            'is_active' => ['required' , 'boolean'],
+            'is_super' => ['required' , 'boolean'],
+            'country' => ['string'],
+            'languages' => ['string' , 'min:3' , 'max:1000'],
+            'avatar' => [ 'image' , 'max:1024' , 'mimes:jpeg,png,jpg,gif'],
         ];
     }
 
