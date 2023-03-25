@@ -28,7 +28,7 @@ class UserRequest
         return [
             'name' => 'required',
             // 'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
+            // 'password' => 'same:confirm-password',
             'is_active' => ['required' , 'boolean'],
             'is_super' => ['required' , 'boolean'],
             'country' => ['string'],
