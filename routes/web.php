@@ -49,6 +49,8 @@ Route::name('dashboard.')->prefix('/dashboard')->middleware(['auth'])->group(fun
     Route::get('/imageLibraryFolder/manage-library', [ImageLibraryFolderController::class, 'manage_library'])->name('imageLibraryFolder.manage-library');
     Route::delete('imageLibraryFolder/manage-library/{id}', [ImageLibraryFolderController::class, 'delete_image'])->name('imageLibraryFolder.manage-library.destroy');
     Route::resource('/setting' , SettingController::class);
+
+
 });
 
 
