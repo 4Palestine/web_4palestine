@@ -47,6 +47,7 @@ Route::post('dashboard/test-mission-done', [TestController::class, 'test_mission
 // Custom routes
 Route::name('dashboard.')->prefix('/dashboard')->middleware(['auth'])->group(function() {
     Route::get('/imageLibraryFolder/manage-library', [ImageLibraryFolderController::class, 'manage_library'])->name('imageLibraryFolder.manage-library');
+    Route::delete('imageLibraryFolder/manage-library/{id}', [ImageLibraryFolderController::class, 'delete_image'])->name('imageLibraryFolder.manage-library.destroy');
     Route::resource('/setting' , SettingController::class);
 });
 
