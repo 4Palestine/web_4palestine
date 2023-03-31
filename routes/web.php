@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\ImageLibraryFolderController;
 use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\App;
@@ -38,7 +40,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // هاد الراوت معمول مؤقت لاختبار عملية تاكيد المهمة من طرف اليوزر
-Route::post('dashboard/test-mission-done', [AdminController::class, 'test_mission_done'])->name('test_mission_done');
+Route::post('dashboard/test-mission-done', [TestController::class, 'test_mission_done'])->name('test_mission_done');
 
 
 
@@ -46,7 +48,7 @@ Route::post('dashboard/test-mission-done', [AdminController::class, 'test_missio
 Route::name('dashboard.')->prefix('/dashboard')->middleware(['auth'])->group(function() {
     Route::get('/imageLibraryFolder/manage-library', [ImageLibraryFolderController::class, 'manage_library'])->name('imageLibraryFolder.manage-library');
     Route::delete('imageLibraryFolder/manage-library/{id}', [ImageLibraryFolderController::class, 'delete_image'])->name('imageLibraryFolder.manage-library.destroy');
-
+    Route::resource('/setting' , SettingController::class);
 });
 
 
@@ -54,6 +56,7 @@ $routes_all = [
     'platform' => PlatformController::class,
     'mission' => MissionController::class,
     'user' => UserController::class,
+    'admin'=>AdminController::class,
     // 'mission' => ::class,
 ];
 $routes_without_softdelete = [
