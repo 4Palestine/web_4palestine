@@ -258,7 +258,7 @@ class Base5Controller extends BaseController
         $collection_array = $this->exportPdfCollection();
         // $collection = $this->getModel()::get($this->exportPdfCollection());
         $collection = $this->resource::collection($this->getModel()::all())->resolve();
-        $pdf = LaravelMpdf::loadView('components.BaseComponents.tabel.export_templates.template_pdf', compact('collection', 'collection_array', 'headings'));
+        $pdf = MccarlosenPDF::loadView('components.BaseComponents.tabel.export_templates.template_pdf', compact('collection', 'collection_array', 'headings'));
         return $pdf->stream($this->printModelText() . '.pdf');
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////

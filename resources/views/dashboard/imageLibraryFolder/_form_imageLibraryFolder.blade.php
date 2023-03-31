@@ -30,7 +30,7 @@
             '1' => 'Active',
         ]" />
 
-        <x-BaseComponents.form.common.images_multiple name="images[]" :model="$model" multiple />
+        <x-BaseComponents.form.common.images_multiple name="images[]" :model="$model" multiple label="Choose Multiple Images" />
 
     </div>
 </div>
@@ -94,11 +94,11 @@
 
 
 
-
-
             $('#radio-folders input[type=radio]').hide();
 
 
         });
     </script>
+
+
 @endpush

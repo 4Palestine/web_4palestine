@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +24,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
     // return view('welcome');
     return to_route('login');
@@ -31,7 +31,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -48,8 +48,6 @@ Route::post('dashboard/test-mission-done', [TestController::class, 'test_mission
 Route::name('dashboard.')->prefix('/dashboard')->middleware(['auth'])->group(function() {
     Route::get('/imageLibraryFolder/manage-library', [ImageLibraryFolderController::class, 'manage_library'])->name('imageLibraryFolder.manage-library');
     Route::delete('imageLibraryFolder/manage-library/{id}', [ImageLibraryFolderController::class, 'delete_image'])->name('imageLibraryFolder.manage-library.destroy');
-
-
     Route::resource('/setting' , SettingController::class);
 });
 
