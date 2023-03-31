@@ -24,7 +24,6 @@
     <link href="{{ asset('admin/assets/css/style.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin/assets/css/icons.css') }}" rel="stylesheet">
 
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
@@ -41,7 +40,7 @@
     <link href="{{ asset('admin/assets/css/light-theme.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin/assets/css/semi-dark.css') }}" rel="stylesheet" />
     <link href="{{ asset('admin/assets/css/header-colors.css') }}" rel="stylesheet" />
-
+    @yield('cssFile')
     @stack('style')
 
     <title>Bees4Palestine</title>
@@ -168,7 +167,7 @@
     <!--app-->
     <script src="{{ asset('admin/assets/js/app.js') }}"></script>
     <script src="{{ asset('admin/assets/js/index.js') }}"></script>
-
+    @yield('jsFile')
     @stack('script')
 
     <script>

@@ -45,11 +45,11 @@ return [
                 'label' => 'users',
                 'active' => 'dashboard.user.*',
             ],
-            // [
-            //     'route' => 'dashboard.admin.index',
-            //     'label' => 'admins',
-            //     'active' => 'dashboard.admin.*',
-            // ],
+            [
+                'route' => 'dashboard.admin.index',
+                'label' => 'admins',
+                'active' => 'dashboard.admin.*',
+            ],
         ],
     ],
     [
@@ -68,6 +68,19 @@ return [
                 'active' => 'dashboard.imageLibraryFolder.manage-library',
             ],
         ],
+    ],
+    [
+        'menu_title' => 'Settings',
+        'menu_title_icon' => 'lni lni-package',
+        'active' => 'dashboard.*',
+        'permission_key_group' => 'setting',
+        'menu_title_list' => [
+            [
+                'route' => 'dashboard.setting.index',
+                'label' => 'Settings',
+                'active' => 'dashboard.setting.*',
+            ]
+        ]
     ],
     [
         'menu_title' => 'trash',
