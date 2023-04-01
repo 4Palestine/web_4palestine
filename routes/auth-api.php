@@ -41,4 +41,3 @@ Route::name('user.')->group(function(){
         ->name('logout');
 
 });
-

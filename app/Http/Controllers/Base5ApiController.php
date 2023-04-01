@@ -8,13 +8,14 @@ use App\Models\BaseModel\BaseModel;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Http\Requests\BaseRequest\BaseRequest;
 use App\Http\Resources\BaseResource\BaseResource;
+use App\Http\Traits\ApiResponses;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Base5ApiController extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, uploadFile;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, uploadFile, ApiResponses;
 
     /**
      * Display a listing of the resource.
@@ -53,9 +54,9 @@ class Base5ApiController extends BaseController
         $additionalData = $this->indexAdditionalData();
 
         if(!$models) {
-            return response()->error(status: 400, message: 'there is no data yet');
+            return $this->fail(status: false, code: 404, message: "there is no data yet", data: null);
         }
-        return response()->success(message: 'data returned succeefully', data: $models, additional: $additionalData);
+        return $this->success(status: true, code: 200, message: "data returned succeefully", data: $models, additionalData: $additionalData);
     }
     public function indexQuery() {
         return $this->getModel()::search(request()->query())->paginate($this->paginate);
@@ -71,9 +72,9 @@ class Base5ApiController extends BaseController
             $this->afterCreate($request, $model);
 
         if(!$model) {
-            return response()->error(status: 400, message: 'there is no data yet');
+            return $this->fail(status: false, code: 404, message: "there is no data yet", data: null);
         }
-        return response()->success(message: 'data returned succeefully', data: $model);
+        return $this->success(status: true, code: 200, message: "data returned succeefully", data: $model);
     }
 
 
@@ -85,9 +86,9 @@ class Base5ApiController extends BaseController
         $additionalData = $this->showAdditionalData($id);
 
         if(!$model) {
-            return response()->error(status: 400, message: 'there is no data yet');
+            return $this->fail(status: false, code: 404, message: "there is no data yet", data: null);
         }
-        return response()->success(message: 'data returned succeefully', data: $model, additional: $additionalData);
+        return $this->success(status: true, code: 200, message: "data returned succeefully", data: $model, additionalData: $additionalData);
     }
 
 
@@ -95,7 +96,7 @@ class Base5ApiController extends BaseController
     {
         $model = $this->getModel()::find($id);
         if(!$model) {
-            return response()->error(status: 400, message: 'there is no data yet');
+            return $this->fail(status: false, code: 404, message: "there is no data yet", data: null);
         }
 
         $old_image = count($model->getImages()) == 1 ? $model[$model->getImages()[0]] : $model->image;
@@ -106,7 +107,8 @@ class Base5ApiController extends BaseController
         if($newModel)
             $this->afterUpdate($request, $model);
 
-        return response()->success(message: 'data returned succeefully', data: $model);
+        return $this->success(status: true, code: 200, message: "data returned succeefully", data: $model);
+
     }
 
 
@@ -115,12 +117,12 @@ class Base5ApiController extends BaseController
     {
         $model = $this->getModel()::find($id);
         if(!$model) {
-            return response()->error(status: 400, message: 'there is no data yet');
+            return $this->fail(status: false, code: 404, message: "there is no data yet", data: null);
         }
         $deleted = $model->delete();
 
         if ($deleted) // DO NOT check if the image was deleted, it will case an error
-            return response()->success(status: 200, message: 'data returned succeefully');
+            return $this->success(status: true, code: 200, message: "data returned succeefully", data: $model);
     }
 
 

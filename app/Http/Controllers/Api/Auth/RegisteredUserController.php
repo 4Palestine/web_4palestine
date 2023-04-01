@@ -42,11 +42,32 @@ class RegisteredUserController extends Controller
         // Auth::guard('user')->login($user);
         $user->createToken("API TOKEN")->plainTextToken;
 
+        return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['token' => $user->createToken("API TOKEN")->plainTextToken]);
 
-        return response([
-            'status' => true,
-            'message' => 'User Logged In Successfully',
-            'token' => $user->createToken("API TOKEN")->plainTextToken
-        ]);
     }
+
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+    //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    //         'country' => '',
+    //         'languages' => '',
+    //     ]);
+    //     $user = User::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //         'country' => 'palestine',
+    //         'languages' => ["ar", "en"],
+    //     ]);
+    //     $otpCode = $this->generateOtpCode();
+    //     $this->storeOtpCode($user->id, $otpCode);
+    //     $this->sendOtpCodeByEmail($user->email, $otpCode);
+    //     return response([
+    //         'status' => true,
+    //         'message' => 'User Registerd Successfully, Check Your Email To Verify Your Account And Login',
+    //     ]);
+    // }
 }
