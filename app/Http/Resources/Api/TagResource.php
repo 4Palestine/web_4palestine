@@ -18,10 +18,7 @@ class TagResource extends JsonResource
         return [
             'id' => $this->id,
             'platform_id' => $this->platform_id,
-            'platform_name' => optional($this->platform)->name,
             'name' => $this->name,
-            'name_en' => $this->getTranslations('name')['en'] ?? '',
-            'name_ar' => $this->getTranslations('name')['ar'] ?? '',
         ];
     }
 
