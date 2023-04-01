@@ -34,6 +34,11 @@
         :export_pdf="['route_name'=>'dashboard.mission.exportPdf']"
         :import_excel="['route_name'=>'dashboard.mission.importExcel']"
 
+        :text_filters="[
+            ['name' => 'description',           'label' => 'filter by description',         'cols' => '4'],
+        ]"
+
+
         :select_fixed_filters="[
             [
                 'name' => 'mission_type',

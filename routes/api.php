@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:mobile')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 
 
-// Route::middleware(['auth:mobile', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
+// Route::middleware(['auth:sanctum', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
 //     Route::get('/test', function(){
 //         $data = MissionResource::collection(Mission::get());
 //         if(!$data) {
@@ -37,7 +37,7 @@ Route::middleware('auth:mobile')->get('/user', function (Request $request) {
 
 
 // Normal User
-Route::middleware(['auth:mobile', 'verified', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
+Route::middleware(['auth:sanctum', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
     Route::apiResources([
         'mission' => MissionController::class,
         'platform' => PlatformController::class,
@@ -47,7 +47,7 @@ Route::middleware(['auth:mobile', 'verified', 'checkApiPassword', 'changeLanguag
 
 
 // Super User
-Route::middleware(['auth:mobile', 'verified', 'checkApiPassword', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
 });
 
 
