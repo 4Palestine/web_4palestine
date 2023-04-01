@@ -9,7 +9,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Settings</h3>
+                            <h4 class="card-title">Settings</h4>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -20,32 +20,30 @@
                                     <div class="row">
                                         @foreach ($socials as $social)
                                             <div class="form-group col-12">
-                                                <label for="first_name">{{ $social->key }}</label>
-                                                <div class="col-12">
-                                                    <div class="row-update">
-                                                        <input type="text" class="col-12 form-control-update"
-                                                            name="{{ $social->key }}" id="value"
-                                                            placeholder="Enter Value" value="{{ $social->value }}">
-                                                    </div>
+                                                <div class="mb-3 col-12">
+                                                    <label class="form-label" for="{{ $social->key }}">{{ $social->key }}</label>
+                                                    <input type="text" class="col-12 form-control"
+                                                        name="{{ $social->key }}" id="{{ $social->key }}"
+                                                        placeholder="Enter {{ $social->key }} value" value="{{ old($social->key, $social->value) }}">
                                                 </div>
                                             </div>
                                         @endforeach
                                         @foreach ($modes as $mode )
-                                        <div class="form-group col-12">
-                                            <label for="first_name">{{ $mode->key }}</label>
-                                            <div class="col-12">
-                                                <div class="row-update">
-                                                    <select class="form-control-update col-12" id="{{ $mode->key }}"
-                                                            name="{{ $mode->key }}">
-                                                            <option value="">Choose Mode</option>
-                                                            <option @if ($mode->value == 'light') selected @endif
-                                                                value="light">Light Mode</option>
-                                                            <option @if ($mode->value == 'dark') selected @endif
-                                                                value="dark">Dark Mode</option>
-                                                        </select>
-                                                </div>
+                                            <div class="mb-3 col-12">
+                                                <label class="form-label" for="{{ $mode->key }}">{{ $mode->key }}</label>
+                                                <select class="form-select" id="{{ $mode->key }}"
+                                                        name="{{ $mode->key }}" aria-label="Default select example">
+                                                        <option value="">Choose Mode</option>
+                                                        <option @selected(old($mode->key, $mode->value) == 'light')>Light Mode</option>
+                                                        <option @selected(old($mode->key, $mode->value) == 'dark')>Dark Mode</option>
+
+                                                        {{-- @if ($mode->value == 'light') selected @endif
+                                                        value="light" --}}
+
+                                                        {{-- @if ($mode->value == 'dark') selected @endif
+                                                            value="dark" --}}
+                                                </select>
                                             </div>
-                                        </div>
                                         @endforeach
                                     </div>
                                 </div>

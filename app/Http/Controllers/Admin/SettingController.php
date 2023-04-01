@@ -15,53 +15,37 @@ class SettingController extends Controller
     {
         $socials = Setting::where('group' , '=' , 'SOCIAL_MEDIA')->get();
         $modes = Setting::where('group' , '=' , 'MODE')->get();
+
         return view('dashboard.setting.index' , compact('socials' , 'modes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-    }
+        $facebook = $request->facebook ?? null;
+        $instagram = $request->instagram ?? null;
+        $twitter = $request->twitter ?? null;
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $data = [];
+        if(isset($facebook)) {
+            $data['facebook'] = $facebook;
+        }
+        if(isset($instagram)) {
+            $data['instagram'] = $instagram;
+        }
+        if(isset($twitter)) {
+            $data['twitter'] = $twitter;
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        foreach($data as $key => $value) {
+            Setting::where('key', $key)->first()->update([
+                'value' => $value
+            ]);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('dashboard.setting.index')->with('success', 'Settings Updated Successfully');
     }
 }
