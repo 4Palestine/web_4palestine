@@ -70,6 +70,7 @@ class Base5Controller extends BaseController
     }
     public function store(Request $request)
     {
+//        dd($request->all());
         $request->validate($this->getRequest()->rules(), $this->getRequest()->messages());
         $model = $this->getModel()::create($this->setCreateAttributes($request));
         if($model)
@@ -111,8 +112,6 @@ class Base5Controller extends BaseController
 
     public function edit($id)
     {
-        // $model = $this->getModel()::find($id);
-
         $object = $this->getModel()::find($id);
 
         $objectResource = $this->getResource($object);

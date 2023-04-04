@@ -20,7 +20,7 @@ class MissionController extends Base5Controller
     public function createEditAdditionalData()
     {
         $platforms = PlatformResource::collection(Platform::get(['id', 'name']))->resolve();
-        $tags = Tag::pluck('name');
+        $tags = Tag::get();
         return [
             'platforms' => $platforms,
             'tags' => $tags

@@ -31,11 +31,162 @@
         <x-BaseComponents.form.common.password name="password" :model="$user" />
         <x-BaseComponents.form.common.password name="confirm-password" :model="$user" />
 
-        <div class="select col-12 col-md-6">
-            <label class="form-label">Choose Country</label>
-            <select class="form-select mt-" id="country" name="country">
-                <option value="">country</option>
-                <option value="AF">Afghanistan</option>
+
+        <div class="mb-3">
+            <label class="form-label">Select Languages</label>
+            <select name="languages[]" class="multiple-select" data-placeholder="Choose User Languages" multiple="multiple">
+                <option value=""></option>
+                <option value="AF">Afrikaans</option>
+                <option value="SQ">Albanian - shqip</option>
+                <option value="AM">Amharic - አማርኛ</option>
+                <option value="AR" @selected(collect(old('languages', json_decode($user['languages'])))->contains('AR'))>Arabic - العربية</option>
+                <option value="AN">Aragonese - aragonés</option>
+                <option value="HY">Armenian - հայերեն</option>
+                <option value="AST">Asturian - asturianu</option>
+                <option value="AZ">Azerbaijani - azərbaycan dili</option>
+                <option value="EU">Basque - euskara</option>
+                <option value="BE">Belarusian - беларуская</option>
+                <option value="BN">Bengali - বাংলা</option>
+                <option value="BS">Bosnian - bosanski</option>
+                <option value="BR">Breton - brezhoneg</option>
+                <option value="BG">Bulgarian - български</option>
+                <option value="CA">Catalan - català</option>
+                <option value="CKB">Central Kurdish - کوردی (دەستنوسی عەرەبی)</option>
+                <option value="ZH">Chinese - 中文</option>
+                <option value="ZH-HK">Chinese (Hong Kong) - 中文（香港）</option>
+                <option value="ZH-CN">Chinese (Simplified) - 中文（简体）</option>
+                <option value="ZH-TW">Chinese (Traditional) - 中文（繁體）</option>
+                <option value="CO">Corsican</option>
+                <option value="HR">Croatian - hrvatski</option>
+                <option value="CS">Czech - čeština</option>
+                <option value="DA">Danish - dansk</option>
+                <option value="NL">Dutch - Nederlands</option>
+                <option value="EN">English</option>
+                <option value="EN-AU">English (Australia)</option>
+                <option value="EN-CA">English (Canada)</option>
+                <option value="EN-IN">English (India)</option>
+                <option value="EN-NZ">English (New Zealand)</option>
+                <option value="EN-ZA">English (South Africa)</option>
+                <option value="EN-GB">English (United Kingdom)</option>
+                <option value="EN-US">English (United States)</option>
+                <option value="EO">Esperanto - esperanto</option>
+                <option value="ET">Estonian - eesti</option>
+                <option value="FO">Faroese - føroyskt</option>
+                <option value="FIL">Filipino</option>
+                <option value="FI">Finnish - suomi</option>
+                <option value="FR">French - français</option>
+                <option value="FR-CA">French (Canada) - français (Canada)</option>
+                <option value="FR-FR">French (France) - français (France)</option>
+                <option value="FR-CH">French (Switzerland) - français (Suisse)</option>
+                <option value="GL">Galician - galego</option>
+                <option value="KA">Georgian - ქართული</option>
+                <option value="DE">German - Deutsch</option>
+                <option value="DE-AT">German (Austria) - Deutsch (Österreich)</option>
+                <option value="DE-DE">German (Germany) - Deutsch (Deutschland)</option>
+                <option value="DE-LI">German (Liechtenstein) - Deutsch (Liechtenstein)</option>
+                <option value="DE-CH">German (Switzerland) - Deutsch (Schweiz)</option>
+                <option value="EL">Greek - Ελληνικά</option>
+                <option value="GN">Guarani</option>
+                <option value="GU">Gujarati - ગુજરાતી</option>
+                <option value="HA">Hausa</option>
+                <option value="HAW">Hawaiian - ʻŌlelo Hawaiʻi</option>
+                <option value="HE">Hebrew - עברית</option>
+                <option value="HI">Hindi - हिन्दी</option>
+                <option value="HU">Hungarian - magyar</option>
+                <option value="IS">Icelandic - íslenska</option>
+                <option value="ID">Indonesian - Indonesia</option>
+                <option value="IA">Interlingua</option>
+                <option value="GA">Irish - Gaeilge</option>
+                <option value="IT">Italian - italiano</option>
+                <option value="IT-IT">Italian (Italy) - italiano (Italia)</option>
+                <option value="IT-CH">Italian (Switzerland) - italiano (Svizzera)</option>
+                <option value="JA">Japanese - 日本語</option>
+                <option value="KN">Kannada - ಕನ್ನಡ</option>
+                <option value="KK">Kazakh - қазақ тілі</option>
+                <option value="KM">Khmer - ខ្មែរ</option>
+                <option value="KO">Korean - 한국어</option>
+                <option value="KU">Kurdish - Kurdî</option>
+                <option value="KY">Kyrgyz - кыргызча</option>
+                <option value="LO">Lao - ລາວ</option>
+                <option value="LA">Latin</option>
+                <option value="LV">Latvian - latviešu</option>
+                <option value="LN">Lingala - lingála</option>
+                <option value="LT">Lithuanian - lietuvių</option>
+                <option value="MK">Macedonian - македонски</option>
+                <option value="MS">Malay - Bahasa Melayu</option>
+                <option value="ML">Malayalam - മലയാളം</option>
+                <option value="MT">Maltese - Malti</option>
+                <option value="MR">Marathi - मराठी</option>
+                <option value="MN">Mongolian - монгол</option>
+                <option value="NE">Nepali - नेपाली</option>
+                <option value="NO">Norwegian - norsk</option>
+                <option value="NB">Norwegian Bokmål - norsk bokmål</option>
+                <option value="NN">Norwegian Nynorsk - nynorsk</option>
+                <option value="OC">Occitan</option>
+                <option value="OR">Oriya - ଓଡ଼ିଆ</option>
+                <option value="OM">Oromo - Oromoo</option>
+                <option value="PS">Pashto - پښتو</option>
+                <option value="FA">Persian - فارسی</option>
+                <option value="PL">Polish - polski</option>
+                <option value="PT">Portuguese - português</option>
+                <option value="PT-BR">Portuguese (Brazil) - português (Brasil)</option>
+                <option value="PT-PT">Portuguese (Portugal) - português (Portugal)</option>
+                <option value="PA">Punjabi - ਪੰਜਾਬੀ</option>
+                <option value="QU">Quechua</option>
+                <option value="RO">Romanian - română</option>
+                <option value="MO">Romanian (Moldova) - română (Moldova)</option>
+                <option value="RM">Romansh - rumantsch</option>
+                <option value="RU">Russian - русский</option>
+                <option value="GD">Scottish Gaelic</option>
+                <option value="SR">Serbian - српски</option>
+                <option value="SH">Serbo-Croatian - Srpskohrvatski</option>
+                <option value="SN">Shona - chiShona</option>
+                <option value="SD">Sindhi</option>
+                <option value="SI">Sinhala - සිංහල</option>
+                <option value="SK">Slovak - slovenčina</option>
+                <option value="SL">Slovenian - slovenščina</option>
+                <option value="SO">Somali - Soomaali</option>
+                <option value="ST">Southern Sotho</option>
+                <option value="ES">Spanish - español</option>
+                <option value="ES-AR">Spanish (Argentina) - español (Argentina)</option>
+                <option value="ES-419">Spanish (Latin America) - español (Latinoamérica)</option>
+                <option value="ES-MX">Spanish (Mexico) - español (México)</option>
+                <option value="ES-ES">Spanish (Spain) - español (España)</option>
+                <option value="ES-US">Spanish (United States) - español (Estados Unidos)</option>
+                <option value="SU">Sundanese</option>
+                <option value="SW">Swahili - Kiswahili</option>
+                <option value="SV">Swedish - svenska</option>
+                <option value="TG">Tajik - тоҷикӣ</option>
+                <option value="TA">Tamil - தமிழ்</option>
+                <option value="TT">Tatar</option>
+                <option value="TE">Telugu - తెలుగు</option>
+                <option value="TH">Thai - ไทย</option>
+                <option value="TI">Tigrinya - ትግርኛ</option>
+                <option value="TO">Tongan - lea fakatonga</option>
+                <option value="TR">Turkish - Türkçe</option>
+                <option value="TK">Turkmen</option>
+                <option value="TW">Twi</option>
+                <option value="UK">Ukrainian - українська</option>
+                <option value="UR">Urdu - اردو</option>
+                <option value="UG">Uyghur</option>
+                <option value="UZ">Uzbek - o‘zbek</option>
+                <option value="VI">Vietnamese - Tiếng Việt</option>
+                <option value="WA">Walloon - wa</option>
+                <option value="CY">Welsh - Cymraeg</option>
+                <option value="FY">Western Frisian</option>
+                <option value="XH">Xhosa</option>
+                <option value="YI">Yiddish</option>
+                <option value="YO">Yoruba - Èdè Yorùbá</option>
+                <option value="ZU">Zulu - isiZulu</option>
+            </select>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label">Select Country</label>
+            <select name="country" class="single-select" data-placeholder="Choose User Country">
+                <option value=""></option>
+                <option value="AF" @selected(old('country', $user['country']) == 'AF')>Afghanistan</option>
                 <option value="AX">Aland Islands</option>
                 <option value="AL">Albania</option>
                 <option value="DZ">Algeria</option>
@@ -143,7 +294,6 @@
                 <option value="IQ">Iraq</option>
                 <option value="IE">Ireland</option>
                 <option value="IM">Isle of Man</option>
-                <option value="IL">Israel</option>
                 <option value="IT">Italy</option>
                 <option value="JM">Jamaica</option>
                 <option value="JP">Japan</option>
@@ -206,7 +356,7 @@
                 <option value="OM">Oman</option>
                 <option value="PK">Pakistan</option>
                 <option value="PW">Palau</option>
-                <option value="PS">Palestinian Territory, Occupied</option>
+                <option value="PS" @selected(old('country', $user['country']) == 'PS')>Palestinian Territory, Occupied</option>
                 <option value="PA">Panama</option>
                 <option value="PG">Papua New Guinea</option>
                 <option value="PY">Paraguay</option>
@@ -289,13 +439,6 @@
                 <option value="ZW">Zimbabwe</option>
             </select>
         </div>
-        <x-BaseComponents.form.common.select_fixed name="languages" :model="$user" :options="[
-            'ar' => 'Arabic',
-            'en' => 'English',
-            'fr' => 'French',
-            'de' => 'German',
-            'tr' => 'Turkish',
-        ]" />
 
 
         <x-BaseComponents.form.common.select_fixed name="is_active" :model="$user" label="Is Active" cols="6"
@@ -306,8 +449,8 @@
 
         <x-BaseComponents.form.common.select_fixed name="is_super" :model="$user" label="Is Super" cols="6"
             :options="[
-                '1' => 'Super',
                 '0' => 'Not Super',
+                '1' => 'Super',
             ]" />
 
 

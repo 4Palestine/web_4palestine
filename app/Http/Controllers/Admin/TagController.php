@@ -13,6 +13,9 @@ class TagController extends Base5Controller
     public $route_name = "dashboard.tag";
     public $view_name = "dashboard.tag";
 
+    public function indexQuery() {
+        return $this->getModel()::search(request()->query())->orderBy('platform_id')->paginate($this->paginate);
+    }
 
     public function createEditAdditionalData()
     {

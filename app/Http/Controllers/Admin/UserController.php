@@ -48,7 +48,7 @@ class UserController extends Controller
             'is_active' => 'required|boolean',
             'is_super' => 'required|boolean',
             'country' => 'string',
-            'languages' => 'string',
+//            'languages' => 'string',
             'avatar' => 'image|max:1024|mimes:jpeg,png,jpg,gif'
         ]);
 
@@ -61,7 +61,7 @@ class UserController extends Controller
             'is_active' => $request->is_active,
             'is_super' => $request->is_super,
             'country' => $request->country,
-            'languages' => $request->languages,
+            'languages' => json_encode($request->input('languages')),
             'avatar' => $this->uploadFile(request: $request, filename: 'avatar', path: 'uploads/users'),
             'admin_data' => json_encode(auth()->user()),
         ]);
@@ -137,7 +137,7 @@ class UserController extends Controller
             'is_active' => $request->is_active,
             'is_super' => $request->is_super,
             'country' => $request->country,
-            'languages' => $request->languages,
+            'languages' => json_encode($request->input('languages')),
             'avatar' => $this->uploadFile(request: $request, old_image: $user->avatar, filename: 'avatar', path: 'uploads/users'),
             'admin_data' => json_encode(auth()->user()),
         ]);
