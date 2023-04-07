@@ -17,5 +17,5 @@ jobs:
         server: ftp.waleed.atyaf.co
         username: waleed
         password: k3in+qGeck#N
-        server-dir: /public_html/test
+        server-dir: /public_html/test/
         
