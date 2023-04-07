@@ -27,6 +27,7 @@ class PlatformResource extends JsonResource
             'tags' => $this->tags,
             'image' => image_url($this->image),
             'is_active' => $this->is_active,
+            'admin_data' => json_decode($this->admin_data),
             'deleted_at' => $this->deleted_at,
         ];
     }

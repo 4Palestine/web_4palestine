@@ -39,11 +39,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// هاد الراوت معمول مؤقت لاختبار عملية تاكيد المهمة من طرف اليوزر
-Route::post('dashboard/test-mission-done', [TestController::class, 'test_mission_done'])->name('test_mission_done');
-
-
-
 // Custom routes
 Route::name('dashboard.')->prefix('/dashboard')->middleware(['auth'])->group(function() {
     Route::get('/imageLibraryFolder/manage-library', [ImageLibraryFolderController::class, 'manage_library'])->name('imageLibraryFolder.manage-library');

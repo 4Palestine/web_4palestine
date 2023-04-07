@@ -77,7 +77,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
     public function missions() {
-        return $this->belongsToMany(Mission::class)->withTimestamps()->withPivot(['platform_id', 'stars']);
+        return $this->belongsToMany(Mission::class, 'mission_user')->withTimestamps()->withPivot('platform_id', 'stars');
     }
 
 }

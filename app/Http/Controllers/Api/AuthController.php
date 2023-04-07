@@ -72,8 +72,11 @@ class AuthController extends Controller
                 return $this->fail(status: false, code: 401, message: "Email & Password does not match with our record.");
             }
 
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('email', $request->email)->where('is_active', 1)->first();
 
+            if(!$user) {
+                return $this->fail(status: false, code: 401, message: "Your account is not allowd to be loggedin !");
+            }
             return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['token' => $user->createToken("API TOKEN")->plainTextToken]);
 
         } catch (\Throwable $th) {

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\PlatformController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MissionController;
+use App\Http\Controllers\Api\UserMissionController;
 use App\Http\Resources\MissionResource;
 use App\Models\Mission;
 use Illuminate\Http\Request;
@@ -42,6 +43,11 @@ Route::middleware(['auth:sanctum', 'checkApiPassword', 'changeLanguage'])->name(
         'mission' => MissionController::class,
         'platform' => PlatformController::class,
     ]);
+
+    Route::post('mission-done/{mission_id}', [UserMissionController::class, 'mission_done'])->name('mission_done');
+    Route::get('total-stars-of-user/{user_id}', [UserMissionController::class, 'total_stars_of_user'])->name('total_stars_of_user');
+    Route::get('top-10-last-week', [UserMissionController::class, 'top_10_last_week'])->name('top_10_last_week');
+
 });
 
 
