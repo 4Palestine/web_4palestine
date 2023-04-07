@@ -3,7 +3,7 @@
 @section('master')
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h4>{{ $model['name'] }}</h4>
+            <h4>{{ $model['name'] }}</h4>khaled
             <div>
                 <a href="{{ route('dashboard.platform.index') }}" class="btn bg-dark text-white">Platforms</a>
             </div>
