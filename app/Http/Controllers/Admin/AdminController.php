@@ -66,7 +66,8 @@ class AdminController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $admin = Admin::findOrFail($id);
+        return view('dashboard.admin.show',compact('admin'));
     }
 
     /**

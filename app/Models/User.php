@@ -56,7 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
         'languages' => 'array',
-        'admin_data' => 'array'
+        'admin_data' => 'array',
     ];
 
 
