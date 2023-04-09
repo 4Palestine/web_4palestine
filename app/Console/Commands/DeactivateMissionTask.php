@@ -31,6 +31,8 @@ class DeactivateMissionTask extends Command
         foreach ($missions as $mission) {
             $duration = (integer)$mission->mission_duration * 3600; // Convert mission duration from hour to seconds
 
+            // this will take the duration in seconds and add it to updated_at,
+            // and check if the result is in the past according to current time or not
             if ($mission->updated_at->addSeconds($duration)->isPast()) {
                 $mission->update([
                     'is_active' => 0
