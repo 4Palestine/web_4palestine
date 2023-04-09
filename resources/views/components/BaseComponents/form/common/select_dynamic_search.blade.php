@@ -2,7 +2,7 @@
     'name',
     'model' => $model,
     'options' => $model,
-    'default_option' => '',
+    'default_option' => false, // 'default_option' => 'default',
     'option_value_column' => 'id',
     'option_label_column' => 'name',
     'label' => class_basename((object)$model) . ' ' . preg_quote($name, '_') ? str_replace("_", " ", $name) : $name ,
@@ -10,18 +10,23 @@
 ])
 
 
+
+
 <div class="mb-3 col-12 col-sm-{{ $cols }}">
     <label for="{{ $name }}" class="form-label">{{ ucwords($label) }}</label>
-    <select name="{{ $name }}" @class(['form-select', 'is-invalid' => $errors->has($name)]) id="{{ $name }}" {{ $attributes }}
-        aria-label="Default select example">
-        @if($default_option)
-            <option value="">{{ $default_option }}</option>
-        @endisset
-        @foreach ($options as $option)
-            <option value="{{ $option[$option_value_column] }}" @selected(old($name, $model[$name]) == $option[$option_value_column])>
-                {{ $option[$option_label_column] }}</option>
-        @endforeach
+    <select name="{{ $name }}" id="{{ $name }}" @class(['single-select', 'is-invalid' => $errors->has($name)]) data-placeholder="{{ ucwords($label) }}" {{ $attributes }}>
+    @if($default_option)
+        <option value="">{{ $default_option }}</option>
+    @endisset
+
+
+    @foreach ($options as $option)
+        <option value="{{ $option[$option_value_column] }}" @selected(old($name, $model[$name]) == $option[$option_value_column])>
+            {{ $option[$option_label_column] }}</option>
+    @endforeach
     </select>
+
+
     {{-- check if $name as string ends with []
         , then make a loop on the $model[$name] to show the data in badges under the select --}}
     @if (str_ends_with($name, '[]'))
@@ -31,10 +36,14 @@
             @endforeach
         </div>
     @endif
+
     @error($name)
-        <small class="text-danger">{{ $message }}</small>
+    <small class="text-danger">{{ $message }}</small>
     @enderror
+
 </div>
+
+
 
 {{--Docs
     Author: khaled - 15/09/2022
@@ -49,11 +58,11 @@ ________________________________________________________________________________
 
 
     Full EXAMPLE:-
-        <x-BaseComponents.form.common.select_dynamic name="parent_id" :model="$category" label="Parent ID"
+        <x-BaseComponents.form.common.select_dynamic_search name="parent_id" :model="$category" label="Parent ID"
         :options="$parents" default_option="Primary Category" option_value_column="id" option_label_column="name" />
 
     Less EXAMPLE:-
-        <x-BaseComponents.form.common.select_dynamic name="parent_id" :model="$category"
+        <x-BaseComponents.form.common.select_dynamic_search name="parent_id" :model="$category"
         :options="$parents" option_value_column="id" option_label_column="name" />
 _____________________________________________________________________________________
 --}}

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\PlatformController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MissionController;
+use App\Http\Controllers\Api\UserMissionController;
 use App\Http\Resources\MissionResource;
 use App\Models\Mission;
 use Illuminate\Http\Request;
@@ -19,13 +20,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:mobile')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 
 
-// Route::middleware(['auth:mobile', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
+// Route::middleware(['auth:sanctum', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
 //     Route::get('/test', function(){
 //         $data = MissionResource::collection(Mission::get());
 //         if(!$data) {
@@ -37,17 +38,22 @@ Route::middleware('auth:mobile')->get('/user', function (Request $request) {
 
 
 // Normal User
-Route::middleware(['auth:mobile', 'verified', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
+Route::middleware(['auth:sanctum', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
     Route::apiResources([
         'mission' => MissionController::class,
         'platform' => PlatformController::class,
     ]);
+
+    Route::post('mission-done/{mission_id}', [UserMissionController::class, 'mission_done'])->name('mission_done');
+    Route::get('total-stars-of-user/{user_id}', [UserMissionController::class, 'total_stars_of_user'])->name('total_stars_of_user');
+    Route::get('top-10-last-week', [UserMissionController::class, 'top_10_last_week'])->name('top_10_last_week');
+
 });
 
 
 
 // Super User
-Route::middleware(['auth:mobile', 'verified', 'checkApiPassword', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
 });
 
 

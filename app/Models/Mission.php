@@ -49,12 +49,15 @@ class Mission extends BaseModel
 
     public function scopeSearch(Builder $query, $request)
     {
-        // if ($request['name'] ?? false) {
-        //     $query->where('name', 'LIKE', "%{$request['name']}%");
-        // }
-        // if (isset($request['is_active']) && $request['is_active'] != '') {
-        //     $query->where('is_active', '=', $request['is_active']);
-        // }
+        if ($request['description'] ?? false) {
+            $query->where('description', 'LIKE', "%{$request['description']}%");
+        }
+        if (isset($request['is_active']) && $request['is_active'] != '') {
+            $query->where('is_active', '=', $request['is_active']);
+        }
+        if (isset($request['mission_type']) && $request['mission_type'] != '') {
+            $query->where('mission_type', '=', $request['mission_type']);
+        }
     }
 
     public function scopeActive(Builder $query) {
@@ -62,5 +65,10 @@ class Mission extends BaseModel
     }
     public function platform(){
         return $this->belongsTo(Platform::class);
+    }
+
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'mission_user')->withTimestamps()->withPivot('platform_id', 'stars');
     }
 }

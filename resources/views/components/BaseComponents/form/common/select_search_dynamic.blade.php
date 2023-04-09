@@ -12,7 +12,7 @@
 
 <div class="mb-3 col-12 col-sm-{{ $cols }} d-flex flex-column" data-select2-id="21">
     <label class="form-label">{{ ucwords($label) }}</label>
-    <select name="{{ $name }}" @class(['single-select select2-hidden-accessible', 'is-invalid' => $errors->has($name)]) data-select2-id="1" tabindex="-1" aria-hidden="true">
+    <select name="{{ $name }}" @class(['single-select select2-hidden-accessible', 'is-invalid' => $errors->has($name)]) {{ $attributes }} data-select2-id="1" tabindex="-1" aria-hidden="true">
         {{-- <option value="United States" data-select2-id="3">United States</option> --}}
         @foreach ($options as $option)
             <option value="{{ $option[$option_value_column] }}" data-select2-id="{{ $option[$option_id_column] }}" @selected(old($name, $model[$name]) == $option[$option_value_column])>{{ $option[$option_label_column] }}</option>

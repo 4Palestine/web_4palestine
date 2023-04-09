@@ -13,6 +13,8 @@ class Platform extends BaseModel
 {
     use HasFactory, SoftDeletes, HasTranslations;
 
+    protected $with = ['tags'];
+
     protected $fillable = [
         'slug',
         'name',

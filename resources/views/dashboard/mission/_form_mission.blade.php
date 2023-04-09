@@ -19,7 +19,7 @@
 <div class="card-body table-responsive p-4">
     <div class="row">
 
-        <x-BaseComponents.form.common.select_dynamic name="platform_id" :model="$model" label="Platform"
+        <x-BaseComponents.form.common.select_dynamic_search name="platform_id" :model="$model" label="Platform"
             :options="$additionalData['platforms']" default_option=" " option_value_column="id" option_label_column="name" />
 
         <x-BaseComponents.form.common.image name="image" :model="$model" />
@@ -42,10 +42,6 @@
         <x-BaseComponents.form.common.textarea name="description_ar" :model="$model" rows="3"
             label="mission Description (AR)" placeholder="Enter mission Description (AR)" />
 
-        {{-- <x-BaseComponents.form.common.select_fixed name="tags[]" :model="$model" multiple :options="[
-            '000000000' => 'بنجيبها بعدين',
-            '000000000' => 'بنجيبها بعدين',
-        ]" /> --}}
 
         <div class="mb-3 col-12 col-sm-6">
             <div class="kh_wrapper" data-key="comments_en">
@@ -139,16 +135,15 @@
             </div>
         </div>
 
-        {{-- <div class="mb-3 col-12 col-sm-12 d-flex flex-column">
-            <label class="form-label" for="tags">Mission Social Tags</label>
-            <input type="text" name="tags" value="" id="tags" placeholder="Enter Mission Social Tags" @class([
-                'form-control',
-                'is-invalid' => $errors->has('tags')
-            ])>
-            @error('tags')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div> --}}
+        <div class="mb-3">
+            <label class="form-label">Select Mission Social Tags</label>
+            <select name="tags[]" id="option_tags" class="multiple-select" data-placeholder="Choose Mission Social Tags" multiple="multiple">
+                @foreach($additionalData['tags'] as $tag)
+                    <option value="{{ $tag['name'] }}" @selected(collect(old('tags', $model['tags']))->contains($tag['name']))>{{ $tag['name'] }}</option>
+                @endforeach
+            </select>
+        </div>
+
 
         <x-BaseComponents.form.common.select_fixed name="is_active" :model="$model" :options="[
             '1' => 'Active',
@@ -159,6 +154,9 @@
     </div>
 </div>
 
+
+@push('style')
+@endpush
 
 @push('script')
     <script>
@@ -200,6 +198,40 @@
                 });
                 x--;
             })
+
+            /////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////
+            // tags depend on platform selected
+
+                // add change event listener to platform_id select
+                $('#platform_id').on('change', function() {
+                    var platformId = $(this).val();
+
+                    // send AJAX request to server to retrieve tags for selected platform
+                    $.ajax({
+                        url: '/dashboard/tag/get-tags-by-platformId',
+                        method: 'GET',
+                        data: { platform_id: platformId },
+                        success: function(response) {
+                            // update tags select options with retrieved tags
+                            var tagsSelect = $('#option_tags');
+                            tagsSelect.empty(); // clear existing options
+                            response.tags.forEach(function(tag) {
+                                var tag_name = tag.name.en || tag.name.ar;
+                                tagsSelect.append($('<option>').val(tag_name).text(tag_name));
+                            });
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            // handle error appropriately
+                        }
+                    });
+                });
+
+
+
+
+
+
 
         });
     </script>

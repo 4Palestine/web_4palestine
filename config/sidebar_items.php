@@ -9,13 +9,11 @@ return [
         'label' => 'Dashboard',
         'icon' => 'bi bi-house-fill',
         'active' => 'dashboard.dashboard',
-        'permission_key' => 'dashboard',
     ],
     [
-        'menu_title' => 'sections',
-        'menu_title_icon' => 'lni lni-package',
-        'active' => 'dashboard.*',
-        'permission_key_group' => 'sections',
+        'menu_title' => 'platforms',
+        'menu_title_icon' => 'lni lni-world',
+        'active' => 'dashboard.platform.*',
         'menu_title_list' => [
             [
                 'route' => 'dashboard.platform.index',
@@ -23,22 +21,50 @@ return [
                 'active' => 'dashboard.platform.*',
             ],
             [
+                'route' => 'dashboard.platform.create',
+                'label' => 'create platform',
+                'active' => 'dashboard.platform.create',
+            ],
+        ],
+    ],
+    [
+        'menu_title' => 'missions',
+        'menu_title_icon' => 'lni lni-target',
+        'active' => 'dashboard.mission.*',
+        'menu_title_list' => [
+            [
                 'route' => 'dashboard.mission.index',
                 'label' => 'missions',
                 'active' => 'dashboard.mission.*',
             ],
             [
+                'route' => 'dashboard.mission.create',
+                'label' => 'create mission',
+                'active' => 'dashboard.mission.create',
+            ],
+        ],
+    ],
+    [
+        'menu_title' => 'tags',
+        'menu_title_icon' => 'lni lni-tag',
+        'active' => 'dashboard.tag.*',
+        'menu_title_list' => [
+            [
                 'route' => 'dashboard.tag.index',
                 'label' => 'tags',
                 'active' => 'dashboard.tag.*',
+            ],
+            [
+                'route' => 'dashboard.tag.create',
+                'label' => 'create tag',
+                'active' => 'dashboard.tag.create',
             ],
         ],
     ],
     [
         'menu_title' => 'Actors',
-        'menu_title_icon' => 'lni lni-package',
+        'menu_title_icon' => 'lni lni-users',
         'active' => 'dashboard.*',
-        'permission_key_group' => 'actors',
         'menu_title_list' => [
             [
                 'route' => 'dashboard.user.index',
@@ -54,7 +80,7 @@ return [
     ],
     [
         'menu_title' => 'Images Library',
-        'menu_title_icon' => 'lni lni-package',
+        'menu_title_icon' => 'lni lni-image',
         'active' => 'dashboard.imageLibraryFolder.*',
         'menu_title_list' => [
             [
@@ -86,7 +112,6 @@ return [
         'menu_title' => 'trash',
         'menu_title_icon' => 'lni lni-trash',
         'active' => 'dashboard.*',
-        'permission_key_group' => 'trash',
         'menu_title_list' => [
             [
                 'route' => 'dashboard.platform.trash',

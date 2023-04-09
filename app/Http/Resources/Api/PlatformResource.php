@@ -20,6 +20,7 @@ class PlatformResource extends JsonResource
             'slug' => $this->slug,
             'name' => $this->name,
             'description' => $this->description,
+            'tags' => $this->tags,
             'image' => image_url($this->image),
             'is_active' => $this->is_active,
             'deleted_at' => $this->deleted_at,

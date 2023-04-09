@@ -29,9 +29,7 @@ Route::get('/', function () {
     return to_route('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -39,16 +37,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// هاد الراوت معمول مؤقت لاختبار عملية تاكيد المهمة من طرف اليوزر
-Route::post('dashboard/test-mission-done', [TestController::class, 'test_mission_done'])->name('test_mission_done');
-
-
-
 // Custom routes
 Route::name('dashboard.')->prefix('/dashboard')->middleware(['auth'])->group(function() {
     Route::get('/imageLibraryFolder/manage-library', [ImageLibraryFolderController::class, 'manage_library'])->name('imageLibraryFolder.manage-library');
     Route::delete('imageLibraryFolder/manage-library/{id}', [ImageLibraryFolderController::class, 'delete_image'])->name('imageLibraryFolder.manage-library.destroy');
-    Route::resource('/setting' , SettingController::class);
+    Route::resource('/setting' , SettingController::class)->only(['index', 'store']);
+    Route::get('/tag/get-tags-by-platformId', [TagController::class, 'getTagsByPlatformId'])->name('tag.getTagsByPlatformId');
 });
 
 

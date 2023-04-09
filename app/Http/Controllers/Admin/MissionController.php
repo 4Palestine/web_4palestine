@@ -17,17 +17,27 @@ class MissionController extends Base5Controller
     public $view_name = "dashboard.mission";
 
 
-    public function createEditAdditionalData()
+
+    public function createAdditionalData()
     {
         $platforms = PlatformResource::collection(Platform::get(['id', 'name']))->resolve();
-        $tags = Tag::pluck('name');
+        $tags = collect(); // this is empty collection, instead of Tag::all();
         return [
             'platforms' => $platforms,
             'tags' => $tags
         ];
     }
+    public function editAdditionalData($id)
+    {
+        $platforms = PlatformResource::collection(Platform::get(['id', 'name']))->resolve();
 
-
+        $mission_platform = Mission::find($id)->platform;
+        $tags = $mission_platform->tags;
+        return [
+            'platforms' => $platforms,
+            'tags' => $tags
+        ];
+    }
 
     public function setCreateResource($request)
     {
