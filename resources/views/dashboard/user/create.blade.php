@@ -1,5 +1,8 @@
 @extends('Layouts.master')
 
+@section('cssFile')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+@endsection
 
 @section('master')
     <div class="row">
@@ -17,6 +20,13 @@
         </div>
     </div>
 
+@endsection
+
+@section('jsFile')
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+<script>
+    new MultiSelectTag('languages')  // id
+</script>
 @endsection
 
 

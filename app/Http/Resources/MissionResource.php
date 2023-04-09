@@ -34,6 +34,7 @@ class MissionResource extends JsonResource
             'comments_ar' => $this->getTranslations('comments')['ar'] ?? '',
             'mission_stars' => $this->mission_stars,
             'is_active' => $this->is_active,
+            'admin_data' => json_decode($this->admin_data),
             'deleted_at' => $this->deleted_at,
         ];
     }
