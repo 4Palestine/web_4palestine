@@ -289,13 +289,23 @@
                 <option value="ZW">Zimbabwe</option>
             </select>
         </div>
-        <x-BaseComponents.form.common.select_fixed name="languages" :model="$user" :options="[
+        <div class="select col-12 col-md-6">
+            <label class="form-label">Choose Language</label>
+            <select name="languages" id="languages" multiple>
+            <option value="af">Afghanistan</option>
+            <option value="au">Australia</option>
+            <option value="ge">Germany</option>
+            <option value="ca">Canada</option>
+            <option value="ru">Russia</option>
+            </select>
+        </div>
+        {{-- <x-BaseComponents.form.common.select_fixed name="languages" :model="$user" :options="[
             'ar' => 'Arabic',
             'en' => 'English',
             'fr' => 'French',
             'de' => 'German',
             'tr' => 'Turkish',
-        ]" />
+        ]" /> --}}
 
 
         <x-BaseComponents.form.common.select_fixed name="is_active" :model="$user" label="Is Active" cols="6"
