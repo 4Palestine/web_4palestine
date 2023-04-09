@@ -3,7 +3,7 @@
 
 <div class="mb-3 col-12 col-sm-{{ $cols }}">
     <label for="{{ $name }}" class="form-label">{{ ucwords($label) }}</label>
-    <select name="{{ $name }}" @class(['form-select', 'is-invalid' => $errors->has($name)]) id="{{ $name }}">
+    <select name="{{ $name }}" @class(['form-select', 'is-invalid' => $errors->has($name)]) id="{{ $name }}" {{ $attributes }}>
         @foreach ($options as $value => $text)
             <option value="{{ $value }}" @selected($value == $model[$name])>{{ $text }}</option>
         @endforeach

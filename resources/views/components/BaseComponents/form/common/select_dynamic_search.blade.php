@@ -14,7 +14,7 @@
 
 <div class="mb-3 col-12 col-sm-{{ $cols }}">
     <label for="{{ $name }}" class="form-label">{{ ucwords($label) }}</label>
-    <select name="{{ $name }}" id="{{ $name }}" @class(['single-select', 'is-invalid' => $errors->has($name)]) data-placeholder="{{ ucwords($label) }}">
+    <select name="{{ $name }}" id="{{ $name }}" @class(['single-select', 'is-invalid' => $errors->has($name)]) data-placeholder="{{ ucwords($label) }}" {{ $attributes }}>
     @if($default_option)
         <option value="">{{ $default_option }}</option>
     @endisset

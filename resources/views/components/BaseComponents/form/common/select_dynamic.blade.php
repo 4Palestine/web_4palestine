@@ -12,7 +12,7 @@
 
 <div class="mb-3 col-12 col-sm-{{ $cols }}">
     <label for="{{ $name }}" class="form-label">{{ ucwords($label) }}</label>
-    <select name="{{ $name }}" @class(['form-select', 'is-invalid' => $errors->has($name)]) id="{{ $name }}"
+    <select name="{{ $name }}" @class(['form-select', 'is-invalid' => $errors->has($name)]) id="{{ $name }}" {{ $attributes }}
         aria-label="Default select example">
         @if($default_option)
             <option value="">{{ $default_option }}</option>
