@@ -19,5 +19,5 @@ jobs:
         password: k3in+qGeck#N
 #         username: ${{ secrets.SERVER_USERNAME }}
 #         password: ${{ secrets.SERVER_PASSWORD }}
-        server-dir: /public_html/test/
+        server-dir: /public_html/4palestine/
         
