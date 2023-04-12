@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -80,4 +81,26 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Mission::class, 'mission_user')->withTimestamps()->withPivot('platform_id', 'stars');
     }
 
+
+
+    public function createEmailVerification()
+    {
+//        $code = Str::random(6);
+        $code = random_int(100000, 999999);
+        $expiresAt = now()->addMinutes(10);
+
+        $verification = new EmailVerification([
+            'code' => $code,
+            'expires_at' => $expiresAt,
+        ]);
+
+        $this->emailVerification()->save($verification);
+
+        return $verification;
+    }
+
+    public function emailVerification()
+    {
+        return $this->hasOne(EmailVerification::class, 'user_id');
+    }
 }

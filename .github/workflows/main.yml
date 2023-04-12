@@ -15,9 +15,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
         server: ftp.waleed.atyaf.co
-        username: waleed
-        password: k3in+qGeck#N
-#         username: ${{ secrets.SERVER_USERNAME }}
-#         password: ${{ secrets.SERVER_PASSWORD }}
-        server-dir: /public_html/test/
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        server-dir: /public_html/4palestine/
         

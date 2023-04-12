@@ -24,6 +24,20 @@
                 <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
                     <div class="row w-100 ">
                         <div class="col-3 d-flex justify-content-between align-items-center">
+<<<<<<< HEAD
+=======
+                            <span class="fw-bold">Description Ar</span>
+                            <span>:</span>
+                        </div>
+                        <div class="col-9 d-flex justify-content-between align-items-center p-0">
+                            <span>{{ $model['description']->ar }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
+                    <div class="row w-100 ">
+                        <div class="col-3 d-flex justify-content-between align-items-center">
+>>>>>>> 7943f1b8b616e7ec7d39df0f0125066539126982
                             <span class="fw-bold">Is Active</span>
                             <span>:</span>
                         </div>
