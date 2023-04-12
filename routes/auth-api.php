@@ -28,11 +28,11 @@ Route::name('user.')->group(function(){
         ->name('password.store');
 
     Route::get('auth/verify-email/{id}/{hash}', VerifyEmailController::class)
-        ->middleware(['auth:sanctum', 'signed', 'throttle:6,1', 'checkApiPassword', 'changeLanguage'])
+        ->middleware(['auth:sanctum', 'signed', 'throttle:6,1'])
         ->name('verification.verify');
 
-    Route::post('auth/email/v1erification-notification', [EmailVerificationNotificationController::class, 'store'])
-        ->middleware(['auth:sanctum', 'throttle:6,1', 'checkApiPassword', 'changeLanguage'])
+    Route::post('auth/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+        ->middleware(['auth:sanctum', 'throttle:6,1'])
         ->name('verification.send');
     ////////////////////////////
 

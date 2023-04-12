@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\ChangeLanguage;
 use App\Http\Middleware\checkApiB4pPassword;
 use App\Http\Middleware\IsSuperUser;
+use App\Http\Middleware\VerifyOtpCode;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -70,5 +71,6 @@ class Kernel extends HttpKernel
         'checkApiPassword' => checkApiB4pPassword::class,
         'changeLanguage' => ChangeLanguage::class,
         'isSuper' => IsSuperUser::class,
+        'verifyOtp' => VerifyOtpCode::class,
     ];
 }
