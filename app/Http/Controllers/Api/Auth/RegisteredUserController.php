@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\ApiResponses;
+use App\Mail\VerifyEmail;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
+    use ApiResponses;
+
     /**
      * Handle an incoming registration request.
      *
@@ -37,37 +40,14 @@ class RegisteredUserController extends Controller
 
         ]);
 
-        event(new Registered($user));
+        $verification = $user->createEmailVerification();
 
-        // Auth::guard('user')->login($user);
-        $user->createToken("API TOKEN")->plainTextToken;
-
-        return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['token' => $user->createToken("API TOKEN")->plainTextToken]);
-
+        try {
+            Mail::to($user->email)->send(new VerifyEmail($verification->code));
+            return $this->tiny_success(message: "A verification code has been sent to your email.");
+        } catch (\Exception $e) {
+            return $this->tiny_fail(message: "Something went wrong, try again");
+        }
     }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-    //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    //         'country' => '',
-    //         'languages' => '',
-    //     ]);
-    //     $user = User::create([
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'password' => Hash::make($request->password),
-    //         'country' => 'palestine',
-    //         'languages' => ["ar", "en"],
-    //     ]);
-    //     $otpCode = $this->generateOtpCode();
-    //     $this->storeOtpCode($user->id, $otpCode);
-    //     $this->sendOtpCodeByEmail($user->email, $otpCode);
-    //     return response([
-    //         'status' => true,
-    //         'message' => 'User Registerd Successfully, Check Your Email To Verify Your Account And Login',
-    //     ]);
-    // }
 }

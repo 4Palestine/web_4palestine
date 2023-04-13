@@ -36,7 +36,7 @@ class ImageLibraryFolderController extends Base5Controller
             return response()->json(compact('html'));
         }else {
             $folder = ImageLibraryFolder::first();
-            $data['images'] = $folder->folderImages;
+            $data['images'] = $folder->folderImages ?? [];
             return view('dashboard.imageLibraryFolder.manage_library', compact('data'));
         }
     }

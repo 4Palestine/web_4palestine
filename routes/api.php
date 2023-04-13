@@ -26,19 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-// Route::middleware(['auth:sanctum', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
-//     Route::get('/test', function(){
-//         $data = MissionResource::collection(Mission::get());
-//         if(!$data) {
-//             return response()->error(status: 400, message: 'there is no data yet');
-//         }
-//         return response()->success(message: 'tested success', data: $data);
-//     })->name('test');
-// });
-
-
 // Normal User
-Route::middleware(['auth:sanctum', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
+Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLanguage'])->name('user.')->prefix('user')->group(function () {
     Route::apiResources([
         'mission' => MissionController::class,
         'platform' => PlatformController::class,

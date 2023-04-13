@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthenticatedSessionController extends Controller
@@ -17,34 +18,46 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    // public function store(LoginRequest $request): Response
-    // {
-    //     $request->authenticate();
-
-    //     $request->session()->regenerate();
-
-    //     return response()->noContent();
-    // }
     public function store(Request $request) {
     try {
         $validateUser = Validator::make($request->all(),
         [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'otp_code' => 'string',
         ]);
 
         if($validateUser->fails()){
             return $this->fail(status: false, code: 401, message: "validation error", errors: $validateUser->errors());
         }
 
-        if(!Auth::guard('user')->attempt($request->only(['email', 'password']))){
-            return $this->fail(status: false, code: 401, message: "Email & Password does not match with our record.");
+
+        $user = User::where('email', $request->email)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return $this->fail(status: false, code: 404, message: "Email & Password does not match with our record.");
         }
 
-        $user = User::where('email', $request->email)->where('is_active', 1)->first();
+        if(!$user->is_active) {
+            return $this->fail(status: false, code: 401, message: "Your account is not allowed to be login !");
+        }
 
-        if(!$user) {
-            return $this->fail(status: false, code: 401, message: "Your account is not allowd to be loggedin !");
+        if(!$user->email_verified_at) {
+            // Check if the user has an email verification record
+            if (!$user->emailVerification) {
+                return response(['errors'=>['Email not verified']], 422);
+            }
+
+            // Check if the OTP code is valid
+            if ($user->emailVerification->code !== $request->otp_code) {
+                return response(['errors'=>['Invalid OTP code']], 422);
+            }
+
+            // Mark the user's email as verified
+            $user->email_verified_at = now();
+            $user->save();
+
+            // delete the otp code record after verify user email
+            $user->emailVerification->delete();
         }
         return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['token' => $user->createToken("API TOKEN")->plainTextToken]);
 
@@ -57,16 +70,6 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): Response
     {
-        // Auth::guard('user')->logout();
-
-        // $request->session()->invalidate();
-
-        // $request->session()->regenerateToken();
-
-        // return response()->noContent();
-
-        //////////////////////////////////////////////
-
         auth()->user()->tokens()->delete();
 
         return response([

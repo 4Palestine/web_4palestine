@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\ApiResponses;
@@ -41,6 +42,10 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password)
             ]);
+
+
+            event(new Registered($user));
+
 
             return $this->success(status: true, code: 200, message: "User Created Successfully", data: ['token' => $user->createToken("API TOKEN")->plainTextToken]);
 
