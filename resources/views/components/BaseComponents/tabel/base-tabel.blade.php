@@ -277,7 +277,7 @@
 </div>
 <div class="d-flex justify-content-end">
     {{-- {{ $models['paginator']->links() }} --}}
-    {{ $model->withQueryString()->links() }}
+    {{ $model->withQueryString()->links('components.BaseComponents.tabel.paginators.paginator') }}
     {{-- page {{ $models->currentPage() }} of {{ $models->count() }} --}}
 </div>
 

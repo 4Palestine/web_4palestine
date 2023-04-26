@@ -102,6 +102,25 @@
         .hr {
             color: rgb(173, 173, 173) !important;
         }
+
+        .pagination li.page-item,
+        .pagination li.page-item {
+            margin: auto auto auto 4px;
+        }
+        .page-item .page-link {
+            color: #1b2232d3 !important;
+            border-radius: 7px !important;
+            font-weight: 700;
+        }
+        .page-item.active .page-link {
+            background-color: #1b2232d3 !important;
+            border-color: #1b2232d3 !important;
+            color: #fff !important;
+        }
+        .page-item.disabled .page-link {
+            color: #1b223286 !important;
+            font-weight: 400;
+        }
     </style>
 </head>
 
