@@ -67,6 +67,23 @@ class Base5ApiController extends BaseController
     public function indexQuery() {
         return $this->getModel()::search(request()->query())->paginate($this->paginate);
     }
+    // public function model_pagination_links($model, $models)
+    // {
+    //     // Extract pagination information from the $model object
+    //     $pagination = $model->toArray();
+    //     // Create the pagination links manually
+    //     $links = null;
+    //     if ($pagination['last_page'] > 1) {
+    //         $links = (new LengthAwarePaginator(
+    //             $models,
+    //             $pagination['total'],
+    //             $pagination['per_page'],
+    //             $pagination['current_page'],
+    //             ['path' => request()->url()]
+    //         ))->links();
+    //     }
+    //     return $links;
+    // }
 
 
 
