@@ -38,8 +38,10 @@ class AuthenticatedSessionController extends Controller
             if (!$user->is_active) {
                 return $this->fail(status: false, code: 401, message: "Your account is not allowed to be login !");
             }
-
-            return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['user_data' => $user, 'meta' => ['token' => $user->createToken("API TOKEN")->plainTextToken]]);
+            $token = $user->createToken("API TOKEN")->plainTextToken;
+            
+            return $this->success_single_response(code: 200, message: "User Logged In Successfully", data: $user, meta:["token" => $token]);
+          #  return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['user_data' => $user, 'meta' => ['token' => $user->createToken("API TOKEN")->plainTextToken]]);
         } catch (\Throwable $th) {
             return $this->fail(status: false, code: 500, message: $th->getMessage());
         }
@@ -124,8 +126,9 @@ class AuthenticatedSessionController extends Controller
             }
 
 
+            return $this->success_single_response(code: 200, message: "User Logged In Successfully", data: $user, meta:["token" => $token]);
 
-            return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['user_data' => $user, 'meta' => ['token' => $token]]);
+            # return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['user_data' => $user, 'meta' => ['token' => $token]]);
         } catch (\Throwable $th) {
             return $this->fail(status: false, code: 500, message: $th->getMessage());
         }

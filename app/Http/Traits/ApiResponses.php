@@ -31,6 +31,34 @@ trait ApiResponses
         return response()->json(['message' => $message, 'meta' => ['status' => $status]], $code);
     }
 
+
+    public function success_list_response($code = 200, $message = "", $data = null, $meta=null, $links = null)
+    {
+        $data = is_null($data) ? [] : $data;
+        $meta = is_null($meta) ? [] : $meta;
+        $links = is_null($links) ? [] : $links;
+
+        // return response()->json(['status' => $status, 'code' => $code, 'message' => $message, 'data' => $data, 'additionalData' => $additionalData], $code);
+        return response()->json(['data' => $data, 'links' => $links, "meta"=> $meta,'message' => $message], $code);
+    }
+    public function tiny_success_t($code = 200, $message = "")
+    {
+        // return response()->json(['status' => $status, 'code' => $code, 'message' => $message]);
+        return response()->json(['message' => $message], $code);
+    }
+
+
+
+    public function success_single_response($code = 200, $message = "", $data = null, $meta=null)
+    {
+        $data = is_null($data) ? [] : $data;
+        $meta = is_null($meta) ? [] : $meta;
+        // return response()->json(['status' => $status, 'code' => $code, 'message' => $message, 'data' => $data, 'additionalData' => $additionalData], $code);
+        return response()->json(['data' => $data, "meta"=> $meta,'message' => $message], $code);
+    }
+
+
+
     //////////////////////////////////////
     // Fail response & tiny Fail response
     public function fail($status = false, $code = 404, $message = "", $errors = null, $data = null)
