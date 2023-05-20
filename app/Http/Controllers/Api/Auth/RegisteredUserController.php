@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
 
         try {
             Mail::to($user->email)->send(new VerifyEmail($verification->code));
-            return $this->tiny_success(message: "A verification code has been sent to your email.");
+            return $this->tiny_success_t(message: "A verification code has been sent to your email.");
         } catch (\Exception $e) {
             return $this->tiny_fail(message: "Something went wrong, try again");
         }

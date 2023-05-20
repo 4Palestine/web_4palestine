@@ -46,7 +46,7 @@ class NewPasswordController extends Controller
             return $this->tiny_fail(status: false, code: 422, message: "Invalid OTP code");
         }
 
-        return $this->tiny_success(status: true, code: 200, message: "successful OTP");
+        return $this->tiny_success_t(code: 200, message: "successful OTP");
     }
     /**
      * Handle an incoming new password request.
@@ -73,7 +73,7 @@ class NewPasswordController extends Controller
 
         $reset->delete();
 
-        return $this->tiny_success(status: true, code: 200, message: "Password reset successful");
+        return $this->tiny_success_t(code: 200, message: "Password reset successful");
 
 
     }

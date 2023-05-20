@@ -65,8 +65,8 @@ class PasswordResetLinkController extends Controller
         } catch (Exception $exception) {
             return $this->tiny_fail(status: false, code: 403, message: "Something wend worng !!");
         }
-
-        return $this->tiny_success(status: true, code: 200, message: "OTP code sent successfully");
+        return $this->tiny_success_t(code: 200, message: "OTP code sent successfully");
+        // return $this->tiny_success(status: true, code: 200, message: "OTP code sent successfully");
     }
     // {
     //     $request->validate([
