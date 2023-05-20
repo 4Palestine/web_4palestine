@@ -42,7 +42,7 @@ class NewPasswordController extends Controller
         $reset = DB::table('password_reset_tokens')->where('email', $user->email);
         $latestReset = $reset->latest()->first();
 
-        if (!$latestReset || $latestReset->token !== $request->otp) {
+        if (!$latestReset || $latestReset->token !== $request->otp_code) {
             return $this->tiny_fail(status: false, code: 422, message: "Invalid OTP code");
         }
 
@@ -64,7 +64,7 @@ class NewPasswordController extends Controller
         $reset = DB::table('password_reset_tokens')->where('email', $user->email);
         $latestReset = $reset->latest()->first();
 
-        if (!$latestReset || $latestReset->token !== $request->otp) {
+        if (!$latestReset || $latestReset->token !== $request->otp_code) {
             return $this->tiny_fail(status: false, code: 422, message: "Invalid OTP code");
         }
 

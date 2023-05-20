@@ -25,7 +25,7 @@ Route::name('user.')->group(function () {
     Route::post('auth/login-with-otp', [AuthenticatedSessionController::class, 'store_with_otp'])
         ->middleware('guest')
         ->name('login.withotp');
-    //////////////////////////// API ضايل هدول ينعمللهم
+    ////////////////////////////
     Route::post('auth/forgot-password', [PasswordResetLinkController::class, 'store'])
         ->middleware('guest:user')
         ->name('password.email');

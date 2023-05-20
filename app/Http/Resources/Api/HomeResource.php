@@ -4,7 +4,7 @@ namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MissionResource extends JsonResource
+class HomeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,18 +14,14 @@ class MissionResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
         return [
             'id' => $this->id,
             'slug' => $this->slug,
-            'image' => image_url($this->image),
-            'mission_link' => $this->mission_link,
+            'name' => $this->name,
             'description' => $this->description,
-            'mission_duration' => $this->mission_duration,
-            'mission_type' => $this->mission_type,
-            'tags' => json_decode($this->tags),
-            // 'comments' => json_decode($this->comments ?? "[]"),
-            'mission_stars' => $this->mission_stars,
+            'image' => image_url($this->image),
+
+            'missions' => MissionResource::collection($this->whenLoaded('missions')),
         ];
     }
 
