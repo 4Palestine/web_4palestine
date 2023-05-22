@@ -71,13 +71,15 @@ class User extends Authenticatable implements MustVerifyEmail
         // }
     }
 
-    public function scopeActive(Builder $query) {
+    public function scopeActive(Builder $query)
+    {
         return $query->where('is_active', 1);
     }
 
 
 
-    public function missions() {
+    public function missions()
+    {
         return $this->belongsToMany(Mission::class, 'mission_user')->withTimestamps()->withPivot('platform_id', 'stars');
     }
 
@@ -85,7 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function createEmailVerification()
     {
-//        $code = Str::random(6);
+        //        $code = Str::random(6);
         $code = random_int(100000, 999999);
         $expiresAt = now()->addMinutes(10);
 
@@ -102,5 +104,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function emailVerification()
     {
         return $this->hasOne(EmailVerification::class, 'user_id');
+    }
+
+
+
+    public static function createUserWithVerification(array $attributes = [])
+    {
+        $user = new static;
+        $user->forceFill($attributes);
+        $user->email_verified_at = now();
+        $user->save();
+        return $user;
     }
 }

@@ -21,11 +21,11 @@ class MissionResource extends JsonResource
             'image' => image_url($this->image),
             'mission_link' => $this->mission_link,
             'description' => $this->description,
-            'mission_duration' => $this->mission_duration,
+            'mission_duration' => (int)$this->mission_duration,
             'mission_type' => $this->mission_type,
             'tags' => json_decode($this->tags),
             // 'comments' => json_decode($this->comments ?? "[]"),
-            'mission_stars' => $this->mission_stars,
+            'mission_stars' => (int)$this->mission_stars,
         ];
     }
 
