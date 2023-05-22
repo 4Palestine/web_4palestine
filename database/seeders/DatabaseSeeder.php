@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SettingTableSeeder::class,
             AdminSeeder::class,
+            PlatformSeeder::class,
+            TagSeeder::class,
         ]);
     }
 }

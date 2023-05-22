@@ -26,7 +26,8 @@ class TagRequest
     {
         return [
             'platform_id' => ['required'],
-            'name'=>['required' , 'string' , 'max:255' , 'min:3'],
+            'name_en'=>['required' , 'string' , 'max:255' , 'min:3'],
+            'name_ar'=>['required' , 'string' , 'max:255' , 'min:3'],
         ];
     }
 
