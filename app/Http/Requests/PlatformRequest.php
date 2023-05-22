@@ -30,6 +30,8 @@ class PlatformRequest
         return [
             'image' => [ 'image' , 'max:1024' , 'mimes:jpeg,png,jpg,gif'],
             'is_active'=>['required' , 'boolean'],
+            'name'=>['required' , 'string' , 'max:255' , 'min:3'],
+            'description'=>['required' , 'min:5'],
         ];
     }
 

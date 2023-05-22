@@ -12,6 +12,7 @@ use App\Http\Traits\ApiResponses;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Arr;
 
 class Base5ApiController extends BaseController
 {
@@ -28,7 +29,7 @@ class Base5ApiController extends BaseController
     protected $request;    // public $request = "App\Http\Requests\CategoryRequest";
     public $model_text;    // the model name to show in Alert messages // نادر الإستخدام
     public $importChildObject = Base5ApiController::class;    // public $importChildObject = ProductController::class;
-    public $paginate = 15;
+    public $paginate = 3;
 
 
 
@@ -50,17 +51,39 @@ class Base5ApiController extends BaseController
     public function index()
     {
         $model = $this->indexQuery();
+
+        // $model = Arr::forget($model, 'data');
+        // unset($model['data']);
+        $links = collect($model)->except(['data'])->toArray();
+
         $models = $this->resource::collection($model);
         $additionalData = $this->indexAdditionalData();
 
         if(!$models) {
             return $this->fail(status: false, code: 404, message: "there is no data yet", data: null);
         }
-        return $this->success(status: true, code: 200, message: "data returned succeefully", data: $models, additionalData: $additionalData);
+        return $this->success(status: true, code: 200, message: "data returned succeefully", data: $models, additionalData: $additionalData, links: $links);
     }
     public function indexQuery() {
         return $this->getModel()::search(request()->query())->paginate($this->paginate);
     }
+    // public function model_pagination_links($model, $models)
+    // {
+    //     // Extract pagination information from the $model object
+    //     $pagination = $model->toArray();
+    //     // Create the pagination links manually
+    //     $links = null;
+    //     if ($pagination['last_page'] > 1) {
+    //         $links = (new LengthAwarePaginator(
+    //             $models,
+    //             $pagination['total'],
+    //             $pagination['per_page'],
+    //             $pagination['current_page'],
+    //             ['path' => request()->url()]
+    //         ))->links();
+    //     }
+    //     return $links;
+    // }
 
 
 

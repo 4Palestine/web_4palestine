@@ -31,7 +31,7 @@ class Base5Controller extends BaseController
     protected $request;    // public $request = "App\Http\Requests\CategoryRequest";
     public $model_text;    // the model name to show in Alert messages // نادر الإستخدام
     public $importChildObject = Base5Controller::class;    // public $importChildObject = ProductController::class;
-    public $paginate = 15;
+    public $paginate = 3;
 
 
 
