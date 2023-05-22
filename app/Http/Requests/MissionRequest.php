@@ -30,7 +30,9 @@ class MissionRequest
             'platform_id'=>['required'],
             'mission_duration'=>['string'],
             'mission_type'=>['string'],
-            'mission_stars'=>['string'],
+            'mission_stars'=>['required','string'],
+            'description_en' => ['nullable' , 'min:5'],
+            'description_ar' => ['nullable' , 'min:5'],
             'is_active'=>['required' , 'boolean'],
         ];
     }
