@@ -125,6 +125,12 @@ return [
                 'active' => 'dashboard.mission.*',
                 'icon' => 'bi bi-circle',
             ],
+            [
+                'route' => 'dashboard.user.trash',
+                'label' => 'Users trash',
+                'active' => 'dashboard.user.*',
+                'icon' => 'bi bi-circle',
+            ],
         ]
     ]
 ];

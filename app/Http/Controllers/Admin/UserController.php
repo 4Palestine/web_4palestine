@@ -162,4 +162,16 @@ class UserController extends Controller
         return redirect()->route('dashboard.user.index')
                         ->with('success','User deleted successfully');
     }
+    public function trash()
+    {
+        $users = User::onlyTrashed()->paginate(5);
+        return view('dashboard.user.trash' , compact('users'));
+    }
+    // public function restore($id)
+    // {
+    //     $users = User::onlyTrashed()->paginate(5);
+    //     $user = User::onlyTrashed()->findOrFail($id);
+    //     $user->restore();
+    //     return view('dashboard.user.trash' , compact('users'));
+    // }
 }

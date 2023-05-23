@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Mission;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,9 +23,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             SettingTableSeeder::class,
+            UserSeeder::class,
             AdminSeeder::class,
             PlatformSeeder::class,
             TagSeeder::class,
+            MissionSeeder::class,
         ]);
     }
 }
