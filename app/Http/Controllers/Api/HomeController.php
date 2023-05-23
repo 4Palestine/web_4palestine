@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\HomeResource;
+use App\Http\Traits\ApiResponses;
 use App\Models\Platform;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    use ApiResponses;
     public function home()
     {
 
@@ -22,7 +24,6 @@ class HomeController extends Controller
         ->get(['id', 'slug', 'name', 'image', 'description']);
 
         $data['platforms'] = HomeResource::collection($platforms);
-
-        return response()->json($data);
+        return $this->success(code: 200, message: "User Logged In Successfully", data: $data);
     }
 }
