@@ -200,7 +200,6 @@ class Base5Controller extends BaseController
         $model = $this->getModel()::onlyTrashed()->findOrFail($id);
         $model->forceDelete();
         $this->deleteRelations($model);
-
         return redirect()->route($this->route_trash())->with('success', $this->printModelText() . ' Deleted Forever Successfully');
     }
 
