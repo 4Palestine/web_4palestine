@@ -13,7 +13,7 @@ class UserMissionController extends Controller
 {
     use ApiResponses;
 
-    public function mission_done($mission_id){
+    public function mission_done($mission_id) {
         $user = User::find(auth()->user()->id);
         $mission = Mission::find($mission_id);
 

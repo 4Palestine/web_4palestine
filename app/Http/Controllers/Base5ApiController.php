@@ -228,7 +228,7 @@ class Base5ApiController extends BaseController
     }
     public function getDefaultResource()
     {
-        $custom_resource = "App\\Http\\Resources\\" . str_replace(["Controllers", "Controller"], ["Resources", "Resource"], get_class_name($this));
+        $custom_resource = "App\\Http\\Resources\\Api\\" . str_replace(["Controllers", "Controller"], ["Resources", "Resource"], get_class_name($this));
         return class_exists($custom_resource) ? $custom_resource : BaseResource::class;
     }
 
