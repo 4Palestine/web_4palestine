@@ -40,6 +40,7 @@ class AuthenticationTest extends TestCase
             'password' => 'wrong-password',
         ]);
 
+
         $this->assertGuest();
     }
 }
