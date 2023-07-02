@@ -48,37 +48,6 @@ class AuthenticatedSessionController extends Controller
     }
 
 
-
-    // public function ensure_login_otp(Request $request) {
-    //     $validateUser = Validator::make(
-    //         $request->all(),
-    //         [
-    //             'otp_code' => 'string',
-    //         ]
-    //     );
-
-
-    //     if ($validateUser->fails()) {
-    //         return $this->fail(status: false, code: 401, message: "validation error", errors: $validateUser->errors());
-    //     }
-
-    //     $user = User::where('email', $request->email)->whereNull('email_verified_at')->first();
-    //     if (!$user) {
-    //         return $this->fail(status: false, code: 404, message: "you are not registerd");
-    //     }
-
-    //     // Check if the user has an email verification record
-    //     // هاد معناها انو مش باعت طلب تاكيد للحساب
-    //     if (!$user->emailVerification || $user->emailVerification->code !== $request->otp_code) {
-    //         return response(['errors' => ['Invalid OTP code']], 422);
-    //     }
-
-
-    //     return $this->tiny_success(status: true, code: 200, message: "successful OTP");
-
-    // }
-
-
     public function store_with_otp(Request $request) {
         try {
             // validate request inputs
@@ -163,28 +132,4 @@ class AuthenticatedSessionController extends Controller
             return $this->fail(status: false, code: 401, message: "validation error", errors: $validateUser->errors());
         }
     }
-
-
-    // // reject login if the user email is not verified
-    // public function validate_verification_user($user, $request)
-    // {
-    //     if (!$user->email_verified_at) {
-    //         // Check if the user has an email verification record
-    //         if (!$user->emailVerification) {
-    //             return response(['errors' => ['Email not verified']], 422);
-    //         }
-
-    //         // Check if the OTP code is valid
-    //         if ($user->emailVerification->code !== $request->otp_code) {
-    //             return response(['errors' => ['Invalid OTP code']], 422);
-    //         }
-
-    //         // Mark the user's email as verified
-    //         $user->email_verified_at = now();
-    //         $user->save();
-
-    //         // delete the otp code record after verify user email
-    //         $user->emailVerification->delete();
-    //     }
-    // }
 }

@@ -22,11 +22,11 @@ class NewPasswordController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:user');
+        $this->middleware('guest:mobile');
     }
     protected function guard()
     {
-        return Auth::guard('user');
+        return Auth::guard('mobile');
     }
 
 

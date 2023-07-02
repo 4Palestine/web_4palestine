@@ -18,10 +18,6 @@ Route::name('user.')->group(function () {
         ->middleware('guest')
         ->name('login');
 
-    // Route::post('auth/ensure-login-otp', [AuthenticatedSessionController::class, 'ensure_login_otp'])
-    //     ->middleware('guest')
-    //     ->name('login.ensure_login_otp');
-
     Route::post('auth/login-with-otp', [AuthenticatedSessionController::class, 'store_with_otp'])
         ->middleware('guest')
         ->name('login.withotp');
