@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main-off
+      - main
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
@@ -16,5 +16,5 @@ jobs:
         server: ftp.waleed.atyaf.co
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
-        server-dir: /application/public/4palestine/
+        server-dir: /application/
         
