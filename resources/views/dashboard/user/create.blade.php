@@ -1,4 +1,4 @@
-@extends('Layouts.master')
+@extends('layouts.master')
 
 @section('cssFile')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">

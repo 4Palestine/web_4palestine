@@ -1,4 +1,4 @@
-@extends('Layouts.master')
+@extends('layouts.master')
 
 @section('master')
     <x-BaseComponents.tabel.base-tabel
