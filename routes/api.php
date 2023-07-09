@@ -34,6 +34,7 @@ Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLangua
     Route::post('mission-done/{mission_id}', [UserMissionController::class, 'mission_done'])->name('mission_done');
     Route::get('total-stars-of-user/{user_id}', [UserMissionController::class, 'total_stars_of_user'])->name('total_stars_of_user');
     Route::get('top-10-last-week', [UserMissionController::class, 'top_10_last_month'])->name('top_10_last_month');
+    Route::get('missions-of-platform/{platform_id}', [MissionController::class, 'missions_of_platform'])->name('missions_of_platform');
 
 
     Route::get('/home', [HomeController::class, 'home'])->name('home');

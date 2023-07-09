@@ -15,8 +15,9 @@ class SettingController extends Controller
     {
         $socials = Setting::where('group' , '=' , 'SOCIAL_MEDIA')->get();
         $modes = Setting::where('group' , '=' , 'MODE')->get();
+        $faqs = Setting::where('group', '=', 'FAQ')->first();
 
-        return view('dashboard.setting.index' , compact('socials' , 'modes'));
+        return view('dashboard.setting.index' , compact('socials' , 'modes', 'faqs'));
     }
 
 
@@ -45,6 +46,14 @@ class SettingController extends Controller
                 'value' => $value
             ]);
         }
+
+        //////////////////////////////////////
+        if(isset($request->faq)) {
+            Setting::updateOrCreate(['group' => 'FAQ'], [
+                'data' => json_encode($request->faq),
+            ]);
+        }
+
 
         return redirect()->route('dashboard.setting.index')->with('success', 'Settings Updated Successfully');
     }
