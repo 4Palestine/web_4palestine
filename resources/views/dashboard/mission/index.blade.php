@@ -4,7 +4,7 @@
     <x-BaseComponents.tabel.base-tabel
         :tabel_data="[
             'table_title' => 'Missions',
-            'table_button_route' => 'dashboard.mission.create']"
+            {{-- 'table_button_route' => 'dashboard.mission.create']" --}}
 
         :ths="['#', 'Image', 'Platform', 'Link', 'Description', 'Duration', 'Stars', 'Type', 'Status', 'Actions']"
 

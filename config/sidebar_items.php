@@ -96,6 +96,18 @@ return [
         ],
     ],
     [
+        'menu_title' => 'contacts',
+        'menu_title_icon' => 'lni lni-target',
+        'active' => 'dashboard.contact.*',
+        'menu_title_list' => [
+            [
+                'route' => 'dashboard.contact.index',
+                'label' => 'contacts',
+                'active' => 'dashboard.contact.*',
+            ],
+        ],
+    ],
+    [
         'menu_title' => 'Settings',
         'menu_title_icon' => 'lni lni-package',
         'active' => 'dashboard.*',
