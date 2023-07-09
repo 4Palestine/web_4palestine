@@ -117,7 +117,7 @@
                             <span>:</span>
                         </div>
                         <div class="col-9 d-flex justify-content-between align-items-center p-0">
-                            <span>{{ $model['admin_data']->name }} | {{ $model['admin_data']->email }} </span>
+                            <span>{{ $model['admin_data']->name ?? 'null' }} | {{ $model['admin_data']->email ?? 'null' }} </span>
                         </div>
                     </div>
                 </div>
