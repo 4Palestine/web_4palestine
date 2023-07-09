@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('master')
-    أحمس
     <div class="row">
         <div class="col-12 col-md-6">
             <div class="card overflow-hidden radius-10">
