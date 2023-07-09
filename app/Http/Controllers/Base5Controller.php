@@ -31,7 +31,7 @@ class Base5Controller extends BaseController
     protected $request;    // public $request = "App\Http\Requests\CategoryRequest";
     public $model_text;    // the model name to show in Alert messages // نادر الإستخدام
     public $importChildObject = Base5Controller::class;    // public $importChildObject = ProductController::class;
-    public $paginate = 3;
+    public $paginate = 15;
 
 
 
@@ -200,7 +200,6 @@ class Base5Controller extends BaseController
         $model = $this->getModel()::onlyTrashed()->findOrFail($id);
         $model->forceDelete();
         $this->deleteRelations($model);
-
         return redirect()->route($this->route_trash())->with('success', $this->printModelText() . ' Deleted Forever Successfully');
     }
 

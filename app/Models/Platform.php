@@ -61,5 +61,8 @@ class Platform extends BaseModel
     public function missions(){
         return $this->hasMany(Mission::class);
     }
+    public function active_missions(){
+        return $this->hasMany(Mission::class)->where('is_active', 1);
+    }
 
 }

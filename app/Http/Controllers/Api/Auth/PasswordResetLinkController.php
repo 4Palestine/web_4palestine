@@ -21,11 +21,11 @@ class PasswordResetLinkController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:user');
+        $this->middleware('guest:mobile');
     }
     protected function guard()
     {
-        return Auth::guard('user');
+        return Auth::guard('mobile');
     }
     /**
      * Handle an incoming password reset link request.
@@ -65,27 +65,6 @@ class PasswordResetLinkController extends Controller
         } catch (Exception $exception) {
             return $this->tiny_fail(status: false, code: 403, message: "Something wend worng !!");
         }
-
-        return $this->tiny_success(status: true, code: 200, message: "OTP code sent successfully");
+        return $this->tiny_success_t(code: 200, message: "OTP code sent successfully");
     }
-    // {
-    //     $request->validate([
-    //         'email' => ['required', 'email'],
-    //     ]);
-
-    //     // We will send the password reset link to this user. Once we have attempted
-    //     // to send the link, we will examine the response then see the message we
-    //     // need to show to the user. Finally, we'll send out a proper response.
-    //     $status = Password::broker('users')->sendResetLink(
-    //         $request->only('email')
-    //     );
-
-    //     if ($status != Password::RESET_LINK_SENT) {
-    //         throw ValidationException::withMessages([
-    //             'email' => [__($status)],
-    //         ]);
-    //     }
-
-    //     return response()->json(['status' => __($status)]);
-    // }
 }

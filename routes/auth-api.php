@@ -9,22 +9,26 @@ use App\Http\Controllers\Api\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::name('user.')->group(function(){
+Route::name('user.')->group(function () {
     Route::post('auth/register', [RegisteredUserController::class, 'store'])
-    ->middleware('guest')
-    ->name('register');
+        ->middleware('guest')
+        ->name('register');
 
     Route::post('auth/login', [AuthenticatedSessionController::class, 'store'])
         ->middleware('guest')
         ->name('login');
 
     Route::post('auth/login-with-otp', [AuthenticatedSessionController::class, 'store_with_otp'])
-    ->middleware('guest')
-    ->name('login.withotp');
-    //////////////////////////// API ضايل هدول ينعمللهم
+        ->middleware('guest')
+        ->name('login.withotp');
+    ////////////////////////////
     Route::post('auth/forgot-password', [PasswordResetLinkController::class, 'store'])
         ->middleware('guest:user')
         ->name('password.email');
+
+    Route::post('auth/ensure-otp-reset-password', [NewPasswordController::class, 'ensure_otp_reset_password'])
+        ->middleware('guest:user')
+        ->name('password.ensure_otp_reset_password');
 
     Route::post('auth/reset-password', [NewPasswordController::class, 'store'])
         ->middleware('guest:user')
@@ -42,5 +46,4 @@ Route::name('user.')->group(function(){
     Route::post('auth/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->middleware('auth:sanctum', 'checkApiPassword', 'changeLanguage')
         ->name('logout');
-
 });

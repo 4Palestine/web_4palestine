@@ -34,4 +34,16 @@ class MissionController extends Base5ApiController
         ];
     }
 
+    public function missions_of_platform($platform_id) {
+        $platform = Platform::find($platform_id);
+        if(!$platform) {
+            return $this->tiny_fail(status: false, code: 404, message: "platform is not exist");
+        }
+        $platform_missions = $platform->active_missions;
+        return $this->success_list_response(code: 200, message: "missions of this platform returned successfully", data: $platform_missions, meta: null, links: null);
+    }
+
+
 }
+
+

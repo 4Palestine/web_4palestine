@@ -28,7 +28,7 @@ class MissionResource extends JsonResource
             'description_ar' => $this->getTranslations('description')['ar'] ?? '',
             'mission_duration' => $this->mission_duration,
             'mission_type' => $this->mission_type,
-            'tags' => json_decode($this->tags),
+            'tags' =>json_decode($this->tags),
             // 'comments' => json_decode($this->comments ?? "[]"),
             'comments_en' => $this->getTranslations('comments')['en'] ?? '',
             'comments_ar' => $this->getTranslations('comments')['ar'] ?? '',

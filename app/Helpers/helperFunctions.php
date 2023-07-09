@@ -1,6 +1,6 @@
 <?php
 
-
+use Illuminate\Support\Facades\DB;
 use NumberFormatter as NumberFormatter;
 use Illuminate\Support\Optional;
 
@@ -82,6 +82,21 @@ if(! function_exists('image_url')) {
 
         return asset('storage/default_no-image-available-1.jpg');
 
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+if(! function_exists('db_transaction')) {
+    function db_transaction(callable $callback)
+    {
+        try {
+            DB::beginTransaction();
+            $callback();
+            DB::commit();
+        } catch (Exception $exception) {
+            DB::rollBack();
+            throw $exception;
+        }
     }
 }
 

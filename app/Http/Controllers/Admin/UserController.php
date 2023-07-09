@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Traits\uploadFile;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -54,7 +55,7 @@ class UserController extends Controller
 
 
 
-        $user = User::create([
+        $user = User::createUserWithVerification([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -70,6 +71,17 @@ class UserController extends Controller
             return redirect()->route('dashboard.user.index')
             ->with('fail','Something went wrong !!');
         }
+
+        // $verification = $user->createEmailVerification();
+        // try {
+        //     Mail::to($user->email)->send(new VerifyEmail($verification->code));
+        //     return redirect()->route('dashboard.user.index')
+        //     ->with('success','User created successfully');
+        // } catch (\Exception $e) {
+        //     return redirect()->route('dashboard.user.index')
+        //     ->with('fail','Something went wrong !!');
+        // }
+
 
         return redirect()->route('dashboard.user.index')
                         ->with('success','User created successfully');
@@ -162,4 +174,16 @@ class UserController extends Controller
         return redirect()->route('dashboard.user.index')
                         ->with('success','User deleted successfully');
     }
+    public function trash()
+    {
+        $users = User::onlyTrashed()->paginate(5);
+        return view('dashboard.user.trash' , compact('users'));
+    }
+    // public function restore($id)
+    // {
+    //     $users = User::onlyTrashed()->paginate(5);
+    //     $user = User::onlyTrashed()->findOrFail($id);
+    //     $user->restore();
+    //     return view('dashboard.user.trash' , compact('users'));
+    // }
 }

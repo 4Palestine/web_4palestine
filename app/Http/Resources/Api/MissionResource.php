@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class MissionResource extends JsonResource
 {
@@ -18,18 +19,15 @@ class MissionResource extends JsonResource
         return [
             'id' => $this->id,
             'slug' => $this->slug,
-            'platform_id' => $this->platform_id,
-            'user_id' => $this->user_id,
             'image' => image_url($this->image),
             'mission_link' => $this->mission_link,
             'description' => $this->description,
-            'mission_duration' => $this->mission_duration,
+            'mission_duration' => (int)$this->mission_duration,
             'mission_type' => $this->mission_type,
             'tags' => json_decode($this->tags),
-            'comments' => json_decode($this->comments ?? "[]"),
-            'mission_stars' => $this->mission_stars,
-            'is_active' => $this->is_active,
-            'deleted_at' => $this->deleted_at,
+            'comments' => $this->getTranslations('comments'),
+            'mission_stars' => (int)$this->mission_stars,
+            'participants_count' => DB::table('mission_user')->where('mission_id', $this->id)->count(),
         ];
     }
 

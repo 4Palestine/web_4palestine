@@ -38,12 +38,15 @@ class AuthenticatedSessionController extends Controller
             if (!$user->is_active) {
                 return $this->fail(status: false, code: 401, message: "Your account is not allowed to be login !");
             }
+            $token = $user->createToken("API TOKEN")->plainTextToken;
 
-            return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['token' => $user->createToken("API TOKEN")->plainTextToken]);
+            return $this->success_single_response(code: 200, message: "User Logged In Successfully", data: $user, meta:["token" => $token]);
+            #  return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['user_data' => $user, 'meta' => ['token' => $user->createToken("API TOKEN")->plainTextToken]]);
         } catch (\Throwable $th) {
             return $this->fail(status: false, code: 500, message: $th->getMessage());
         }
     }
+
 
     public function store_with_otp(Request $request) {
         try {
@@ -92,8 +95,9 @@ class AuthenticatedSessionController extends Controller
             }
 
 
+            return $this->success_single_response(code: 200, message: "User Logged In Successfully", data: $user, meta:["token" => $token]);
 
-            return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['token' => $token]);
+            # return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['user_data' => $user, 'meta' => ['token' => $token]]);
         } catch (\Throwable $th) {
             return $this->fail(status: false, code: 500, message: $th->getMessage());
         }
@@ -128,28 +132,4 @@ class AuthenticatedSessionController extends Controller
             return $this->fail(status: false, code: 401, message: "validation error", errors: $validateUser->errors());
         }
     }
-
-
-    // // reject login if the user email is not verified
-    // public function validate_verification_user($user, $request)
-    // {
-    //     if (!$user->email_verified_at) {
-    //         // Check if the user has an email verification record
-    //         if (!$user->emailVerification) {
-    //             return response(['errors' => ['Email not verified']], 422);
-    //         }
-
-    //         // Check if the OTP code is valid
-    //         if ($user->emailVerification->code !== $request->otp_code) {
-    //             return response(['errors' => ['Invalid OTP code']], 422);
-    //         }
-
-    //         // Mark the user's email as verified
-    //         $user->email_verified_at = now();
-    //         $user->save();
-
-    //         // delete the otp code record after verify user email
-    //         $user->emailVerification->delete();
-    //     }
-    // }
 }
