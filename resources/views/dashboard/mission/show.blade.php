@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
+                {{-- <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
                     <div class="row w-100 ">
                         <div class="col-3 d-flex justify-content-between align-items-center">
                             <span class="fw-bold">Description Ar</span>
@@ -31,7 +31,7 @@
                             <span>{{ $model['description']->ar }}</span>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
                     <div class="row w-100 ">
                         <div class="col-3 d-flex justify-content-between align-items-center">
