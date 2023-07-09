@@ -50,39 +50,47 @@
                                         @endforeach
 
                                         <div class="mb-3 col-12 col-sm-12">
-                                            <div class="kh_wrapper" data-key="faq">
+                                            <div class="kh_wrapper" data-key="faq" data-key1="questions" data-key2="answers">
                                                 <div class="d-flex justify-content-between align-items-center">
                                                     <label class="form-label" for="faq[]">Add FAQ's</label>
                                                     <button class="kh_add_form_field btn bg-light-success px-1 py-0"><small>Add
                                                             New
-                                                            Field
+                                                            FAQ
                                                             +</small></button>
                                                 </div>
-                                                @forelse (json_decode($faqs->data) as $faq)
-                                                    <div class="mt-3 parent_delete">
-                                                        <div class="input-group">
-                                                            <input required type="text" value="{{ $faq }}"
-                                                                name="faq[]" id="faq"
-                                                                class="form-control rounded-start me-2" aria-describedby="faq">
+                                                @if (isset($faqs->questions))
+                                                    @foreach ($faqs->questions as $index => $question)
+                                                        <div class="mt-3 parent_delete">
+                                                            <div class="input-group">
+                                                                <input required type="text" value="{{ $question }}"
+                                                                    name="questions[]" id="questions"
+                                                                    class="form-control rounded-start me-2"
+                                                                    aria-describedby="questions" placeholder="question #{{ $index+1 }}">
 
-                                                            <input required type="text" value="{{ $faq }}"
-                                                                name="faq[]" id="faq"
-                                                                class="form-control rounded-start" aria-describedby="faq">
-                                                            <a href="#" class="kh_delete input-group-text"
-                                                                id="faq"><img src="https://freesvg.org/img/trash.png" width="20px"
-                                                                    alt="delete"></a>
+                                                                <input required type="text" value="{{ $faqs->answers[$index] }}"
+                                                                    name="answers[]" id="answers"
+                                                                    class="form-control rounded-start"
+                                                                    aria-describedby="answers" placeholder="answer #{{ $index+1 }}">
+                                                                <a href="#" class="kh_delete input-group-text"
+                                                                    id="faq"><img
+                                                                        src="https://freesvg.org/img/trash.png"
+                                                                        width="20px" alt="delete"></a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                @empty
-                                                    <div class="mt-2">
+                                                    @endforeach
+                                                @else
+                                                    <div class="mt-3">
                                                         <div class="input-group">
-                                                            <input type="text" name="faq[]"
+                                                            <input type="text" name="questions[]"
+                                                                class="kh_input form-control me-2 rounded"
+                                                                aria-describedby="questions" placeholder="question #1">
+
+                                                                <input type="text" name="answers[]"
                                                                 class="kh_input form-control rounded"
-                                                                aria-describedby="faq">
+                                                                aria-describedby="answers" placeholder="answer #1">
                                                         </div>
                                                     </div>
-                                                @endforelse
-                                                {{-- @endif --}}
+                                                @endif
                                             </div>
                                         </div>
 
@@ -108,7 +116,7 @@
         $(document).ready(function() {
 
             // code of lists (texts) multi input generator
-            var max_fields = 10;
+            var max_fields = 20;
             var wrapper = $(".kh_wrapper");
             var add_button = $(".kh_add_form_field");
             var x = 1;
@@ -116,6 +124,11 @@
                 e.preventDefault();
                 var unique_key = $(this).parent().closest(wrapper).data(
                     'key'); // هان جبنا ال يونيك كي تبع الرابر اللي انا فيه وفققققطط
+
+                    var unique_key1 = $(this).parent().closest(wrapper).data(
+                    'key1');
+                    var unique_key2 = $(this).parent().closest(wrapper).data(
+                    'key2');
                 var this_wrapper = $(this).parent().closest(
                     wrapper); // هاد عشان يضيف انبوت جديد فقط للرابر اللي انا فيه حاليا مش لكل الرابرز
                 // var input_name = $(this).parent().closest(wrapper).find('.kh_input').first().attr('name');
@@ -124,9 +137,12 @@
 
                     var new_input_box = $(
                         '<div class="mt-2 parent_delete"><div class="input-group"><input required type="text" name="' +
-                        unique_key + '[]" id="' + unique_key +
+                            unique_key1 + '[]" id="' + unique_key1 +
+                        '" class="form-control rounded-start me-2" aria-describedby="' +
+                        unique_key1 + '" placeholder="question #' + x + '"><input required type="text" name="' +
+                        unique_key2 + '[]" id="' + unique_key2 +
                         '" class="form-control rounded-start" aria-describedby="' +
-                        unique_key + '"><a href="#" class="kh_delete input-group-text" id="' +
+                        unique_key2 + '" placeholder="answer #' + x + '"><a href="#" class="kh_delete input-group-text" id="' +
                         unique_key +
                         '"><img src="https://freesvg.org/img/trash.png" width="20px" alt="delete"></a></div></div>'
                     ).hide();

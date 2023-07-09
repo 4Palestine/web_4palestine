@@ -15,7 +15,8 @@ class SettingController extends Controller
     {
         $socials = Setting::where('group' , '=' , 'SOCIAL_MEDIA')->get();
         $modes = Setting::where('group' , '=' , 'MODE')->get();
-        $faqs = Setting::where('group', '=', 'FAQ')->first();
+        $faqs_array = Setting::where('group', '=', 'FAQ')->first();
+        $faqs = isset($faqs_array) ? json_decode($faqs_array->data) : null;
 
         return view('dashboard.setting.index' , compact('socials' , 'modes', 'faqs'));
     }
@@ -26,6 +27,9 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
+
+        // dd($request->all());
+
         $facebook = $request->facebook ?? null;
         $instagram = $request->instagram ?? null;
         $twitter = $request->twitter ?? null;
@@ -48,9 +52,19 @@ class SettingController extends Controller
         }
 
         //////////////////////////////////////
-        if(isset($request->faq)) {
+        $data = [
+            'questions' => $request->input('questions'),
+            'answers' => $request->input('answers')
+        ];
+        $jsonData = json_encode($data);
+
+        if(isset($data['questions'], $data['answers'])) {
             Setting::updateOrCreate(['group' => 'FAQ'], [
-                'data' => json_encode($request->faq),
+                'data' => $jsonData,
+            ]);
+        } else {
+            Setting::where('group', '=', 'FAQ')->first()->update([
+                'data' => NULL,
             ]);
         }
 
