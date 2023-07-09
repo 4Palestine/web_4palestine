@@ -20,7 +20,6 @@
             </div>
         </div>
 
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maxime, incidunt assumenda labore aut sint similique.
 
         <div class="col-12 col-md-6">
             <div class="card overflow-hidden radius-10">
