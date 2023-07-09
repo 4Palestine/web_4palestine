@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main-off
+      - main
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
@@ -13,8 +13,8 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        server: ftp.waleed.atyaf.co
+        server: ftp.bees4palestine.org
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
-        server-dir: /application/public/4palestine/
+        server-dir: /application/
         
