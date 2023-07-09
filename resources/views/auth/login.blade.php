@@ -36,7 +36,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="card-body p-4 p-sm-5">
-                                    <h5 class="card-title">Sign In llllllllllllll</h5>
+                                    <h5 class="card-title">Sign In</h5>
                                     <p class="card-text mb-5">See your growth and get consulting support!</p>
                                     <form class="form-body" action="{{ route('login') }}" method="POST">
                                         @csrf
