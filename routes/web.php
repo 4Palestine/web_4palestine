@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\ImageLibraryFolderController;
 use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\Admin\PlatformController;
@@ -51,6 +52,7 @@ $routes_all = [
     'mission' => MissionController::class,
     'user' => UserController::class,
     'admin'=>AdminController::class,
+    'contact'=>ContactController::class,
     // 'mission' => ::class,
 ];
 $routes_without_softdelete = [
