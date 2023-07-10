@@ -10,9 +10,15 @@ trait ApiResponses
     public function generalResponse($status, $code, $message = "", $errors = null, $data = null)
     {
         $data = is_null($data) ? [] : $data;
+<<<<<<< HEAD
         $errors = is_null($errors) ? null : $errors;
         // return response()->json(['status' => $status, 'code' => $code, 'message' => $message, 'errors' => $errors, 'data' => $data], $code);
         return response()->json(['message' => $message, 'errors' => $errors, 'data' => $data, 'meta' => ['status' => $status]], $code);
+=======
+        $errors = is_null($errors) ? [] : $errors;
+        // return response()->json(['status' => $status, 'code' => $code, 'message' => $message, 'errors' => $errors, 'data' => $data], $code);
+        return response()->json(['message' => $message, 'errors' => $errors, 'data' => $data, 'meta' => ['status' => $status, 'code' => $code]]);
+>>>>>>> b1b621e (refactor the api responses structre - as tareq wanted)
     }
 
     //////////////////////////////////////
@@ -21,14 +27,24 @@ trait ApiResponses
     public function success($status = true, $code = 200, $message = "", $data = null, $additionalData = null, $links = null)
     {
         $data = is_null($data) ? [] : $data;
+<<<<<<< HEAD
         $additionalData = is_null($additionalData) ? null : $additionalData;
         // return response()->json(['status' => $status, 'code' => $code, 'message' => $message, 'data' => $data, 'additionalData' => $additionalData], $code);
         return response()->json(['data' => $data, 'message' => $message, 'meta' => ['additionalData' => $additionalData, 'links' => $links]], $code);
+=======
+        $additionalData = is_null($additionalData) ? [] : $additionalData;
+        // return response()->json(['status' => $status, 'code' => $code, 'message' => $message, 'data' => $data, 'additionalData' => $additionalData], $code);
+        return response()->json(['data' => $data, 'message' => $message, 'meta' => ['additionalData' => $additionalData, 'links' => $links, 'status' => $status, 'code' => $code]]);
+>>>>>>> b1b621e (refactor the api responses structre - as tareq wanted)
     }
     public function tiny_success($status = true, $code = 200, $message = "")
     {
         // return response()->json(['status' => $status, 'code' => $code, 'message' => $message]);
+<<<<<<< HEAD
         return response()->json(['message' => $message], $code);
+=======
+        return response()->json(['message' => $message, 'meta' => ['status' => $status, 'code' => $code]]);
+>>>>>>> b1b621e (refactor the api responses structre - as tareq wanted)
     }
 
 
@@ -67,11 +83,19 @@ trait ApiResponses
     {
         $data = is_null($data) ? [] : $data;
         // return response()->json(['status' => $status, 'code' => $code, 'message' => $message, 'errors' => $errors, 'data' => $data], $code);
+<<<<<<< HEAD
         return response()->json(['message' => $message, 'errors' => $errors], $code);
+=======
+        return response()->json(['message' => $message, 'errors' => $errors, 'meta' => ['status' => $status, 'code' => $code]]);
+>>>>>>> b1b621e (refactor the api responses structre - as tareq wanted)
     }
     public function tiny_fail($status = false, $code = 404, $message = "")
     {
         // return response()->json(['status' => $status, 'code' => $code, 'message' => $message]);
+<<<<<<< HEAD
         return response()->json(['message' => $message], $code);
+=======
+        return response()->json(['message' => $message, 'meta' => ['status' => $status, 'code' => $code]]);
+>>>>>>> b1b621e (refactor the api responses structre - as tareq wanted)
     }
 }
