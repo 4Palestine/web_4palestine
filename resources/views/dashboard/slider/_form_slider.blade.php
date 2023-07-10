@@ -171,17 +171,6 @@
                             <input class="col-12 kh_image_input form-control" type="number" name="order[]" placeholder="Enter Order" aria-describedby="mockups">
                         </div>
                     </div>
-                @else
-                <div class="mt-2">
-                    <div class="input-group input-group-lg">
-                        <input type="file" name="mockups[]"
-                            class="kh_image_input form-control border rounded-start col-12"
-                            aria-describedby="mockups" value="{{ $model->mockups }}">
-                            {{-- <x-BaseComponents.form.common.input type='text' name="order" :model="$slider" cols="12" /> --}}
-                        <input class="col-12 kh_image_input form-control" type="number" name="order[]" placeholder="Enter Order" aria-describedby="mockups" value="{{ $model->order }}">
-                    </div>
-                </div>
-                @endif
             </div>
         </div>
         <x-BaseComponents.form.common.select_fixed name="is_active" :model="$model" label="Is Active" cols="12"
