@@ -7,9 +7,7 @@
             'table_title' => 'Contacts',
             'table_button_route' => 'dashboard.contact.create'
             ]"
-
         :ths="['#', 'UserID', 'Message', 'Actions']"
-
         :model="$contacts"
         :models="$contacts"
         :fillables="['user_id', 'message']"
@@ -36,6 +34,5 @@
         :text_filters="[
             ['name' => 'name_email',           'label' => 'filter by name or email',         'cols' => '4'],
         ]"
-
         />
 @endsection

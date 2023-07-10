@@ -47,6 +47,8 @@
                     @if (isset($tabel_data['create_modal']) && $tabel_data['create_modal'] == true)
                         @include($tabel_data['table_button_route'])
                     @else
+                    @if($tabel_data['table_title'] == "Contacts")
+                    @else
                         <a href="{{ route($tabel_data['table_button_route']) }}" type="button"
                             class="btn btn-sm btn-primary shadow px-3 ms-1">
                             <span>
@@ -59,6 +61,7 @@
                             </span>
                             Add New
                         </a>
+                    @endif
                     @endif
 
 

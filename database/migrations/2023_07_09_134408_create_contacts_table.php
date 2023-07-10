@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable();
             $table->foreign('user_id')->on('users')->references('id');
             $table->text('message')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }
