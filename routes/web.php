@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\UserController;
@@ -52,6 +53,7 @@ $routes_all = [
     'mission' => MissionController::class,
     'user' => UserController::class,
     'admin'=>AdminController::class,
+    'slider'=>SliderController::class,
     // 'mission' => ::class,
 ];
 $routes_without_softdelete = [
