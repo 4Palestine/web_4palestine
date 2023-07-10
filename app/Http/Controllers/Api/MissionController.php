@@ -44,6 +44,19 @@ class MissionController extends Base5ApiController
     }
 
 
+
+
+    public function search_for_mission()
+    {
+        $model = $this->getModel()::where('is_active', 1)->search(request()->query())->get(['id', 'mission_link', 'description', 'mission_stars']);
+
+        $models = $this->resource::collection($model);
+
+        if(!$models) {
+            return $this->tiny_fail(status: false, code: 404, message: "there is no data yet");
+        }
+        return $this->success_single_response(code: 200, message: "", data: $models, meta: null);
+    }
 }
 
 
