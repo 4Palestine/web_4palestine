@@ -181,37 +181,6 @@
                         <input class="col-12 kh_image_input form-control" type="number" name="order[]" placeholder="Enter Order" aria-describedby="mockups" value="{{ $model->order }}">
                     </div>
                 </div>
-                    {{-- @forelse ($model['mockups'] as $mockup)
-                        @if ($loop->first)
-                        <div class="mt-2">
-                            <div class="input-group input-group-lg">
-                                <input type="file" value="{{ $mockup }}" name="mockups[]"
-                                    class="kh_image_input form-control border rounded-start"
-                                    aria-describedby="mockups">
-                            </div>
-                        </div>
-                            @else
-                        <div class="mt-2 parent_delete">
-                            <div class="input-group input-group-lg">
-                                <input required type="file" name="mockups[]"
-                                    value="{{ $mockup }}" id="mockups"
-                                    class="form-control border rounded-start"
-                                    aria-describedby="mockups">
-                                <a href="#" class="kh_delete input-group-text" id="mockups">
-                                    <img src="https://freesvg.org/img/trash.png" width="20px"
-                                        alt="delete"></a>
-                            </div>
-                        </div>
-                        @endif
-                    @empty
-                        <div class="mt-2">
-                            <div class="input-group input-group-lg">
-                                <input type="file" name="mockups[]"
-                                    class="kh_image_input form-control border rounded-start"
-                                    aria-describedby="mockups">
-                            </div>
-                        </div>
-                    @endforelse --}}
                 @endif
             </div>
         </div>
