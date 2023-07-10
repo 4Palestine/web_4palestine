@@ -39,15 +39,13 @@ Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLangua
     Route::get('top-10-last-week', [UserMissionController::class, 'top_10_last_month'])->name('top_10_last_month');
     Route::get('missions-of-platform/{platform_id}', [MissionController::class, 'missions_of_platform'])->name('missions_of_platform');
     Route::get('faqs', [SettingController::class, 'list_of_faqs'])->name('list_of_faqs');
-<<<<<<< HEAD
-=======
+
     Route::get('search-for-mission', [MissionController::class, 'search_for_mission'])->name('search_for_mission');
 
 
     Route::apiResource('profile', UserController::class)->only(['show', 'update']);
-
->>>>>>> 1831e0d (user api)
     Route::get('/home', [HomeController::class, 'home'])->name('home');
+
 });
 Route::get('contact' , [ContactController::class , 'index'])->name('contact_index');
     Route::post('contact' , [ContactController::class , 'store'])->name('contact_store');
