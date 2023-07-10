@@ -171,6 +171,7 @@
                             <input class="col-12 kh_image_input form-control" type="number" name="order[]" placeholder="Enter Order" aria-describedby="mockups">
                         </div>
                     </div>
+                @endif
             </div>
         </div>
         <x-BaseComponents.form.common.select_fixed name="is_active" :model="$model" label="Is Active" cols="12"
