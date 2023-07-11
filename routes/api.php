@@ -43,15 +43,16 @@ Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLangua
 
     Route::get('search-for-mission', [MissionController::class, 'search_for_mission'])->name('search_for_mission');
 
+    // Route::get('contact' , [ContactController::class , 'index'])->name('contact_index');
+    Route::post('contact' , [ContactController::class , 'store'])->name('contact_store');
+    Route::delete('contact/{id}/delete' , [ContactController::class , 'destroy'])->name('contact_delete');
+    Route::get('slider' , [SliderController::class , 'index'])->name('slider.index');
 
     Route::apiResource('profile', UserController::class)->only(['show', 'update']);
     Route::get('/home', [HomeController::class, 'home'])->name('home');
 
 });
-Route::get('contact' , [ContactController::class , 'index'])->name('contact_index');
-    Route::post('contact' , [ContactController::class , 'store'])->name('contact_store');
-    Route::delete('contact/{id}/delete' , [ContactController::class , 'destroy'])->name('contact_delete');
-    Route::get('slider' , [SliderController::class , 'index'])->name('slider.index');
+
 // Super User
 Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
 });
