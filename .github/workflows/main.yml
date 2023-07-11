@@ -24,12 +24,6 @@ jobs:
 #         php artisan cache:clear
 #         php artisan optimize
 #         php artisan view:cache
-    - name: Sending Mail
-      uses: fjogeleit/http-request-action@v1.9.2
-      with:
-        url: "https://b4p-send-email.onrender.com/sendMail"
-        method: 'POST'
-        data: '{"companyLogoUrl": "","appLink":"","subject": "","to": ["khaled.amoudi00@gmail.com"]}'
 #     - name: ✉️ Send email notification
 #       run: |
 #         mail -s "Deployment successful 🥳" khaled.amoudi00@gmail.com <<EOF
