@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\Admin\PlatformController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TestController;
 use App\Http\Controllers\Admin\UserController;
@@ -52,12 +53,13 @@ $routes_all = [
     'mission' => MissionController::class,
     'user' => UserController::class,
     'admin'=>AdminController::class,
-    'contact'=>ContactController::class,
+    'slider'=>SliderController::class,
     // 'mission' => ::class,
 ];
 $routes_without_softdelete = [
     'tag' => TagController::class,
     'imageLibraryFolder' => ImageLibraryFolderController::class,
+    'contact'=>ContactController::class,
 ];
 foreach($routes_all as $route_name => $route_controller) {
     Route::controller($route_controller)->name('dashboard.')->prefix('/dashboard')->middleware(['auth'])->group(function () use ($route_name, $route_controller) {

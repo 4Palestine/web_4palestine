@@ -108,6 +108,23 @@ return [
         ],
     ],
     [
+        'menu_title' => 'sliders',
+        'menu_title_icon' => 'lni lni-target',
+        'active' => 'dashboard.slider.*',
+        'menu_title_list' => [
+            [
+                'route' => 'dashboard.slider.index',
+                'label' => 'sliders',
+                'active' => 'dashboard.slider.*',
+            ],
+            [
+                'route' => 'dashboard.slider.create',
+                'label' => 'create slider',
+                'active' => 'dashboard.slider.create',
+            ],
+        ],
+    ],
+    [
         'menu_title' => 'Settings',
         'menu_title_icon' => 'lni lni-package',
         'active' => 'dashboard.*',
