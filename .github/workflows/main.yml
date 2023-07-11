@@ -17,13 +17,13 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
         server-dir: /application/
-    - name: 🛠️ Run Artisan commands
-      run: |
-        cd /application
-        php artisan migrate
-        php artisan cache:clear
-        php artisan optimize
-        php artisan view:cache
+#     - name: 🛠️ Run Artisan commands
+#       run: |
+#         cd /application
+#         php artisan migrate
+#         php artisan cache:clear
+#         php artisan optimize
+#         php artisan view:cache
     - name: ✉️ Send email notification
       run: |
         mail -s "Deployment successful 🥳" khaled.amoudi00@gmail.com <<EOF
