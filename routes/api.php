@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\PlatformController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\MissionController;
 use App\Http\Controllers\Api\SettingController;
+use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\UserMissionController;
 use App\Models\Contact;
@@ -50,6 +51,7 @@ Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLangua
 Route::get('contact' , [ContactController::class , 'index'])->name('contact_index');
     Route::post('contact' , [ContactController::class , 'store'])->name('contact_store');
     Route::delete('contact/{id}/delete' , [ContactController::class , 'destroy'])->name('contact_delete');
+    Route::get('slider' , [SliderController::class , 'index'])->name('slider.index');
 // Super User
 Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
 });
