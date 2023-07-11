@@ -10,12 +10,6 @@ jobs:
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2.3.2
-    - name: 🛠️ Run Artisan commands
-      run: |
-        php artisan migrate
-        php artisan cache:clear
-        php artisan optimize
-        php artisan view:cache
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
@@ -23,6 +17,12 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
         server-dir: /application/
+    - name: 🛠️ Run Artisan commands
+      run: |
+        php artisan migrate
+        php artisan cache:clear
+        php artisan optimize
+        php artisan view:cache
     - name: ✉️ Send email notification
       run: |
         mail -s "Deployment successful 🥳" khaled.amoudi00@gmail.com <<EOF
