@@ -10,13 +10,10 @@ jobs:
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2.3.2
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
-      with:
-        server: ftp.bees4palestine.org
-        username: ${{ secrets.SERVER_USERNAME }}
-        password: ${{ secrets.SERVER_PASSWORD }}
-        server-dir: /application/
+#     - name: 📦 Install dependencies
+#       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+#     - name: 📂 Copy .env file
+#       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 #     - name: 🛠️ Run Artisan commands
 #       run: |
 #         cd /application
@@ -24,11 +21,13 @@ jobs:
 #         php artisan cache:clear
 #         php artisan optimize
 #         php artisan view:cache
-#     - name: ✉️ Send email notification
-#       run: |
-#         mail -s "Deployment successful 🥳" khaled.amoudi00@gmail.com <<EOF
-#           The deployment was successful.
-#           Thanks,
-#           Khaled 🔥.
-#           EOF
+    - name: Cache Clear
+      run: php artisan config:clear
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ftp.bees4palestine.org
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        server-dir: /application/
         
