@@ -77,7 +77,7 @@ if(! function_exists('optional')) {
 //////////////////////////////////////////////////////////////////////////////////
 if(! function_exists('image_url')) {
     function image_url($img, $custom_path = null) {
-        if($img)
+        if(isset($img))
             return (!empty($custom_path)) ? asset($custom_path . '/' . $img) : asset('storage/' . $img);
 
         return asset('storage/default_no-image-available-1.jpg');
