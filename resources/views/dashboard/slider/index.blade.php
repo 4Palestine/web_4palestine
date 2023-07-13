@@ -7,11 +7,11 @@
             'table_title' => 'Slider',
             'table_button_route' => 'dashboard.slider.create']"
 
-        :ths="['#', 'Order' ,'Status', 'Actions']"
+        :ths="['#', 'image' ,'Order' ,'Status', 'Actions']"
 
         :model="$sliders"
         :models="$sliders"
-        {{-- :fillable_images="['image']" --}}
+        :fillable_images="['mockups']"
         :fillables="['order']"
         :fillable_badges="[
             {{-- 'mission_type' => ['support' => ['Support', 'alert-success'], 'attack' => ['Attack', 'alert-danger']], --}}
