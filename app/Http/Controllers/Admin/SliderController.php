@@ -56,7 +56,7 @@ class SliderController extends Controller
                 if($j == $i){
                     Slider::create([
                                 'is_active' => $request->get('is_active'),
-                                'mockups' => $mockups[$i],
+                                'mockups' => image_url($mockups[$i]),
                                 'order' => $orders[$j],
                             ]);
                 }
@@ -94,7 +94,7 @@ class SliderController extends Controller
         }
         $model->update([
             'is_active' => $request->get('is_active'),
-            'mockups' => $path,
+            'mockups' => image_url($path),
             'order' => $request->get('order'),
         ]);
         return redirect(route('dashboard.slider.index'))->with('success' , 'Slider Updated is done');
