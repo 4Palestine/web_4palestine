@@ -137,7 +137,7 @@
                             {{-- IMAGES --}}
                             @isset($fillable_images)
                                 @foreach ($fillable_images as $image)
-                                    <td><img src="{{ $data['image'] }}" class="product-img-2 border-0"
+                                    <td><img src="{{ $data[$image] }}" class="product-img-2 border-0"
                                             alt="image"></td>
                                 @endforeach
                             @endisset
