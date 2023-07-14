@@ -14,7 +14,7 @@ class HomeController extends Controller
     use ApiResponses;
     public function home()
     {
-        $platforms = Platform::active()->with(['missions' => function ($query) {
+        $platforms_q = Platform::active()->with(['missions' => function ($query) {
             $query->select('id', 'slug', 'platform_id', 'image', 'mission_link', 'description', 'mission_duration', 'mission_type', 'tags', 'comments', 'mission_stars')
                     ->active()
                     ->whereNull('deleted_at');
@@ -22,6 +22,8 @@ class HomeController extends Controller
         }])
         ->withTrashed()
         ->get(['id', 'slug', 'name', 'image', 'description']);
+
+        $platforms = HomeResource::collection($platforms_q);
 
         $sliders = Slider::where('is_active' , '=' , 1)->orderBy('order')->get();
 
