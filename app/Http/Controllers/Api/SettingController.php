@@ -14,7 +14,7 @@ class SettingController extends Controller
 
     public function list_of_faqs()
     {
-        $faqs = json_decode(Setting::where('group', '=', 'FAQ')->first()->data);
+        $faqs = json_decode(Setting::where('group', '=', 'FAQ')->first()->data) ?? [];
 
         return $this->success_single_response(code: 200, message: "FAQ's returned successfully", data:  $faqs, meta: null);
 

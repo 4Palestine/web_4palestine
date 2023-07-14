@@ -54,6 +54,7 @@ Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLangua
 });
 
 
+
 // Super User
 Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
 });

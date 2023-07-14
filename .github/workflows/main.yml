@@ -9,7 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 🚚 Get latest code
-      uses: actions/checkout@v2.3.2      
+      uses: actions/checkout@v2.3.2
+#     - name: 📦 Install dependencies
+#       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+#     - name: 📂 Copy .env file
+#       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+#     - name: 🛠️ Run Artisan commands
+#       run: |
+#         cd /application
+#         php artisan migrate
+#         php artisan cache:clear
+#         php artisan optimize
+#         php artisan view:cache
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
