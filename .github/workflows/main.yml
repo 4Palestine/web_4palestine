@@ -28,6 +28,4 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
         server-dir: /application/
-    - name: Cache Clear
-      run: php artisan config:clear
         
