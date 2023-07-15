@@ -18,7 +18,7 @@ class HomeResource extends JsonResource
             'id' => $this->id,
             'slug' => $this->slug,
             'name' => $this->getTranslations('name'),
-            'description' => $this->getTranslations('description'),
+            'description' => $this->getTranslation('description', 'ar') != null ? $this->getTranslations('description') : null,
             'image' => image_url($this->image),
 
             'missions' => MissionResource::collection($this->whenLoaded('missions')),

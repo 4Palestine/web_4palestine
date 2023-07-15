@@ -22,11 +22,11 @@ class MissionResource extends JsonResource
             'image' => image_url($this->image),
             'mission_link' => $this->mission_link,
             // 'description' => $this->description,
-            'description' => $this->getTranslations('description'),
+            'description' => $this->getTranslation('description', 'ar') != null ? $this->getTranslations('description') : null,
             'mission_duration' => (int)$this->mission_duration,
             'mission_type' => $this->mission_type,
             'tags' => json_decode($this->tags),
-            'comments' => $this->getTranslations('comments'),
+            'comments' => $this->getTranslation('comments', 'ar') != null ? $this->getTranslations('comments') : null,
             'mission_stars' => (int)$this->mission_stars,
             'participants_count' => DB::table('mission_user')->where('mission_id', $this->id)->count(),
         ];
