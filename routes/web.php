@@ -75,6 +75,7 @@ foreach($routes_all as $route_name => $route_controller) {
 
         Route::resource($route_name, $route_controller);
 
+
     });
 }
 
