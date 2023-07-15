@@ -34,8 +34,8 @@ class RegisteredUserController extends Controller
 
 
 
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
 
             $user = User::create([
                 'name' => $request->name,
@@ -54,9 +54,9 @@ class RegisteredUserController extends Controller
             } catch (\Exception $e) {
                 return $this->tiny_fail(message: "Something went wrong, try again");
             }
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-        }
+        //     DB::commit();
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        // }
     }
 }
