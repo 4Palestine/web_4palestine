@@ -168,7 +168,7 @@
                                 class="kh_image_input form-control border rounded-start col-12"
                                 aria-describedby="mockups">
                                 {{-- <x-BaseComponents.form.common.input type='text' name="order" :model="$slider" cols="12" /> --}}
-                            <input class="col-12 kh_image_input form-control" type="number" name="order[]" placeholder="Enter Order" aria-describedby="mockups">
+                            <input class="col-12 kh_image_input form-control" type="number" min="0" name="order[]" placeholder="Enter Order" aria-describedby="mockups">
                         </div>
                     </div>
                 @endif
@@ -214,7 +214,7 @@ $(document).ready(function() {
                 '<div class="mt-2 parent_delete"><div class="input-group input-group-lg"><input required type="file" name="' +
                 unique_key + '[]" id="' + unique_key +
                 '" class="form-control border rounded-start" aria-describedby="' +
-                unique_key + '"><input class="col-12 form-control" type="number" name="order[]" placeholder="Enter Order"><a href="#" class="kh_delete input-group-text" id="' +
+                unique_key + '"><input class="col-12 form-control" type="number" min="0" name="order[]" placeholder="Enter Order"><a href="#" class="kh_delete input-group-text" id="' +
                 unique_key +
                 '"><img src="https://freesvg.org/img/trash.png" width="20px" alt="delete"></a></div></div>'
             ).hide();

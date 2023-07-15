@@ -24,9 +24,9 @@
 
         <x-BaseComponents.form.common.image name="image" :model="$model" />
 
-        <x-BaseComponents.form.common.input type="link" name="mission_link" :model="$model" />
+        <x-BaseComponents.form.common.input type="link" name="mission_link" label="Mission link" :model="$model" />
 
-        <x-BaseComponents.form.common.input type="number" name="mission_duration" label="Mission Duration (houres)"
+        <x-BaseComponents.form.common.input type="number"  name="mission_duration" min='0' label="Mission Duration (houres)"
             placeholder="Mission Duration (houres)" :model="$model" />
 
         <x-BaseComponents.form.common.select_fixed name="mission_type" :model="$model" :options="[
@@ -34,7 +34,7 @@
             'attack' => 'Attack',
         ]" />
 
-        <x-BaseComponents.form.common.input type="number" name="mission_stars" :model="$model" />
+        <x-BaseComponents.form.common.input type="number" label="Mission stars" name="mission_stars" min='0' :model="$model" />
 
         <x-BaseComponents.form.common.textarea name="description_en" :model="$model" rows="3"
             label="mission Description (EN)" placeholder="Enter mission Description (EN)" />
