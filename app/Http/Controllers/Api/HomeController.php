@@ -20,7 +20,6 @@ class HomeController extends Controller
                     ->whereNull('deleted_at');
                     // ->take(3);
         }])
-        ->withTrashed()
         ->get(['id', 'slug', 'name', 'image', 'description']);
 
         $platforms = HomeResource::collection($platforms);
