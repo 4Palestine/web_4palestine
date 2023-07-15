@@ -17,8 +17,8 @@ class HomeResource extends JsonResource
         return [
             'id' => $this->id,
             'slug' => $this->slug,
-            'name' => $this->name,
-            'description' => $this->description,
+            'name' => $this->getTranslations('name'),
+            'description' => $this->getTranslations('description'),
             'image' => image_url($this->image),
 
             'missions' => MissionResource::collection($this->whenLoaded('missions')),
