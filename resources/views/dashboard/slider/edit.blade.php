@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="p-4">
                             <x-BaseComponents.form.common.input type='file' name="mockups" :model="$model" cols="12" />
-                            <x-BaseComponents.form.common.input type='text' name="order" :model="$model" cols="12" />
+                            <x-BaseComponents.form.common.input type='number' name="order" min='0' :model="$model" cols="12" />
                             <x-BaseComponents.form.common.select_fixed name="is_active" :model="$model" label="Is Active" cols="12"
                     :options="[
                         '1' => 'Active',
