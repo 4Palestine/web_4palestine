@@ -18,8 +18,8 @@ class PlatformResource extends JsonResource
         return [
             'id' => $this->id,
             'slug' => $this->slug,
-            'name' => $this->name,
-            'description' => $this->description,
+            'name' => $this->getTranslation('name', 'ar') != null ? $this->getTranslations('name') : null,
+            'description' => $this->getTranslation('description', 'ar') != null ? $this->getTranslations('description') : null,
             'tags' => $this->tags,
             'image' => image_url($this->image),
             'is_active' => $this->is_active,

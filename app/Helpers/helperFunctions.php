@@ -24,9 +24,10 @@ function transformDate($value, $format = 'Y-m-d')
 }
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
-function format_money_custom($amount, $currency = null){
+function format_money_custom($amount, $currency = null)
+{
     $formatter = new NumberFormatter(config('app.locale'), NumberFormatter::CURRENCY);
-    if($currency === null) {
+    if ($currency === null) {
         $currency = config('app.currency', 'ils');
     }
     return $formatter->formatCurrency($amount, $currency);
@@ -57,36 +58,38 @@ function quickRandomString($length = 4)
 // }
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
-function get_class_name($classPath) {
+function get_class_name($classPath)
+{
     $classPath = get_class($classPath);
     $pathPartials = explode('\\', $classPath);
     return end($pathPartials);
 }
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
-if(! function_exists('optional')) {
-    function optional($value = null, callable $callback = null) {
-        if(is_null($callback)){
+if (!function_exists('optional')) {
+    function optional($value = null, callable $callback = null)
+    {
+        if (is_null($callback)) {
             return new Optional($value);
-        } elseif (! is_null($callback)){
+        } elseif (!is_null($callback)) {
             return $callback($value);
         }
     }
 }
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
-if(! function_exists('image_url')) {
-    function image_url($img, $custom_path = null) {
-        if(isset($img))
+if (!function_exists('image_url')) {
+    function image_url($img, $custom_path = null)
+    {
+        if (isset($img))
             return (!empty($custom_path)) ? asset($custom_path . '/' . $img) : asset('storage/' . $img);
 
         return asset('storage/default_no-image-available-1.jpg');
-
     }
 }
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
-if(! function_exists('db_transaction')) {
+if (!function_exists('db_transaction')) {
     function db_transaction(callable $callback)
     {
         try {
@@ -99,8 +102,8 @@ if(! function_exists('db_transaction')) {
         }
     }
 }
-
-
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
 // trait uploadFile {
 //     protected function uploadImage(
 //         Request $request,
