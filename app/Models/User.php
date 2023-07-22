@@ -77,6 +77,9 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
+    public function stars() {
+        return $this->hasOne(UserStar::class, 'user_id');
+    }
 
     public function missions()
     {

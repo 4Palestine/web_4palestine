@@ -70,4 +70,5 @@ class BaseModel extends Model
         $this->images = $columns;
         return $this;
     }
+
 }

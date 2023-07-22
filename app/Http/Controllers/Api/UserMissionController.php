@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\ApiResponses;
 use App\Models\Mission;
+use App\Models\MissionUser;
 use App\Models\User;
+use App\Models\UserStar;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,7 +25,28 @@ class UserMissionController extends Controller
         if (!$mission) {
             return $this->tiny_fail(status: false, code: 403, message: 'this mission does not exist');
         }
-        $user->missions()->syncWithoutDetaching([$mission->id => ['platform_id' => $mission->platform->id, 'stars' => $mission->mission_stars]]);
+
+
+        try {
+            DB::beginTransaction();
+
+            DB::table('user_stars')
+                ->updateOrInsert(['user_id' => $user->id], [
+                    'user_id' => $user->id,
+                    'stars' => $mission->mission_stars,
+                    'updated_at' => now()
+                ]);
+
+            $user->missions()->syncWithoutDetaching([$mission->id => ['platform_id' => $mission->platform->id, 'stars' => $mission->mission_stars]]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->tiny_success(status: true, code: 200, message: "Somthing went wrong, try again please");
+        }
+
+
+
 
         return $this->tiny_success(status: true, code: 200, message: "Mission Done Successfully");
 
@@ -42,32 +66,56 @@ class UserMissionController extends Controller
     // علشان تجيب مجموع النجوم الكلي لمستخدم معين
     public function total_stars_of_user($user_id)
     {
-        $user = User::find($user_id);
-        $missions = $user->missions()->get();
-        $total_stars = $missions->sum(function ($mission) {
-            return $mission->pivot->stars;
-        });
+        $total_stars = DB::table('user_stars')->select('stars')->where('user_id', $user_id)->get();
 
-        return $this->success(status: true, code: 200, message: "total stars of user: " . $user->name . " returned successfully", data: $total_stars);
+        return $this->success(status: true, code: 200, message: "total stars returned successfully", data: $total_stars);
     }
 
 
     public function top_10_last_month()
     {
-        $month_ago = Carbon::now()->subMonth();
 
+        // 1- get all rows from mission_user where (created_at > month ago)
+        // 2- group them by user_id
+        // 3- get the sum of stars
+        // 4- get the user data depending on user_id
 
-        // Get the top 10 users with the maximum stars in the last week
-        $top_users = User::select('users.id', 'users.name', 'users.country', 'users.avatar', DB::raw('SUM(mission_user.stars) as total_stars'))
-            ->join('mission_user', 'users.id', '=', 'mission_user.user_id')
-            ->where('mission_user.created_at', '>=', $month_ago)
-            ->groupBy('users.id')
-            ->orderByDesc('total_stars')
-            ->take(10)
+        $oneMonthAgo = now()->subMonth(); // Get the date one month ago from the current date
+
+        $topUsers = MissionUser::with(['user' => function ($query) {
+            $query->select('id', 'name', 'email');
+        }])
+            ->select('user_id', DB::raw('SUM(stars) as total_stars'))
+            ->where('created_at', '>=', $oneMonthAgo)
+            ->groupBy('user_id')
             ->get();
 
+        $responseData = [];
 
-        return $this->success(status: true, code: 200, message: "top 10 users returned successfully", data: $top_users);
+        foreach ($topUsers as $topUser) {
+            $userData = [
+                'user' => $topUser->user, // Includes the full user object with all attributes
+                'total_stars' => $topUser->total_stars,
+            ];
+
+            $responseData[] = $userData;
+        }
+
+
+        return $this->success(status: true, code: 200, message: "top 10 users returned successfully", data: $responseData);
     }
 
+
+    public function top_10_all_time()
+    {
+        $users = UserStar::with(['user' => function ($query) {
+            $query->select('id', 'name', 'email'); // Specify the columns you want to select from the users table
+        }])
+            ->select('user_id', 'stars')
+            ->orderBy('stars', 'desc')
+            ->limit(10)
+            ->get();
+
+        return $this->success(status: true, code: 200, message: "top 10 users returned successfully", data: $users);
+    }
 }

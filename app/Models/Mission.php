@@ -68,9 +68,11 @@ class Mission extends BaseModel
     }
 
 
-    
 
 
+    // public function users() {
+    //     return $this->belongsToMany(User::class, 'mission_user');
+    // }
     public function users() {
         return $this->belongsToMany(User::class, 'mission_user')->withTimestamps()->withPivot('platform_id', 'stars');
     }
