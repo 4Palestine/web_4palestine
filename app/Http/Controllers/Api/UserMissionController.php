@@ -30,15 +30,19 @@ class UserMissionController extends Controller
         try {
             DB::beginTransaction();
 
-            DB::table('user_stars')
-                ->updateOrInsert(['user_id' => $user->id], [
+            if (!$user->missions->contains($mission->id)) {
+                $existingStars = UserStar::where('user_id', $user->id)->value('stars');
+
+                UserStar::updateOrInsert(['user_id' => $user->id], [
                     'user_id' => $user->id,
-                    'stars' => $mission->mission_stars,
+                    'stars' =>  $existingStars + $mission->mission_stars,
                     'updated_at' => now()
                 ]);
 
-            $user->missions()->syncWithoutDetaching([$mission->id => ['platform_id' => $mission->platform->id, 'stars' => $mission->mission_stars]]);
-
+                $user->missions()->syncWithoutDetaching([$mission->id => ['platform_id' => $mission->platform->id, 'stars' => $mission->mission_stars]]);
+            } else {
+                return $this->tiny_success(status: true, code: 200, message: "you have done this mission before");
+            }
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -83,9 +87,10 @@ class UserMissionController extends Controller
         $oneMonthAgo = now()->subMonth(); // Get the date one month ago from the current date
 
         $topUsers = MissionUser::with(['user' => function ($query) {
-            $query->select('id', 'name', 'email');
+            $query->select('id', 'name', 'email', 'avatar');
         }])
             ->select('user_id', DB::raw('SUM(stars) as total_stars'))
+            ->orderBy('total_stars', 'desc')
             ->where('created_at', '>=', $oneMonthAgo)
             ->groupBy('user_id')
             ->get();
@@ -109,7 +114,7 @@ class UserMissionController extends Controller
     public function top_10_all_time()
     {
         $users = UserStar::with(['user' => function ($query) {
-            $query->select('id', 'name', 'email'); // Specify the columns you want to select from the users table
+            $query->select('id', 'name', 'email', 'avatar'); // Specify the columns you want to select from the users table
         }])
             ->select('user_id', 'stars')
             ->orderBy('stars', 'desc')
