@@ -42,12 +42,12 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'name' => 'required',
-            'old_password' => 'required',
+            'name' => '',
+            'old_password' => '',
             'password' => 'same:password_confirmation',
             'country' => '',
             'languages' => '',
-            'avatar' => '' // should be image from tha fluuter application
+            'avatar' => '' // should be image from tha flutter application
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -57,7 +57,6 @@ class UserController extends Controller
 
         // $user = User::find($id);
         $user = auth()->user();
-
 
         if(Hash::check($request->old_password, $user->password)) {
             if (empty($request->password)) {
