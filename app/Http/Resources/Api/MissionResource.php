@@ -24,12 +24,27 @@ class MissionResource extends JsonResource
             // 'description' => $this->description,
             'description' => $this->getTranslation('description', 'ar') != null ? $this->getTranslations('description') : null,
             'mission_duration' => (int)$this->mission_duration,
-            'mission_type' => $this->mission_type,
+            'mission_type' => $this->mission_type($this->mission_type),
             'tags' => json_decode($this->tags),
             'comments' => $this->getTranslation('comments', 'ar') != null ? $this->getTranslations('comments') : null,
             'mission_stars' => (int)$this->mission_stars,
             'participants_count' => DB::table('mission_user')->where('mission_id', $this->id)->count(),
         ];
+    }
+
+
+    public function mission_type($type) {
+        if($type == 'support') {
+            return [
+                'ar' => 'دعم',
+                'en' => $type
+            ];
+        } else {
+            return [
+                'ar' => 'نقد',
+                'en' => $type
+            ];
+        }
     }
 
 }

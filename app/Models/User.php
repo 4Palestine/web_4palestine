@@ -48,6 +48,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'image',
     ];
 
+    public function getAvatarAttribute($value)
+    {
+        return image_url($value);
+    }
 
     /**
      * The attributes that should be cast.
@@ -77,6 +81,9 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
+    public function stars() {
+        return $this->hasOne(UserStar::class, 'user_id');
+    }
 
     public function missions()
     {

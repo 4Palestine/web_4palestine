@@ -40,10 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-        'user' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
+        // 'user' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ],
         'mobile' => [
             'driver' => 'sanctum',
             'provider' => 'users',
