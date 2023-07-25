@@ -54,7 +54,6 @@ class UserController extends Controller
             return $this->fail(status: false, code: 442, message: "", errors: $validator->errors(), data: null);
         }
 
-
         // $user = User::find($id);
         $user = auth()->user();
 

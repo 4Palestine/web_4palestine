@@ -100,7 +100,7 @@ class UserMissionController extends Controller
         foreach ($topUsers as $topUser) {
             $userData = [
                 'user' => $topUser->user, // Includes the full user object with all attributes
-                'stars' => $topUser->stars,
+                'stars' => (int)$topUser->stars,
             ];
 
             $responseData[] = $userData;
