@@ -27,6 +27,7 @@ class UserController extends Controller
         // $user = User::find($id);
         $user = auth()->user();
 
+        $user->languages = json_decode($user->languages);
 
         return $this->success_single_response(code: 200, message: "user data returned successfully", data: $user, meta: null);
     }
