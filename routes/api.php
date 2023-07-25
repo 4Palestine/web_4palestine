@@ -52,6 +52,7 @@ Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLangua
     // Route::apiResource('profile', UserController::class)->only(['show']);
     Route::get('/profile/{id}', [UserController::class, 'show'])->name('show');
     Route::post('/profile/{id}', [UserController::class, 'update'])->name('update');
+    Route::post('/profile-password/{id}', [UserController::class, 'updatePassword'])->name('updatePassword');
 
     Route::get('/home', [HomeController::class, 'home'])->name('home');
 

@@ -48,7 +48,13 @@ class MissionController extends Base5ApiController
 
     public function search_for_mission()
     {
-        $model = $this->getModel()::where('is_active', 1)->search(request()->query())->get();
+
+        $model = $this->getModel()::where(function ($query) {
+            $query->where('description->en', 'like', '%' . request()->description . '%')
+                ->orWhere('description->ar', 'like', '%' . request()->description . '%');
+        })->get();
+
+        // $model = $this->getModel()::where('is_active', 1)->search(request()->query())->get();
 
         $models = $this->resource::collection($model);
 
