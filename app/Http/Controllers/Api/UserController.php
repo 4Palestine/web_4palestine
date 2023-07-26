@@ -65,7 +65,8 @@ class UserController extends Controller
         if (!$userUpdated) {
             return $this->tiny_fail(status: false, code: 404, message: "Somthing Went Wrong !!");
         }
-        return $this->tiny_success(status: false, code: 200, message: "Your profile has been updated successfully");
+        // return $this->tiny_success(status: false, code: 200, message: "Your profile has been updated successfully");
+        return $this->success_single_response(code: 200, message: "Your profile has been updated successfully", data: $user, meta: null);
     }
 
 
