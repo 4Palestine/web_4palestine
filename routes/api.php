@@ -49,14 +49,18 @@ Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLangua
     Route::delete('contact/{id}/delete' , [ContactController::class , 'destroy'])->name('contact_delete');
     Route::get('slider' , [SliderController::class , 'index'])->name('slider.index');
 
+
     // Route::apiResource('profile', UserController::class)->only(['show']);
     Route::get('/profile/{id}', [UserController::class, 'show'])->name('show');
     Route::post('/profile/{id}', [UserController::class, 'update'])->name('update');
     Route::post('/profile-password/{id}', [UserController::class, 'updatePassword'])->name('updatePassword');
 
+    // Route::apiResource('profile', UserController::class)->only(['show', 'update']);
     Route::get('/home', [HomeController::class, 'home'])->name('home');
 
 });
+
+    Route::get('profile-show/{id}' , [UserController::class , 'show'])->name('showxx');
 
 
 

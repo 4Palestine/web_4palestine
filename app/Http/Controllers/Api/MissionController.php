@@ -18,7 +18,6 @@ class MissionController extends Base5ApiController
     public function setCreateResource($request)
     {
         return [
-            'slug' => quickRandomString() . '-' . Str::slug($request->description),
             'image' => $this->uploadFile(request: $request, path: 'uploads/missions'),
             'tags' => json_encode($request->tags),
             'admin_data' => json_encode(auth()->user()),
@@ -27,7 +26,6 @@ class MissionController extends Base5ApiController
     public function setUpdateResource($request, $old_image)
     {
         return [
-            'slug' => quickRandomString() . '-' . Str::slug($request->description),
             'image' => $this->uploadFile(request: $request, old_image: $old_image, path: 'uploads/missions'),
             'tags' => json_encode($request->tags),
             'admin_data' => json_encode(auth()->user()),

@@ -7,6 +7,7 @@ use App\Http\Traits\ApiResponses;
 use App\Http\Traits\uploadFile;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -24,12 +25,21 @@ class UserController extends Controller
      */
     public function show($id)
     {
+
         // $user = User::find($id);
         $user = auth()->user();
 
         $user->languages = json_decode($user->languages);
 
         return $this->success_single_response(code: 200, message: "user data returned successfully", data: $user, meta: null);
+
+        $user = User::find($id);
+        $user_id = $user->id;
+        // $user = auth()->user();
+        $missions = count($user->missions);
+        $stars = DB::table('user_stars')->select('stars')->where('user_id', $user_id)->get();
+        return $this->success_single_response(code: 200, message: "user data returned successfully", data: ['user' => $user , 'missions'=> $missions , 'stars' => $stars], meta: null);
+
     }
 
 
