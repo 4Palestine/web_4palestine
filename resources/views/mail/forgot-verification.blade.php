@@ -46,11 +46,14 @@
                                     <span
                                         style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        لإعادة تعيين كلمة السر الخاصة بك، من فضلك قم بنسخ كود التفعيل واتبع التعليمات
+                                        لإعادة تعيين كلمة السر الخاصة بك، من فضلك قم بنسخ كود استعادة كلمة المرور واتبع التعليمات
                                     </p>
                                     <a href="javascript:void(0);"
                                        style="background:#0e8343;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:16px;padding:10px 24px;display:inline-block;border-radius:50px;">{{ $otp }}</a>
                                 </td>
+                            </tr>
+                            <tr>
+                                <small>كود استعادة كلمة المرور صالح لمدة 24 ساعة فقط</small>
                             </tr>
                             <tr>
                                 <td style="height:40px;">&nbsp;</td>

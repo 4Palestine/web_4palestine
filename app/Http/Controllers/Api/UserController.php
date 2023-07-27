@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\UserResource;
 use App\Http\Traits\ApiResponses;
 use App\Http\Traits\uploadFile;
 use App\Models\User;
@@ -26,10 +27,10 @@ class UserController extends Controller
     {
         // $user = User::find($id);
         $user = auth()->user();
+        $user_data = new UserResource($user);
+        // $user->languages = json_decode($user->languages);
 
-        $user->languages = json_decode($user->languages);
-
-        return $this->success_single_response(code: 200, message: "user data returned successfully", data: $user, meta: null);
+        return $this->success_single_response(code: 200, message: "user data returned successfully", data: $user_data, meta: null);
     }
 
 
@@ -54,11 +55,13 @@ class UserController extends Controller
         }
 
         $user = auth()->user();
+        $user_data = new UserResource($user);
+
 
         $userUpdated = $user->update([
             'name' => $request->name,
             'country' => $request->country,
-            'languages' => json_encode($request->input('languages')),
+            'languages' => $request->input('languages'),
             'avatar' => $this->uploadFile(request: $request, old_image: $user->avatar, filename: 'avatar', path: 'uploads/users'),
         ]);
 
@@ -66,7 +69,7 @@ class UserController extends Controller
             return $this->tiny_fail(status: false, code: 404, message: "Somthing Went Wrong !!");
         }
         // return $this->tiny_success(status: false, code: 200, message: "Your profile has been updated successfully");
-        return $this->success_single_response(code: 200, message: "Your profile has been updated successfully", data: $user, meta: null);
+        return $this->success_single_response(code: 200, message: "Your profile has been updated successfully", data: $user_data, meta: null);
     }
 
 
