@@ -25,30 +25,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-
-
-        // $user = User::find($id);
-        $user = auth()->user();
-
-        $user->languages = json_decode($user->languages);
-
-        return $this->success_single_response(code: 200, message: "user data returned successfully", data: $user, meta: null);
-
-        $user = User::find($id);
-        $user_id = $user->id;
         // $user = auth()->user();
+        $user = User::find($id);
+        $user->languages = json_decode($user->languages);
+        $user_id = $user->id;
         $missions = count($user->missions);
         $stars = DB::table('user_stars')->select('stars')->where('user_id', $user_id)->get();
-        return $this->success_single_response(code: 200, message: "user data returned successfully", data: ['user' => $user , 'missions'=> $missions , 'stars' => $stars], meta: null);
 
-        // $user = User::find($id);
-        $user = auth()->user();
-
-        $user->languages = json_decode($user->languages);
-
-        return $this->success_single_response(code: 200, message: "user data returned successfully", data: $user, meta: null);
-
-
+        return $this->success_single_response(code: 200, message: "user data returned successfully", data:['user' => $user , 'missions' => $missions , 'total_stars' => $stars], meta: null);
     }
 
 
