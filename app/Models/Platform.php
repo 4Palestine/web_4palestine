@@ -56,10 +56,10 @@ class Platform extends BaseModel
 
 
     public function tags(){
-        return $this->hasMany(Tag::class , 'platform_id' , 'id');
+        return $this->hasMany(Tag::class);
     }
     public function missions(){
-        return $this->hasMany(Mission::class , 'platform_id' , 'id');
+        return $this->hasMany(Mission::class);
     }
     public function active_missions(){
         return $this->hasMany(Mission::class)->where('is_active', 1);
