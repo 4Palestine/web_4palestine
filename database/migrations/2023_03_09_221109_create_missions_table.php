@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('missions', function (Blueprint $table) {
             $table->id();
-            $table->string('slug');
             $table->unsignedBigInteger('platform_id');
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('slug')->nullable();
             $table->string('image')->nullable();
             $table->text('mission_link');
             $table->json('description')->nullable();
