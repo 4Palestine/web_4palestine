@@ -31,6 +31,13 @@ Route::get('/', function () {
     // return to_route('login');
 });
 
+
+
+
+
+
+
+
 Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

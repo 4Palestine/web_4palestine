@@ -14,6 +14,10 @@ Route::name('user.')->group(function () {
         ->middleware('guest')
         ->name('register');
 
+    Route::post('auth/resend-otp-code', [RegisteredUserController::class, 'resendOtpCode'])
+        ->middleware('guest')
+        ->name('resendOtpCode');
+
     Route::post('auth/login', [AuthenticatedSessionController::class, 'store'])
         ->middleware('guest')
         ->name('login');
