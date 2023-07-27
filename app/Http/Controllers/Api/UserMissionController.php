@@ -89,8 +89,8 @@ class UserMissionController extends Controller
         $topUsers = MissionUser::with(['user' => function ($query) {
             $query->select('id', 'name', 'email', 'avatar');
         }])
-            ->select('user_id', DB::raw('SUM(stars) as total_stars'))
-            ->orderBy('total_stars', 'desc')
+            ->select('user_id', DB::raw('SUM(stars) as stars'))
+            ->orderBy('stars', 'desc')
             ->where('created_at', '>=', $oneMonthAgo)
             ->groupBy('user_id')
             ->get();
@@ -100,7 +100,7 @@ class UserMissionController extends Controller
         foreach ($topUsers as $topUser) {
             $userData = [
                 'user' => $topUser->user, // Includes the full user object with all attributes
-                'total_stars' => $topUser->total_stars,
+                'stars' => (int)$topUser->stars,
             ];
 
             $responseData[] = $userData;
