@@ -25,21 +25,30 @@ class UserController extends Controller
      */
     public function show($id)
     {
-<<<<<<< HEAD
-        $user = User::find($id);
-        $user_id = $user->id;
-        // $user = auth()->user();
-        $missions = count($user->missions);
-        $stars = DB::table('user_stars')->select('stars')->where('user_id', $user_id)->get();
-        return $this->success_single_response(code: 200, message: "user data returned successfully", data: ['user' => $user , 'missions'=> $missions , 'stars' => $stars], meta: null);
-=======
+
+
         // $user = User::find($id);
         $user = auth()->user();
 
         $user->languages = json_decode($user->languages);
 
         return $this->success_single_response(code: 200, message: "user data returned successfully", data: $user, meta: null);
->>>>>>> a5bc1afc4465551b404bb671a23947ba8cd66a65
+
+        $user = User::find($id);
+        $user_id = $user->id;
+        // $user = auth()->user();
+        $missions = count($user->missions);
+        $stars = DB::table('user_stars')->select('stars')->where('user_id', $user_id)->get();
+        return $this->success_single_response(code: 200, message: "user data returned successfully", data: ['user' => $user , 'missions'=> $missions , 'stars' => $stars], meta: null);
+
+        // $user = User::find($id);
+        $user = auth()->user();
+
+        $user->languages = json_decode($user->languages);
+
+        return $this->success_single_response(code: 200, message: "user data returned successfully", data: $user, meta: null);
+
+
     }
 
 
