@@ -57,13 +57,11 @@ class UserController extends Controller
         }
 
         $user = auth()->user();
-        $user_data = new UserResource($user);
-
 
         $userUpdated = $user->update([
             'name' => $request->name,
             'country' => $request->country,
-            'languages' => $request->input('languages'),
+            'languages' => json_encode($request->input('languages')),
             'avatar' => $this->uploadFile(request: $request, old_image: $user->avatar, filename: 'avatar', path: 'uploads/users'),
         ]);
 
@@ -71,7 +69,7 @@ class UserController extends Controller
             return $this->tiny_fail(status: false, code: 404, message: "Somthing Went Wrong !!");
         }
         // return $this->tiny_success(status: false, code: 200, message: "Your profile has been updated successfully");
-        return $this->success_single_response(code: 200, message: "Your profile has been updated successfully", data: $user_data, meta: null);
+        return $this->success_single_response(code: 200, message: "Your profile has been updated successfully", data: $user, meta: null);
     }
 
 
