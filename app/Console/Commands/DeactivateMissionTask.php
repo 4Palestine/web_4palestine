@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Mission;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class DeactivateMissionTask extends Command
 {
@@ -19,7 +20,7 @@ class DeactivateMissionTask extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'this command will change the is_active from 1 to 0 after passing the (n) hours of each mission, so it will be deactivated';
 
     /**
      * Execute the console command.
@@ -27,10 +28,8 @@ class DeactivateMissionTask extends Command
     public function handle(): void
     {
         $missions = Mission::where('is_active', 1)->get();
-
         foreach ($missions as $mission) {
             $duration = (integer)$mission->mission_duration * 3600; // Convert mission duration from hour to seconds
-
             // this will take the duration in seconds and add it to updated_at,
             // and check if the result is in the past according to current time or not
             if ($mission->updated_at->addSeconds($duration)->isPast()) {

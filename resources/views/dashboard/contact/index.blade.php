@@ -7,10 +7,10 @@
             'table_title' => 'Contacts',
             'table_button_route' => 'dashboard.contact.create'
             ]"
-        :ths="['#', 'UserID', 'Message', 'Actions']"
+        :ths="['#', 'UserID', 'User Name', 'Message', 'Actions']"
         :model="$contacts"
         :models="$contacts"
-        :fillables="['user_id', 'message']"
+        :fillables="['user_id', 'user_name', 'message']"
         {{-- :fillable_badges="[
             'is_active' => [1 => ['Active', 'alert-success'], 0 => ['Not Active', 'alert-danger']] ,
         ]" --}}
@@ -36,3 +36,4 @@
         ]"
         />
 @endsection
+vb

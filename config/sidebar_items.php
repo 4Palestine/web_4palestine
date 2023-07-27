@@ -78,26 +78,26 @@ return [
             ],
         ],
     ],
-    [
-        'menu_title' => 'Images Library',
-        'menu_title_icon' => 'lni lni-image',
-        'active' => 'dashboard.imageLibraryFolder.*',
-        'menu_title_list' => [
-            [
-                'route' => 'dashboard.imageLibraryFolder.index',
-                'label' => 'Image Library Folders',
-                'active' => 'dashboard.imageLibraryFolder.*',
-            ],
-            [
-                'route' => 'dashboard.imageLibraryFolder.manage-library',
-                'label' => 'Manage Folders',
-                'active' => 'dashboard.imageLibraryFolder.manage-library',
-            ],
-        ],
-    ],
+    // [
+    //     'menu_title' => 'Images Library',
+    //     'menu_title_icon' => 'lni lni-image',
+    //     'active' => 'dashboard.imageLibraryFolder.*',
+    //     'menu_title_list' => [
+    //         [
+    //             'route' => 'dashboard.imageLibraryFolder.index',
+    //             'label' => 'Image Library Folders',
+    //             'active' => 'dashboard.imageLibraryFolder.*',
+    //         ],
+    //         [
+    //             'route' => 'dashboard.imageLibraryFolder.manage-library',
+    //             'label' => 'Manage Folders',
+    //             'active' => 'dashboard.imageLibraryFolder.manage-library',
+    //         ],
+    //     ],
+    // ],
     [
         'menu_title' => 'contacts',
-        'menu_title_icon' => 'lni lni-target',
+        'menu_title_icon' => 'fadeIn animated bx bx-message-alt-detail',
         'active' => 'dashboard.contact.*',
         'menu_title_list' => [
             [
@@ -109,7 +109,7 @@ return [
     ],
     [
         'menu_title' => 'sliders',
-        'menu_title_icon' => 'lni lni-target',
+        'menu_title_icon' => 'lni lni-layers',
         'active' => 'dashboard.slider.*',
         'menu_title_list' => [
             [
@@ -136,6 +136,9 @@ return [
                 'active' => 'dashboard.setting.*',
             ]
         ]
+    ],
+    [
+        'menu_label' => 'Trash',
     ],
     [
         'menu_title' => 'trash',

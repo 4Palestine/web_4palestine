@@ -53,6 +53,9 @@
                                 </td>
                             </tr>
                             <tr>
+                                <small>كود التفعيل صالح لمدة 24 ساعة فقط</small>
+                            </tr>
+                            <tr>
                                 <td style="height:40px;">&nbsp;</td>
                             </tr>
                         </table>

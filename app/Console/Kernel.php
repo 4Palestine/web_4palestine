@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('deactivate:missions')->hourly();
+        $schedule->command('delete:otpCode')->everyMinute();
     }
 
     /**
