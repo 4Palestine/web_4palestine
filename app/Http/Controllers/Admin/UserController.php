@@ -179,11 +179,4 @@ class UserController extends Controller
         $users = User::onlyTrashed()->paginate(5);
         return view('dashboard.user.trash' , compact('users'));
     }
-    // public function restore($id)
-    // {
-    //     $users = User::onlyTrashed()->paginate(5);
-    //     $user = User::onlyTrashed()->findOrFail($id);
-    //     $user->restore();
-    //     return view('dashboard.user.trash' , compact('users'));
-    // }
 }

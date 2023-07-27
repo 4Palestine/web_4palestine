@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('platform_id');
+            $table->foreignId('platform_id');
+            $table->foreign('platform_id')->on('platforms')->references('id')->cascadeOnDelete();
             $table->json('name');
             $table->timestamps();
         });

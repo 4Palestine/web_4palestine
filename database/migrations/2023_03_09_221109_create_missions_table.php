@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('missions', function (Blueprint $table) {
             $table->id();
             $table->string('slug');
-            $table->unsignedBigInteger('platform_id');
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreignId('platform_id');
+            $table->foreign('platform_id')->on('platforms')->references('id')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable();
+            $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
             $table->string('image')->nullable();
             $table->text('mission_link');
             $table->json('description')->nullable();

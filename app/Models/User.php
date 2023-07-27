@@ -15,6 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
     /**
      * The attributes that are mass assignable.
@@ -33,7 +34,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'avatar',
         'admin_data'
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -128,4 +128,6 @@ class User extends Authenticatable implements MustVerifyEmail
         $user->save();
         return $user;
     }
+
+
 }

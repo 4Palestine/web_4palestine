@@ -12,16 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mission_user', function (Blueprint $table) {
-            $table->unsignedBigInteger('mission_id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('platform_id')->nullable();
+            $table->foreignId('mission_id');
+            $table->foreign('mission_id')->on('missions')->references('id')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable();
+            $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
+            $table->foreignId('platform_id');
+            $table->foreign('platform_id')->on('platforms')->references('id')->cascadeOnDelete();
             $table->unsignedInteger('stars')->nullable();
             $table->timestamps();
-
-            $table->foreign('mission_id')->references('id')->on('missions')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
-
             $table->unique(['mission_id', 'user_id']);
         });
     }
