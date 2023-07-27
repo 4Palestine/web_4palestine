@@ -3,109 +3,124 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Api\UserResource;
 use App\Http\Traits\ApiResponses;
-use App\Http\Traits\uploadFile;
+use App\Models\Mission;
+use App\Models\MissionUser;
 use App\Models\User;
+use App\Models\UserStar;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class UserMissionController extends Controller
 {
-    use uploadFile, ApiResponses;
+    use ApiResponses;
 
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function mission_done($mission_id)
     {
-        $user = auth()->user();
-        $user_data = new UserResource($user);
+        $user = User::find(auth()->user()->id);
+        $mission = Mission::where('id', $mission_id)->where('is_active', 1)->first();
 
-        $missions = count($user->missions);
-        $stars = DB::table('user_stars')->select('stars')->where('user_id', $user->id)->get();
-
-        return $this->success_single_response(code: 200, message: "user data returned successfully", data:['user' => $user_data , 'missions' => $missions , 'total_stars' => $stars], meta: null);
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $rules = [
-            'name' => '',
-            'country' => '',
-            'languages' => '',
-            'avatar' => '' // should be image from tha flutter application
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->fail(status: false, code: 442, message: "", errors: $validator->errors(), data: null);
+        if (!$mission) {
+            return $this->tiny_fail(status: false, code: 403, message: 'this mission does not exist');
         }
 
-        $user = auth()->user();
 
-        $userUpdated = $user->update([
-            'name' => $request->name,
-            'country' => $request->country,
-            'languages' => json_encode($request->input('languages')),
-            'avatar' => $this->uploadFile(request: $request, old_image: $user->avatar, filename: 'avatar', path: 'uploads/users'),
-        ]);
+        try {
+            DB::beginTransaction();
 
-        if (!$userUpdated) {
-            return $this->tiny_fail(status: false, code: 404, message: "Somthing Went Wrong !!");
-        }
-        // return $this->tiny_success(status: false, code: 200, message: "Your profile has been updated successfully");
-        return $this->success_single_response(code: 200, message: "Your profile has been updated successfully", data: $user, meta: null);
-    }
+            if (!$user->missions->contains($mission->id)) {
+                $existingStars = UserStar::where('user_id', $user->id)->value('stars');
 
+                UserStar::updateOrInsert(['user_id' => $user->id], [
+                    'user_id' => $user->id,
+                    'stars' =>  $existingStars + $mission->mission_stars,
+                    'updated_at' => now()
+                ]);
 
-    public function updatePassword(Request $request, $id)
-    {
-        $rules = [
-            'old_password' => '',
-            'password' => 'same:password_confirmation',
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->fail(status: false, code: 442, message: "", errors: $validator->errors(), data: null);
-        }
-
-        $user = auth()->user();
-
-        if(Hash::check($request->old_password, $user->password)) {
-            if (empty($request->password)) {
-                $password = $user->password;
-            } elseif(!empty($request->password) && $request->password == $request->password_confirmation) {
-                $password = Hash::make($request->password);
+                $user->missions()->syncWithoutDetaching([$mission->id => ['platform_id' => $mission->platform->id, 'stars' => $mission->mission_stars]]);
             } else {
-                return $this->tiny_fail(status: false, code: 442, message: "the password confirmation does not match. Please make sure you enter the same password in both fields");
+                return $this->tiny_success(status: true, code: 200, message: "you have done this mission before");
             }
-        } else {
-            return $this->tiny_fail(status: false, code: 442, message: "The old password is not correct, try again");
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->tiny_success(status: true, code: 200, message: "Somthing went wrong, try again please");
         }
 
 
-        $userUpdated = $user->update([
-            'password' => $password,
-        ]);
 
-        if (!$userUpdated) {
-            return $this->tiny_fail(status: false, code: 404, message: "Somthing Went Wrong !!");
+
+        return $this->tiny_success(status: true, code: 200, message: "Mission Done Successfully");
+
+        // {{ $mission->pivot->stars }} //  stars هاد الطريقة عشان تجيب قيمة ال
+
+        // relation in model من هان فممكن اجيبها من ال stars في طريقة تانية بدال ما اجيب قيمة ال
+        // ->withPivot('stars'); وذلك بكتابة
+
+        // stars > 5 وليكن مثلا بدك قيمة ال  pivot لو بدك تفحص قيمة ال
+        // ->wherePivot('stars', '>', 5);
+        // منفصلة وبتصير تستدعيها وقت الحاجة relation بتعمل هاد في
+
+    }
+
+
+
+    // علشان تجيب مجموع النجوم الكلي لمستخدم معين
+    public function total_stars_of_user($user_id)
+    {
+        $total_stars = DB::table('user_stars')->select('stars')->where('user_id', $user_id)->get();
+
+        return $this->success(status: true, code: 200, message: "total stars returned successfully", data: $total_stars);
+    }
+
+
+    public function top_10_last_month()
+    {
+
+        // 1- get all rows from mission_user where (created_at > month ago)
+        // 2- group them by user_id
+        // 3- get the sum of stars
+        // 4- get the user data depending on user_id
+
+        $oneMonthAgo = now()->subMonth(); // Get the date one month ago from the current date
+
+        $topUsers = MissionUser::with(['user' => function ($query) {
+            $query->select('id', 'name', 'email', 'avatar');
+        }])
+            ->select('user_id', DB::raw('SUM(stars) as stars'))
+            ->orderBy('stars', 'desc')
+            ->where('created_at', '>=', $oneMonthAgo)
+            ->groupBy('user_id')
+            ->get();
+
+        $responseData = [];
+
+        foreach ($topUsers as $topUser) {
+            $userData = [
+                'user' => $topUser->user, // Includes the full user object with all attributes
+                'stars' => (int)$topUser->stars,
+            ];
+
+            $responseData[] = $userData;
         }
-        return $this->tiny_success(status: false, code: 200, message: "Your Password has been updated successfully");
+
+
+        return $this->success(status: true, code: 200, message: "top 10 users returned successfully", data: $responseData);
+    }
+
+
+    public function top_10_all_time()
+    {
+        $users = UserStar::with(['user' => function ($query) {
+            $query->select('id', 'name', 'email', 'avatar'); // Specify the columns you want to select from the users table
+        }])
+            ->select('user_id', 'stars')
+            ->orderBy('stars', 'desc')
+            ->limit(10)
+            ->get();
+
+        return $this->success(status: true, code: 200, message: "top 10 users returned successfully", data: $users);
     }
 }
