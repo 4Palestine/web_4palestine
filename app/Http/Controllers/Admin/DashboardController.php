@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\Slider;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -27,6 +28,8 @@ class DashboardController extends Controller
         });
 
         $data['contacts'] = Contact::orderBy('id','DESC')->get();
+
+        $data['sliders'] = Slider::orderBy('order')->get();
 
         $data['users_increasing_percentage'] = Cache::remember('users-increasing-percentage', now()->addMinutes(10), function () use ($data) {
             $currentCount = $data['users_count'];

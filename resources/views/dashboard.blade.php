@@ -94,7 +94,7 @@
             </div>
         </div>
 
-        {{-- <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6">
             <div class="accordion" id="accordionExampleSlider">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOneSlider">
@@ -106,14 +106,16 @@
                         <div class="accordion-body py-2 px-0">
                             <div class="card p-0 mb-0">
                                 <div class="card-body p-0">
-
+                                    @foreach ($sliders as $slider )
+                                        <img src="{{ asset($slider->mockups) }}">
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
 
 
     </div>
