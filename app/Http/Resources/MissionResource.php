@@ -17,7 +17,6 @@ class MissionResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'slug' => $this->slug,
             'platform_id' => $this->platform_id,
             'platform_name' => optional($this->platform)->name,
             'user_id' => $this->user_id,
