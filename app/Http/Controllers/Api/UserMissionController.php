@@ -120,7 +120,6 @@ class UserMissionController extends Controller
             ->orderBy('stars', 'desc')
             ->limit(10)
             ->get();
-
         return $this->success(status: true, code: 200, message: "top 10 users returned successfully", data: $users);
     }
 }

@@ -62,6 +62,7 @@ Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLangua
 
 // Super User
 Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
+    Route::post('mission/super-user', [MissionController::class, 'store'])->name('mission.super-user.store');
 });
 
 

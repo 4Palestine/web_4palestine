@@ -23,7 +23,7 @@ class UserResource extends JsonResource
             'languages' => json_decode($this->languages),
             'is_super' => $this->is_super,
             'is_active' => $this->is_active,
-            'avatar' => image_url($this->avatar),
+            'avatar' => $this->avatar,
         ];
     }
 

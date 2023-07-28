@@ -63,7 +63,7 @@
                             <div class="card p-0 mb-0">
                                 <div class="card-body p-0">
                                     <table class="table mb-0">
-                                        <thead class="table-dark">
+                                        <thead class="table-secondary">
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">user ID</th>

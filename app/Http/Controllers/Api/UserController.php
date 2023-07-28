@@ -7,6 +7,7 @@ use App\Http\Resources\Api\UserResource;
 use App\Http\Traits\ApiResponses;
 use App\Http\Traits\uploadFile;
 use App\Models\User;
+use App\Models\UserStar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -30,9 +31,10 @@ class UserController extends Controller
         $user_data = new UserResource($user);
 
         $missions = count($user->missions);
-        $stars = DB::table('user_stars')->select('stars')->where('user_id', $user->id)->get();
 
-        return $this->success_single_response(code: 200, message: "user data returned successfully", data:['user' => $user_data , 'missions' => $missions , 'total_stars' => $stars], meta: null);
+        $stars = $user->stars->stars;
+
+        return $this->success_single_response(code: 200, message: "user data returned successfully", data:['user' => $user_data , 'missions' => $missions , 'stars' => $stars], meta: null);
     }
 
 

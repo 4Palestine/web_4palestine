@@ -48,10 +48,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'image',
     ];
 
-    // public function getAvatarAttribute($value)
-    // {
-    //     return image_url($value);
-    // }
+    public function getAvatarAttribute($value)
+    {
+        return image_url($value);
+    }
 
     /**
      * The attributes that should be cast.
