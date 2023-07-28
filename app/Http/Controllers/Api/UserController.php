@@ -29,6 +29,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = auth()->user();
+        // $user = User::find($id);
         $user_data = new UserResource($user);
 
         $missions = count($user->missions);
