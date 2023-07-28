@@ -52,7 +52,7 @@ class UserController extends Controller
             'name' => '',
             'country' => '',
             'languages' => '',
-            'avatar' => '' // should be image from tha flutter application
+            'avatar' => 'image' // should be image from tha flutter application
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -67,7 +67,7 @@ class UserController extends Controller
             'name' => $request->name,
             'country' => $request->country,
             'languages' => $request->input('languages'),
-            'avatar' => $this->uploadFile(request: $request, old_image: $user->avatar, filename: 'avatar', path: 'uploads/users'),
+            'avatar' => $request->avatar ? $this->uploadFile(request: $request, old_image: $user->avatar, filename: 'avatar', path: 'uploads/users') : $user->core_avatar,
         ]);
 
         if (!$userUpdated) {

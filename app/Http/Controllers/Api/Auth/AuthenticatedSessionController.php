@@ -27,6 +27,7 @@ class AuthenticatedSessionController extends Controller
             $this->validate_login_request($request);
 
             $user = User::where('email', $request->email)->first();
+            $user_resource = $this->user_resource($user);
             if (!$user || !Hash::check($request->password, $user->password)) {
                 return $this->fail(status: false, code: 404, message: "Email & Password does not match with our record.");
             }
@@ -40,7 +41,7 @@ class AuthenticatedSessionController extends Controller
             }
             $token = $user->createToken("API TOKEN")->plainTextToken;
 
-            return $this->success_single_response(code: 200, message: "User Logged In Successfully", data: $user, meta:["token" => $token]);
+            return $this->success_single_response(code: 200, message: "User Logged In Successfully", data: $user_resource, meta:["token" => $token]);
             #  return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['user_data' => $user, 'meta' => ['token' => $user->createToken("API TOKEN")->plainTextToken]]);
         } catch (\Throwable $th) {
             return $this->fail(status: false, code: 500, message: $th->getMessage());
@@ -64,6 +65,7 @@ class AuthenticatedSessionController extends Controller
 
 
             $user = User::where('email', $request->email)->whereNull('email_verified_at')->first();
+            $user_resource = $this->user_resource($user);
             if (!$user) {
                 return $this->fail(status: false, code: 404, message: "you are not registerd");
             }
@@ -95,7 +97,7 @@ class AuthenticatedSessionController extends Controller
             }
 
 
-            return $this->success_single_response(code: 200, message: "User Logged In Successfully", data: $user, meta:["token" => $token]);
+            return $this->success_single_response(code: 200, message: "User Logged In Successfully", data: $user_resource, meta:["token" => $token]);
 
             # return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['user_data' => $user, 'meta' => ['token' => $token]]);
         } catch (\Throwable $th) {
@@ -131,5 +133,20 @@ class AuthenticatedSessionController extends Controller
         if ($validateUser->fails()) {
             return $this->fail(status: false, code: 401, message: "validation error", errors: $validateUser->errors());
         }
+    }
+
+
+
+    public function user_resource($user){
+        return [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'email_verified_at' => $user->email_verified_at,
+            'country' => $user->country,
+            'languages' => json_decode($user->languages),
+            'is_super' => $user->is_super,
+            'avatar' => $user->avatar,
+        ];
     }
 }
