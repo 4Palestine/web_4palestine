@@ -72,19 +72,12 @@ class RegisteredUserController extends Controller
         if($user->emailVerification) {
             $user->emailVerification()->delete();
         }
-        $this->sendOtpEmail($user);
 
-        return $this->tiny_success_t(message: "A verification code has been Re-sent to your email.");
-
-    }
-
-
-    public function sendOtpEmail($user) {
         $verification = $user->createEmailVerification();
 
         try {
             Mail::to($user->email)->send(new VerifyEmail($verification->code));
-            return $this->tiny_success_t(message: "A verification code has been sent to your email.");
+            return $this->tiny_success_t(message: "A verification code has been Re-sent to your email.");
         } catch (\Exception $e) {
             return $this->tiny_fail(message: "Something went wrong, try again");
         }

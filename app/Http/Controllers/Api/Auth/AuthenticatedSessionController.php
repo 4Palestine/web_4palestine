@@ -56,7 +56,7 @@ class AuthenticatedSessionController extends Controller
                 $request->all(),
                 [
                     'email' => 'required|email',
-                    'otp_code' => 'string',
+                    'otp_code' => '',
                 ]
             );
             if ($validateUser->fails()) {
@@ -144,7 +144,7 @@ class AuthenticatedSessionController extends Controller
             'email' => $user->email,
             'email_verified_at' => $user->email_verified_at,
             'country' => $user->country,
-            'languages' => json_decode($user->languages),
+            'languages' => $user->languages,
             'is_super' => $user->is_super,
             'avatar' => $user->avatar,
         ];
