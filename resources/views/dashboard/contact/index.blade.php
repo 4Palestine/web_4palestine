@@ -30,10 +30,6 @@
         :export_excel_demo="['route_name'=>'dashboard.contact.exportExcelDemo']"
         :export_pdf="['route_name'=>'dashboard.contact.exportPdf']"
         :import_excel="['route_name'=>'dashboard.contact.importExcel']"
-
-        :text_filters="[
-            ['name' => 'name_email',           'label' => 'filter by name or email',         'cols' => '4'],
-        ]"
         />
 @endsection
 vb

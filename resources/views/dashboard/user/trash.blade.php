@@ -29,7 +29,7 @@
         ]"
 
         :text_filters="[
-            ['name' => 'name_email',           'label' => 'filter by name or email',         'cols' => '4'],
+            ['name' => 'name',           'label' => 'filter by name',         'cols' => '4'],
         ]"
     />
 @endsection
