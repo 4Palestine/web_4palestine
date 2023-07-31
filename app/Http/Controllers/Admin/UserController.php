@@ -48,8 +48,8 @@ class UserController extends Controller
             'password' => 'required|same:confirm-password|min:8',
             'is_active' => 'required|boolean',
             'is_super' => 'required|boolean',
-            'country' => 'string',
-//            'languages' => 'string',
+            'country' => 'required|string',
+            'languages' => 'required',
             'avatar' => 'image|max:1024|mimes:jpeg,png,jpg,gif'
         ]);
 

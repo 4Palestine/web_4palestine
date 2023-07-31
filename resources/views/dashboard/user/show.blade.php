@@ -78,20 +78,41 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
+                <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
                     <div class="row w-100 ">
                         <div class="col-3 d-flex justify-content-between align-items-center">
-                            <span class="fw-bold">Last update by</span>
+                            <span class="fw-bold">Stars</span>
                             <span>:</span>
                         </div>
                         <div class="col-9 d-flex justify-content-between align-items-center p-0">
-                            <span>{{ $user['admin_data']-> }} | {{ $user->admin_data}} </span>
+                            <span>{{ $user->stars->stars ?? 0 }}</span>
                         </div>
                     </div>
-                </div> --}}
+                </div>
+                <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
+                    <div class="row w-100 ">
+                        <div class="col-3 d-flex justify-content-between align-items-center">
+                            <span class="fw-bold">Missions</span>
+                            <span>:</span>
+                        </div>
+                        <div class="col-9 d-flex justify-content-between align-items-center p-0">
+                            <span>{{ count($user->missions_count) }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
+                    <div class="row w-100 ">
+                        <div class="col-3 d-flex justify-content-between align-items-center">
+                            <span class="fw-bold">Contacts</span>
+                            <span>:</span>
+                        </div>
+                        <div class="col-9 d-flex justify-content-between align-items-center p-0">
+                            <span>{{ count($user->contacts) }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
 

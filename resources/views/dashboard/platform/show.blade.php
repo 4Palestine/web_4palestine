@@ -3,7 +3,7 @@
 @section('master')
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h4>{{ $model['name'] }}</h4>test 555
+            <h4>{{ $model['name'] }}</h4>
             <div>
                 <a href="{{ route('dashboard.platform.index') }}" class="btn bg-dark text-white">Platforms</a>
             </div>
@@ -68,8 +68,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
+                    <div class="row w-100 ">
+                        <div class="col-3 d-flex justify-content-between align-items-center">
+                            <span class="fw-bold">active_missions</span>
+                            <span>:</span>
+                        </div>
+                        <div class="col-9 d-flex align-items-center p-0">
+                                <span class="badge bg-dark text-white me-2">{{ $model['active_missions'] }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection

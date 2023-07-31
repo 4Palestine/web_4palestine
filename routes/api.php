@@ -58,6 +58,7 @@ Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLangua
 
 });
 Route::get('profile-show/{id}' , [UserController::class , 'show'])->name('showxx');
+Route::put('profile-update/{id}' , [UserController::class , 'update'])->name('updatexx');
 
 
 // Super User
