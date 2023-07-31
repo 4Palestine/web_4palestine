@@ -34,7 +34,7 @@ class AuthController extends Controller
             );
 
             if ($validateUser->fails()) {
-                return $this->fail(status: false, code: 401, message: "validation error", errors: $validateUser->errors());
+                return $this->fail(status: false, code: 401, message: __('messages.validation_error'), errors: $validateUser->errors());
             }
 
             $user = User::create([
@@ -47,7 +47,7 @@ class AuthController extends Controller
             event(new Registered($user));
 
 
-            return $this->success(status: true, code: 200, message: "User Created Successfully", data: ['token' => $user->createToken("API TOKEN")->plainTextToken]);
+            return $this->success(status: true, code: 200, message: __('messages.user_created_successfully'), data: ['token' => $user->createToken("API TOKEN")->plainTextToken]);
 
         } catch (\Throwable $th) {
             return $this->fail(status: false, code: 500, message: $th->getMessage());
@@ -70,7 +70,7 @@ class AuthController extends Controller
             ]);
 
             if($validateUser->fails()){
-                return $this->fail(status: false, code: 401, message: "validation error", errors: $validateUser->errors());
+                return $this->fail(status: false, code: 401, message: __('messages.validation_error'), errors: $validateUser->errors());
             }
 
             // if(!Auth::guard('user')->attempt($request->only(['email', 'password']))){
@@ -80,10 +80,10 @@ class AuthController extends Controller
             $user = User::where('email', $request->email)->where('is_active', 1)->first();
 
             if(!$user || !Hash::check($request->password, $user->password)) {
-                return $this->fail(status: false, code: 401, message: "These credentials do not match our records.");
+                return $this->fail(status: false, code: 401, message: __('messages.credentials_records'));
             }
             $token = $user->createToken("API TOKEN")->plainTextToken;
-            return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['token' => $token]);
+            return $this->success(status: true, code: 200, message: __('messages.user_logged_in_successfully'), data: ['token' => $token]);
 
         } catch (\Throwable $th) {
             return response()->json([
@@ -97,7 +97,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->user()->tokens()->delete();
-        return $this->success(status: true, code: 200, message: "Logged Out Successfully");
+        return $this->success(status: true, code: 200, message: __('messages.logged_out'));
 
     }
 }

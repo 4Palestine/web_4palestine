@@ -23,7 +23,7 @@ class UserMissionController extends Controller
         $mission = Mission::where('id', $mission_id)->where('is_active', 1)->first();
 
         if (!$mission) {
-            return $this->tiny_fail(status: false, code: 403, message: 'this mission does not exist');
+            return $this->tiny_fail(status: false, code: 403, message: __('messages.mission_not_exist'));
         }
 
 
@@ -41,18 +41,18 @@ class UserMissionController extends Controller
 
                 $user->missions()->syncWithoutDetaching([$mission->id => ['platform_id' => $mission->platform->id, 'stars' => $mission->mission_stars]]);
             } else {
-                return $this->tiny_success(status: true, code: 200, message: "you have done this mission before");
+                return $this->tiny_success(status: true, code: 200, message: __('messages.done_mission_before'));
             }
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->tiny_success(status: true, code: 200, message: "Somthing went wrong, try again please");
+            return $this->tiny_success(status: true, code: 200, message: __('messages.something_wrong'));
         }
 
 
 
 
-        return $this->tiny_success(status: true, code: 200, message: "Mission Done Successfully");
+        return $this->tiny_success(status: true, code: 200, message: __('messages.mission_done_successfully'));
 
         // {{ $mission->pivot->stars }} //  stars هاد الطريقة عشان تجيب قيمة ال
 
@@ -72,7 +72,7 @@ class UserMissionController extends Controller
     {
         $total_stars = DB::table('user_stars')->select('stars')->where('user_id', $user_id)->get();
 
-        return $this->success(status: true, code: 200, message: "total stars returned successfully", data: $total_stars);
+        return $this->success(status: true, code: 200, message: __('messages.total_stars'), data: $total_stars);
     }
 
 
@@ -107,7 +107,7 @@ class UserMissionController extends Controller
         }
 
 
-        return $this->success(status: true, code: 200, message: "top 10 users returned successfully", data: $responseData);
+        return $this->success(status: true, code: 200, message: __('messages.top_10'), data: $responseData);
     }
 
 
@@ -120,6 +120,6 @@ class UserMissionController extends Controller
             ->orderBy('stars', 'desc')
             ->limit(10)
             ->get();
-        return $this->success(status: true, code: 200, message: "top 10 users returned successfully", data: $users);
+        return $this->success(status: true, code: 200, message: __('messages.top_10'), data: $users);
     }
 }

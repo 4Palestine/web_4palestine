@@ -37,7 +37,7 @@ class PasswordResetLinkController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            return $this->tiny_fail(status: false, code: 404, message: "User not found");
+            return $this->tiny_fail(status: false, code: 404, message: __('messages.user_not_found'));
         }
 
         $otp = random_int(100000, 999999);
@@ -63,8 +63,8 @@ class PasswordResetLinkController extends Controller
         try {
             Mail::to($user->email)->send(new ResetPasswordMail($user, $otp));
         } catch (Exception $exception) {
-            return $this->tiny_fail(status: false, code: 403, message: "Something wend worng !!");
+            return $this->tiny_fail(status: false, code: 403, message: __('messages.something_wrong'));
         }
-        return $this->tiny_success_t(code: 200, message: "OTP code sent successfully");
+        return $this->tiny_success_t(code: 200, message: __('messages.otp_code_success'));
     }
 }

@@ -29,19 +29,19 @@ class AuthenticatedSessionController extends Controller
             $user = User::where('email', $request->email)->first();
             $user_resource = $this->user_resource($user);
             if (!$user || !Hash::check($request->password, $user->password)) {
-                return $this->fail(status: false, code: 404, message: "Email & Password does not match with our record.");
+                return $this->fail(status: false, code: 404, message: __('messages.email_password'));
             }
 
             if($user->email_verified_at === NULL) {
-                return $this->fail(status: false, code: 404, message: "virify yout account first");
+                return $this->fail(status: false, code: 404, message: __('messages.verify'));
             }
 
             if (!$user->is_active) {
-                return $this->fail(status: false, code: 401, message: "Your account is not allowed to be login !");
+                return $this->fail(status: false, code: 401, message: __('messages.not_allowed_login'));
             }
             $token = $user->createToken("API TOKEN")->plainTextToken;
 
-            return $this->success_single_response(code: 200, message: "User Logged In Successfully", data: $user_resource, meta:["token" => $token]);
+            return $this->success_single_response(code: 200, message: __('messages.user_logged_in_successfully'), data: $user_resource, meta:["token" => $token]);
             #  return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['user_data' => $user, 'meta' => ['token' => $user->createToken("API TOKEN")->plainTextToken]]);
         } catch (\Throwable $th) {
             return $this->fail(status: false, code: 500, message: $th->getMessage());
@@ -60,14 +60,14 @@ class AuthenticatedSessionController extends Controller
                 ]
             );
             if ($validateUser->fails()) {
-                return $this->fail(status: false, code: 401, message: "validation error", errors: $validateUser->errors());
+                return $this->fail(status: false, code: 401, message: __('messages.validation_error'), errors: $validateUser->errors());
             }
 
 
             $user = User::where('email', $request->email)->whereNull('email_verified_at')->first();
             $user_resource = $this->user_resource($user);
             if (!$user) {
-                return $this->fail(status: false, code: 404, message: "you are not registerd");
+                return $this->fail(status: false, code: 404, message: __('messages.registered'));
             }
 
             // Check if the user has an email verification record
@@ -97,7 +97,7 @@ class AuthenticatedSessionController extends Controller
             }
 
 
-            return $this->success_single_response(code: 200, message: "User Logged In Successfully", data: $user_resource, meta:["token" => $token]);
+            return $this->success_single_response(code: 200, message: __('messages.user_logged_in_successfully'), data: $user_resource, meta:["token" => $token]);
 
             # return $this->success(status: true, code: 200, message: "User Logged In Successfully", data: ['user_data' => $user, 'meta' => ['token' => $token]]);
         } catch (\Throwable $th) {
@@ -114,7 +114,7 @@ class AuthenticatedSessionController extends Controller
 
         return response([
             'status' => true,
-            'message' => 'Logged Out Successfully',
+            'message' => __('messages.logged_out'),
         ]);
     }
 
@@ -131,7 +131,7 @@ class AuthenticatedSessionController extends Controller
         );
 
         if ($validateUser->fails()) {
-            return $this->fail(status: false, code: 401, message: "validation error", errors: $validateUser->errors());
+            return $this->fail(status: false, code: 401, message: __('messages.validation_error'), errors: $validateUser->errors());
         }
     }
 

@@ -35,10 +35,10 @@ class MissionController extends Base5ApiController
     public function missions_of_platform($platform_id) {
         $platform = Platform::find($platform_id);
         if(!$platform) {
-            return $this->tiny_fail(status: false, code: 404, message: "platform is not exist");
+            return $this->tiny_fail(status: false, code: 404, message: __('messages.platform_not_exist'));
         }
         $platform_missions = $platform->active_missions;
-        return $this->success_list_response(code: 200, message: "missions of this platform returned successfully", data: $platform_missions, meta: null, links: null);
+        return $this->success_list_response(code: 200, message: __('messages.missions_platform_returned_successfully'), data: $platform_missions, meta: null, links: null);
     }
 
 
@@ -57,7 +57,7 @@ class MissionController extends Base5ApiController
         $models = $this->resource::collection($model);
 
         if(!$models) {
-            return $this->tiny_fail(status: false, code: 404, message: "there is no data yet");
+            return $this->tiny_fail(status: false, code: 404, message: __('messages.no_data'));
         }
         return $this->success_single_response(code: 200, message: "", data: $models, meta: null);
     }

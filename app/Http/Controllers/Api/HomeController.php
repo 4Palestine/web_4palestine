@@ -26,6 +26,6 @@ class HomeController extends Controller
 
         $sliders = Slider::where('is_active' , '=' , 1)->orderBy('order')->get();
 
-        return $this->success(code: 200, message: "User Logged In Successfully", data: ['platforms' => $platforms, 'sliders' => $sliders]);
+        return $this->success(code: 200, message: __('messages.user_logged_in_successfully'), data: ['platforms' => $platforms, 'sliders' => $sliders]);
     }
 }
