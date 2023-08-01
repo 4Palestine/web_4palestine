@@ -51,9 +51,9 @@ class RegisteredUserController extends Controller
 
             try {
                 Mail::to($user->email)->send(new VerifyEmail($verification->code));
-                return $this->tiny_success_t(message: "A verification code has been sent to your email.");
+                return $this->tiny_success_t(message: __('messages.verification_code_sent_email'));
             } catch (\Exception $e) {
-                return $this->tiny_fail(message: "Something went wrong, try again");
+                return $this->tiny_fail(message: __('messages.something_wrong'));
             }
             // $this->sendOtpEmail($user);
         //     DB::commit();
@@ -77,9 +77,9 @@ class RegisteredUserController extends Controller
 
         try {
             Mail::to($user->email)->send(new VerifyEmail($verification->code));
-            return $this->tiny_success_t(message: "A verification code has been Re-sent to your email.");
+            return $this->tiny_success_t(message: __('messages.verification_code_resent_email'));
         } catch (\Exception $e) {
-            return $this->tiny_fail(message: "Something went wrong, try again");
+            return $this->tiny_fail(message: __('messages.something_wrong'));
         }
     }
 }

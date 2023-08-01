@@ -43,9 +43,9 @@ class ContactController extends Controller
             'message' => $request->get('message'),
         ]);
         if ($contacts) {
-            return $this->tiny_success_t(code: 200, message: "Contact message sent successfully");
+            return $this->tiny_success_t(code: 200, message: __('messages.contact_message'));
         } else {
-            return $this->tiny_fail(status: false, code: 200, message: "Somthing went wrong");
+            return $this->tiny_fail(status: false, code: 200, message: __('messages.something_wrong'));
         }
     }
     public function destroy(string $id)

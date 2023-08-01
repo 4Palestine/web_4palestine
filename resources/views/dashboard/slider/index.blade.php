@@ -34,12 +34,6 @@
         :export_excel_demo="['route_name'=>'dashboard.slider.exportExcelDemo']"
         :export_pdf="['route_name'=>'dashboard.slider.exportPdf']"
         :import_excel="['route_name'=>'dashboard.slider.importExcel']"
-
-        :text_filters="[
-            ['name' => 'description',           'label' => 'filter by description',         'cols' => '4'],
-        ]"
-
-
         :select_fixed_filters="[
             {{-- [
                 'name' => 'mission_type',

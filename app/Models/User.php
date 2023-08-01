@@ -72,12 +72,15 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function scopeSearch(Builder $query, $request)
     {
-        // if ($request['name'] ?? false) {
-        //     $query->where('name', 'LIKE', "%{$request['name']}%");
-        // }
-        // if (isset($request['is_active']) && $request['is_active'] != '') {
-        //     $query->where('is_active', '=', $request['is_active']);
-        // }
+        if ($request['name'] ?? false) {
+            $query->where('name', 'LIKE', "%{$request['name']}%");
+        }
+        if (isset($request['is_active']) && $request['is_active'] != '') {
+            $query->where('is_active', '=', $request['is_active']);
+        }
+        if (isset($request['is_super']) && $request['is_super'] != '') {
+            $query->where('is_super', '=', $request['is_super']);
+        }
     }
 
     public function scopeActive(Builder $query)

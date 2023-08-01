@@ -3,7 +3,7 @@
 @section('master')
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h4>{{ $model['mission_type'] }}</h4>
+            <h4>Details</h4>
             <div>
                 <a href="{{ route('dashboard.mission.index') }}" class="btn bg-dark text-white">Missions</a>
             </div>
@@ -58,12 +58,61 @@
                 <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
                     <div class="row w-100 ">
                         <div class="col-3 d-flex justify-content-between align-items-center">
+                            <span class="fw-bold">Is Super</span>
+                            <span>:</span>
+                        </div>
+                        <div class="col-9 d-flex justify-content-between align-items-center p-0">
+                            <span
+                                class="badge {{ $model['mission_type'] == 1 ? 'bg-success' : 'bg-danger' }}">{{ $model['mission_type'] == 1 ? 'Super' : 'Not Super' }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
+                    <div class="row w-100 ">
+                        <div class="col-3 d-flex justify-content-between align-items-center">
                             <span class="fw-bold">Description En</span>
                             <span>:</span>
                         </div>
                         <div class="col-9 d-flex justify-content-between align-items-center p-0">
                             <span>{{ $model['description_en'] }}</span>
                         </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
+                    <div class="row w-100 ">
+                        <div class="col-3 d-flex justify-content-between align-items-center">
+                            <span class="fw-bold">Description Ar</span>
+                            <span>:</span>
+                        </div>
+                        <div class="col-9 d-flex justify-content-between align-items-center p-0">
+                            <span>{{ $model['description_ar'] }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
+                    <div class="row w-100 ">
+                        <div class="col-3 d-flex justify-content-between align-items-center">
+                            <span class="fw-bold">Comment En</span>
+                            <span>:</span>
+                        </div>
+                        @foreach ($model['comments_en'] as $comment )
+                        <div class="col-9 ms-3 d-flex justify-content-between align-items-center p-0">
+                            <span>{{ $comment }}</span>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
+                    <div class="row w-100 ">
+                        <div class="col-3 d-flex justify-content-between align-items-center">
+                            <span class="fw-bold">Comment Ar</span>
+                            <span>:</span>
+                        </div>
+                        @foreach ($model['comments_ar'] as $comment )
+                        <div class="col-9 ms-3 d-flex justify-content-between align-items-center p-0">
+                            <span>{{ $comment }}</span>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
@@ -84,7 +133,7 @@
                             <span>:</span>
                         </div>
                         <div class="col-9 d-flex justify-content-between align-items-center p-0">
-                            <span>{{ $model['mission_link'] }}</span>
+                            <a href="{{ $model['mission_link']  }}">{{ $model['mission_link']  }}</a>
                         </div>
                     </div>
                 </div>
@@ -113,6 +162,19 @@
                 <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
                     <div class="row w-100 ">
                         <div class="col-3 d-flex justify-content-between align-items-center">
+                            <span class="fw-bold">Tags</span>
+                            <span>:</span>
+                        </div>
+                        @foreach ($model['tags'] as $tag )
+                        <div class="col-9 ms-3 d-flex justify-content-between align-items-center p-0">
+                            <span>{{ $tag }} </span>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
+                    <div class="row w-100 ">
+                        <div class="col-3 d-flex justify-content-between align-items-center">
                             <span class="fw-bold">Last update by</span>
                             <span>:</span>
                         </div>
@@ -123,6 +185,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection

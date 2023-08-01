@@ -48,8 +48,8 @@ class UserController extends Controller
             'password' => 'required|same:confirm-password|min:8',
             'is_active' => 'required|boolean',
             'is_super' => 'required|boolean',
-            'country' => 'string',
-//            'languages' => 'string',
+            'country' => 'required|string',
+            'languages' => 'required',
             'avatar' => 'image|max:1024|mimes:jpeg,png,jpg,gif'
         ]);
 
@@ -176,7 +176,7 @@ class UserController extends Controller
     }
     public function trash()
     {
-        $users = User::onlyTrashed()->paginate(5);
+        $users = User::search(request()->query())->onlyTrashed()->paginate(5);
         return view('dashboard.user.trash' , compact('users'));
     }
     public function restore($id)

@@ -43,10 +43,10 @@ class NewPasswordController extends Controller
         $latestReset = $reset->latest()->first();
 
         if (!$latestReset || $latestReset->token !== $request->otp_code) {
-            return $this->tiny_fail(status: false, code: 422, message: "Invalid OTP code");
+            return $this->tiny_fail(status: false, code: 422, message: __('messages.invalid_otp_code'));
         }
 
-        return $this->tiny_success_t(code: 200, message: "successful OTP");
+        return $this->tiny_success_t(code: 200, message: __('messages.successful_otp'));
     }
     /**
      * Handle an incoming new password request.
@@ -58,14 +58,14 @@ class NewPasswordController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            return $this->tiny_fail(status: false, code: 404, message: "User not found");
+            return $this->tiny_fail(status: false, code: 404, message: __('messages.user_not_found'));
         }
 
         $reset = DB::table('password_reset_tokens')->where('email', $user->email);
         $latestReset = $reset->latest()->first();
 
         if (!$latestReset || $latestReset->token !== $request->otp_code) {
-            return $this->tiny_fail(status: false, code: 422, message: "Invalid OTP code");
+            return $this->tiny_fail(status: false, code: 422, message: __('messages.invalid_otp_code'));
         }
 
         $user->password = bcrypt($request->password);
@@ -73,7 +73,7 @@ class NewPasswordController extends Controller
 
         $reset->delete();
 
-        return $this->tiny_success_t(code: 200, message: "Password reset successful");
+        return $this->tiny_success_t(code: 200, message: __('messages.password_reset_successful'));
 
 
     }

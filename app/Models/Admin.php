@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -44,4 +45,15 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime'
     ];
+
+
+    public function scopeSearch(Builder $query, $request)
+    {
+        if ($request['name'] ?? false) {
+            $query->where('name', 'LIKE', "%{$request['name']}%");
+        }
+        if (isset($request['is_active']) && $request['is_active'] != '') {
+            $query->where('is_active', '=', $request['is_active']);
+        }
+    }
 }

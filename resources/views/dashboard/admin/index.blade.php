@@ -34,7 +34,25 @@
         :import_excel="['route_name'=>'dashboard.admin.importExcel']"
 
         :text_filters="[
-            ['name' => 'name_email',           'label' => 'filter by name or email',         'cols' => '4'],
+            ['name' => 'name',           'label' => 'filter by Name',         'cols' => '4'],
+        ]"
+
+        :select_fixed_filters="[
+            [
+                'name' => 'is_active',
+                'label' => 'Activity filter',
+                'cols' => '3',
+                'options' => [
+                    [
+                        'option_value' => '1',
+                        'option_label' => 'Active',
+                    ],
+                    [
+                        'option_value' => '0',
+                        'option_label' => 'Not Active',
+                    ],
+                ]
+            ],
         ]"
 
     />

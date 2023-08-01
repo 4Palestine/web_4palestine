@@ -22,7 +22,7 @@ class EmailVerificationNotificationController extends Controller
         }
 
         $request->user()->sendEmailVerificationNotification();
-        return $this->tiny_success_t(code: 200, message: "OTP code sent successfully");
+        return $this->tiny_success_t(code: 200, message: __('messages.otp_code_success'));
 
     }
 }
