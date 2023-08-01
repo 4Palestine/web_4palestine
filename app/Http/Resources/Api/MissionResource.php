@@ -28,8 +28,8 @@ class MissionResource extends JsonResource
             'mission_duration' => (int)$this->mission_duration,
             'mission_type' => $this->mission_type($this->mission_type),
             'tags' => json_decode($this->tags),
-            'all_comments' => $this->getTranslations('comments') ?? null,
-            'random_comment' => $this->getRandomCommentPair($this->getTranslations('comments')),
+            'all_comments' => $this->comments != null ? $this->getTranslations('comments') : null,
+            'random_comment' => $this->comments != null ? $this->getRandomCommentPair($this->getTranslations('comments')) : null,
             'mission_stars' => (int)$this->mission_stars,
             'participants_count' => DB::table('mission_user')->where('mission_id', $this->id)->count(),
         ];
@@ -55,6 +55,12 @@ class MissionResource extends JsonResource
 
     function getRandomCommentPair($comments)
     {
+        if(is_null($comments)){
+            return [
+                'en' => null,
+                'ar' => null,
+            ];
+        }
         // Get all English comments
         $enComments = $comments['en'];
 
