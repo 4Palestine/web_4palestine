@@ -41,6 +41,23 @@ class MissionController extends Base5ApiController
 
 
 
+    public function serializeTranslatableOptions($request)
+    {
+        $translatabelOptions = app($this->getModel())->getTranslatableOptions();
+        $serializedOptions = [];
+
+        foreach($translatabelOptions as $option){
+            $serializedOptions[$option] = [
+                'en' => is_array($request->input($option . '_en')) ? $request->input($option . '_en') : [$request->input($option . '_en')],
+                'ar' => is_array($request->input($option . '_en')) ? $request->input($option . '_ar') : [$request->input($option . '_ar')],
+                // 'ar' => $request->input($option . '_ar')
+            ];
+        }
+        return $serializedOptions;
+    }
+
+
+
 
     public function search_for_mission()
     {
