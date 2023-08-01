@@ -6,6 +6,7 @@ use App\Http\Controllers\Base5ApiController;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Base5Controller;
+use App\Http\Resources\Api\MissionResource;
 use App\Http\Resources\PlatformResource;
 use App\Http\Resources\TagResource;
 use App\Models\Mission;
@@ -19,16 +20,12 @@ class MissionController extends Base5ApiController
     {
         return [
             'image' => $this->uploadFile(request: $request, path: 'uploads/missions'),
-            'tags' => json_encode($request->tags),
-            'admin_data' => json_encode(auth()->user()),
         ];
     }
     public function setUpdateResource($request, $old_image)
     {
         return [
             'image' => $this->uploadFile(request: $request, old_image: $old_image, path: 'uploads/missions'),
-            'tags' => json_encode($request->tags),
-            'admin_data' => json_encode(auth()->user()),
         ];
     }
 
@@ -37,7 +34,8 @@ class MissionController extends Base5ApiController
         if(!$platform) {
             return $this->tiny_fail(status: false, code: 404, message: __('messages.platform_not_exist'));
         }
-        $platform_missions = $platform->active_missions;
+
+        $platform_missions = MissionResource::collection($platform->active_missions);
         return $this->success_list_response(code: 200, message: __('messages.missions_platform_returned_successfully'), data: $platform_missions, meta: null, links: null);
     }
 

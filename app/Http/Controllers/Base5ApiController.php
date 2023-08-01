@@ -89,7 +89,6 @@ class Base5ApiController extends BaseController
 
     public function store(Request $request)
     {
-        dd('sss');
         $request->validate($this->getRequest()->rules(), $this->getRequest()->messages());
         $model = $this->getModel()::create($this->setCreateAttributes($request));
         if($model)

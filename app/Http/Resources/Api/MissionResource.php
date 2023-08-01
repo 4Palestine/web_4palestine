@@ -18,7 +18,8 @@ class MissionResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'slug' => $this->slug,
+            // 'slug' => $this->slug,
+            'platform_name' => optional($this->platform)->name,
             'image' => image_url($this->image),
             'mission_link' => $this->mission_link,
             // 'description' => $this->description,
@@ -34,14 +35,14 @@ class MissionResource extends JsonResource
 
 
     public function mission_type($type) {
-        if($type == 'support') {
+        if($type == SUPPORT_EN) {
             return [
-                'ar' => 'دعم',
+                'ar' => SUPPORT_AR,
                 'en' => $type
             ];
         } else {
             return [
-                'ar' => 'نقد',
+                'ar' => ATTACK_AR,
                 'en' => $type
             ];
         }

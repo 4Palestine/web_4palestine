@@ -17,7 +17,8 @@ class HomeController extends Controller
         $platforms = Platform::active()->with(['missions' => function ($query) {
             $query->select('id', 'slug', 'platform_id', 'image', 'mission_link', 'description', 'mission_duration', 'mission_type', 'tags', 'comments', 'mission_stars')
                     ->active()
-                    ->whereNull('deleted_at');
+                    ->whereNull('deleted_at')
+                    ->orderByDesc('id');
                     // ->take(3);
         }])
         ->get(['id', 'slug', 'name', 'image', 'description']);
