@@ -28,15 +28,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        // $user = auth()->user();
-        $user = User::find($id);
+        $user = auth()->user();
         $user_data = new UserResource($user);
 
         $missions = count($user->missions);
 
         $stars = $user->stars->stars;
 
-        return $this->success_single_response(code: 200, message: __('messages.user_data_successfully'), data:['user' => $user_data , 'missions' => $missions , 'stars' => $stars], meta: null);
+        return $this->success_single_response(code: 200, message: "user data returned successfully", data:['user' => $user_data , 'missions' => $missions , 'stars' => $stars], meta: null);
     }
 
 
@@ -72,10 +71,10 @@ class UserController extends Controller
         ]);
 
         if (!$userUpdated) {
-            return $this->tiny_fail(status: false, code: 404, message: __('messages.something_wrong'));
+            return $this->tiny_fail(status: false, code: 404, message: "Somthing Went Wrong !!");
         }
         // return $this->tiny_success(status: false, code: 200, message: "Your profile has been updated successfully");
-        return $this->success_single_response(code: 200, message: __('messages.profile_updated'), data: $user_data, meta: null);
+        return $this->success_single_response(code: 200, message: "Your profile has been updated successfully", data: $user_data, meta: null);
     }
 
 
@@ -98,10 +97,10 @@ class UserController extends Controller
             } elseif(!empty($request->password) && $request->password == $request->password_confirmation) {
                 $password = Hash::make($request->password);
             } else {
-                return $this->tiny_fail(status: false, code: 442, message: __('messages.password_confirmation_not_match'));
+                return $this->tiny_fail(status: false, code: 442, message: "the password confirmation does not match. Please make sure you enter the same password in both fields");
             }
         } else {
-            return $this->tiny_fail(status: false, code: 442, message: __('messages.old_password_not_correct'));
+            return $this->tiny_fail(status: false, code: 442, message: "The old password is not correct, try again");
         }
 
 
@@ -110,8 +109,8 @@ class UserController extends Controller
         ]);
 
         if (!$userUpdated) {
-            return $this->tiny_fail(status: false, code: 404, message: __('messages.something_wrong'));
+            return $this->tiny_fail(status: false, code: 404, message: "Somthing Went Wrong !!");
         }
-        return $this->tiny_success(status: false, code: 200, message: __('messages.password_updated'));
+        return $this->tiny_success(status: false, code: 200, message: "Your Password has been updated successfully");
     }
 }
