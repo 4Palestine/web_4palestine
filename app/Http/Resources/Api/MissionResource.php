@@ -36,6 +36,7 @@ class MissionResource extends JsonResource
     }
 
 
+    // test pull request
     public function mission_type($type)
     {
         if ($type == SUPPORT_EN) {
