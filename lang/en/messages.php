@@ -3,6 +3,8 @@
 return [
 
     'welcome' => 'welcome',
-    'dashboard' => 'dashboard'
+    'dashboard' => 'dashboard',
+
+    'platform_not_exist' => 'platform is not exist',
 
 ];

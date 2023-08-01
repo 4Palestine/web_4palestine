@@ -33,7 +33,7 @@ class UserController extends Controller
 
         $missions = count($user->missions);
 
-        $stars = $user->stars->stars;
+        $stars = $user->stars->stars ?? null;
 
         return $this->success_single_response(code: 200, message: "user data returned successfully", data:['user' => $user_data , 'missions' => $missions , 'stars' => $stars], meta: null);
     }

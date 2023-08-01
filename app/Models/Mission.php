@@ -42,7 +42,7 @@ class Mission extends BaseModel
     protected $casts = [
         'admin_data' => 'array',
         'tags' => 'array',
-        'comments' => 'array',
+        // 'comments' => 'array',
     ];
 
 
