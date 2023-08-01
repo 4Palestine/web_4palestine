@@ -35,9 +35,6 @@ Route::get('/', function () {
 
 
 
-
-
-
 Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
