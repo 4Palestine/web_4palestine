@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use NumberFormatter as NumberFormatter;
 use Illuminate\Support\Optional;
 
@@ -112,6 +113,45 @@ if (!function_exists('db_transaction')) {
         }
     }
 }
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+function sendGSM($title, $message, $topic, $data) {
+
+    $url = 'https://fcm.googleapis.com/fcm/send';
+
+    $fields = array(
+        "to" => '/topics/' . $topic,
+        'priority' => 'high',
+        'content_available' => true,
+
+        'notification' => array(
+            "body" =>  $message,
+            "title" =>  $title,
+            "click_action" => "FLUTTER_NOTIFICATION_CLICK",
+            "sound" => "default"
+
+        ),
+        'data' => $data
+    );
+
+    $headers = [
+        'Authorization' => request()->header('Authorization'),
+        'Content-Type' => 'application/json'
+    ];
+
+    $response = Http::withHeaders($headers)->post($url, $fields);
+
+    if($response->successful()) {
+        return $response->json();
+    } else {
+        return $response->body();
+    }
+
+    return $response;
+}
+
+
+
 //////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////
 // trait uploadFile {

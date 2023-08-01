@@ -69,6 +69,7 @@ return [
     | ahead and set this to a sensible default for you out of the box.
     |
     */
+    'firebase_notification_key' => env('FIREBASE_NOTIFICATION_KEY'),
 
     'timezone' => 'UTC',
 
