@@ -40,7 +40,7 @@ class NotificationController extends Controller
 
     public function mark_all_notifications_as_readed() {
         $user = auth()->user();
-        if(!$user->notifications){
+        if($user->notifications->count() === 0){
             return $this->tiny_fail(status: false, code: 401, message: "you are not allowed to send this request");
         }
 
