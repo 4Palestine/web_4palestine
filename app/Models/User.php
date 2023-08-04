@@ -104,6 +104,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function contacts(){
         return $this->hasMany(Contact::class , 'user_id' , 'id');
     }
+    public function notifications(){
+        return $this->hasMany(Notification::class, 'user_id');
+    }
 
     public function createEmailVerification()
     {

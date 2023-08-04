@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Http\Resources\Api\MissionResource;
 use App\Models\Mission;
-use App\Models\Notification;
+use App\Models\User;
+use App\Notifications\NewMissionNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,13 +30,26 @@ class AppServiceProvider extends ServiceProvider
         Mission::created(function ($mission) {
             DB::transaction(function () use ($mission) {
                 $missionResource = new MissionResource($mission);
-                $this->sendGSM(title: 'تم اضافة مهمة جديدة', message: 'أيها النحلات الصفراء الأمورات, هناك مهمة جديدة يلا نعملهن كلن', topic: 'all', data: $missionResource);
 
-                // Notification::create([
-                //     'body'=> "تم إضافة " . $testament->item->name . " " . $testament->unit->name . ": " . $testament->quantity . " على ذمتك",
-                //     'url'=> route('admin.dashboard.view'),
-                //     'user_id'=>$testament->user_id
-                // ]);
+                $title = 'New Mission Has Been Added 🚀';
+                $message ='check the new mission and gain stars ⭐🤩';
+                $this->sendGSM(title: $title, message: $message, topic: 'all', data: $missionResource);
+
+
+                $users = User::get(['id']);
+
+                $data = [
+                    'title' => $title,
+                    'message' => $message,
+                    'data' => $missionResource
+                ];
+
+                Notification::send($users, new NewMissionNotification($data));
+
+                //  the old way to send for each single user alone
+                // foreach($users as $user){
+                //     $user->notify(new NewMissionNotification($data, $user->id));
+                // }
             });
         });
     }

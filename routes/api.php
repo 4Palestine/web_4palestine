@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\PlatformController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\MissionController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\SliderController;
 use App\Http\Controllers\Api\UserController;
@@ -54,10 +55,12 @@ Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLangua
 
     Route::get('/home', [HomeController::class, 'home'])->name('home');
 
-});
-Route::get('profile-show/{id}' , [UserController::class , 'show'])->name('showxx');
-Route::put('profile-update/{id}' , [UserController::class , 'update'])->name('updatexx');
+    Route::get('/show-notifications', [NotificationController::class, 'show_notifications'])->name('notifications.show_notifications');
+    Route::patch('/mark-notification-as-readed/{id}', [NotificationController::class, 'mark_notification_as_readed'])->name('notifications.mark_notification_as_readed');
+    Route::patch('/mark-all-notifications-as-readed', [NotificationController::class, 'mark_all_notifications_as_readed'])->name('notifications.mark_all_notifications_as_readed');
 
+
+});
 
 // Super User
 Route::middleware(['auth:sanctum', 'verified', 'checkApiPassword', 'changeLanguage', 'isSuper'])->name('user.')->prefix('user')->group(function () {
