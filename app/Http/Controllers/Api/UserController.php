@@ -65,9 +65,9 @@ class UserController extends Controller
 
 
         $userUpdated = $user->update([
-            'name' => $request->name,
-            'country' => $request->country,
-            'languages' => $request->input('languages'),
+            'name' => $request->name ?? $user->name,
+            'country' => $request->country ?? $user->country,
+            'languages' => $request->input('languages') ?? $user->languages,
             'avatar' => $request->avatar ? $this->uploadFile(request: $request, old_image: $user->avatar, filename: 'avatar', path: 'uploads/users') : $user->core_avatar,
         ]);
 
