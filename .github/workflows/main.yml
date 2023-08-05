@@ -42,8 +42,8 @@ jobs:
         script: |
           cd application 
           /usr/local/bin/ea-php81 /home/beespale/application/artisan optimize
-          /usr/local/bin/ea-php81 /home/beespale/application/artisan cache:clear
-#          /usr/local/bin/ea-php81 /home/beespale/application/artisan view:cache
-#          /usr/local/bin/ea-php81 /home/beespale/application/artisan migrate
+#          /usr/local/bin/ea-php81 /home/beespale/application/artisan cache:clear
+          /usr/local/bin/ea-php81 /home/beespale/application/artisan view:cache
+          /usr/local/bin/ea-php81 /home/beespale/application/artisan migrate
 
             
