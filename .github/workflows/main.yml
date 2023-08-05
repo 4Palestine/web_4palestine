@@ -8,15 +8,16 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
+    - name: 🚚 Get the latest code
       uses: actions/checkout@v2.3.2
 #     - name: 📦 Install dependencies
 #       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 #     - name: 📂 Copy .env file
 #       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-#     - name: 🛠️ Run Artisan commands
-#       run: |
-#         cd /application
+    - name: 🛠️ Run Artisan commands
+      run: |
+        cd /application
+        /usr/local/bin/ea-php81 /home/beespale/application/artisan optimize
 #         php artisan migrate
 #         php artisan cache:clear
 #         php artisan optimize
@@ -29,3 +30,20 @@ jobs:
         password: ${{ secrets.SERVER_PASSWORD }}
         server-dir: /application/
         
+
+# Add this step to execute the commands on the server using SSH with a password
+    # - name: 🤖 Execute SSH command on the server
+    #   uses: appleboy/ssh-action@v0.1.5
+    #   with:
+    #     host: bees4palestine.org
+    #     username: ${{ secrets.SERVER_SSH_USERNAME }}
+    #     password: ${{ secrets.SERVER_SSH_PASSWORD }}
+    #     port: 22  # Default SSH port
+    #     script: |
+    #       cd application 
+    #       /usr/local/bin/ea-php81 /home/beespale/application/artisan optimize
+    #       /usr/local/bin/ea-php81 /home/beespale/application/artisan cache:clear
+    #       /usr/local/bin/ea-php81 /home/beespale/application/artisan view:cache
+    #       /usr/local/bin/ea-php81 /home/beespale/application/artisan migrate
+
+            
