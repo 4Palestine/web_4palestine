@@ -14,10 +14,10 @@ jobs:
 #       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
 #     - name: 📂 Copy .env file
 #       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: 🛠️ Run Artisan commands
-      run: |
-        cd /application
-        /usr/local/bin/ea-php81 /home/beespale/application/artisan optimize
+    # - name: 🛠️ Run Artisan commands
+    #   run: |
+    #     cd /application
+    #     /usr/local/bin/ea-php81 /home/beespale/application/artisan optimize
 #         php artisan migrate
 #         php artisan cache:clear
 #         php artisan optimize
@@ -32,18 +32,18 @@ jobs:
         
 
 # Add this step to execute the commands on the server using SSH with a password
-    # - name: 🤖 Execute SSH command on the server
-    #   uses: appleboy/ssh-action@v0.1.5
-    #   with:
-    #     host: bees4palestine.org
-    #     username: ${{ secrets.SERVER_SSH_USERNAME }}
-    #     password: ${{ secrets.SERVER_SSH_PASSWORD }}
-    #     port: 22  # Default SSH port
-    #     script: |
-    #       cd application 
-    #       /usr/local/bin/ea-php81 /home/beespale/application/artisan optimize
-    #       /usr/local/bin/ea-php81 /home/beespale/application/artisan cache:clear
-    #       /usr/local/bin/ea-php81 /home/beespale/application/artisan view:cache
-    #       /usr/local/bin/ea-php81 /home/beespale/application/artisan migrate
+    - name: 🤖 Execute SSH command on the server
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: bees4palestine.org
+        username: ${{ secrets.SERVER_SSH_USERNAME }}
+        password: ${{ secrets.SERVER_SSH_PASSWORD }}
+        port: 22  # Default SSH port
+        script: |
+          cd application 
+          /usr/local/bin/ea-php81 /home/beespale/application/artisan optimize
+          /usr/local/bin/ea-php81 /home/beespale/application/artisan cache:clear
+          /usr/local/bin/ea-php81 /home/beespale/application/artisan view:cache
+          /usr/local/bin/ea-php81 /home/beespale/application/artisan migrate
 
             
