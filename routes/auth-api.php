@@ -27,15 +27,15 @@ Route::name('user.')->group(function () {
         ->name('login.withotp');
     ////////////////////////////
     Route::post('auth/forgot-password', [PasswordResetLinkController::class, 'store'])
-        ->middleware('guest:user')
+        ->middleware('guest')
         ->name('password.email');
 
     Route::post('auth/ensure-otp-reset-password', [NewPasswordController::class, 'ensure_otp_reset_password'])
-        ->middleware('guest:user')
+        ->middleware('guest')
         ->name('password.ensure_otp_reset_password');
 
     Route::post('auth/reset-password', [NewPasswordController::class, 'store'])
-        ->middleware('guest:user')
+        ->middleware('guest')
         ->name('password.store');
 
     Route::get('auth/verify-email/{id}/{hash}', VerifyEmailController::class)
