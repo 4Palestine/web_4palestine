@@ -12,20 +12,45 @@ use App\Http\Resources\TagResource;
 use App\Models\Mission;
 use App\Models\Platform;
 use App\Models\Tag;
+use Illuminate\Http\Request;
 
 class MissionController extends Base5ApiController
 {
+
+    public function store(Request $request)
+    {
+        $request->validate($this->getRequest()->rules(), $this->getRequest()->messages());
+        $model = $this->getModel()::create($this->setCreateAttributes($request));
+        if($model)
+            $this->afterCreate($request, $model);
+
+        if(!$model) {
+            return $this->fail(status: false, code: 404, message: "there is no data yet", data: null);
+        }
+        return $this->success(status: true, code: 200, message: "data returned succeefully", data: $model);
+    }
+
+
+
 
     public function setCreateResource($request)
     {
         return [
             'image' => $this->uploadFile(request: $request, path: 'uploads/missions'),
+            'description' => [
+                'en' => $request->input('description_en'),
+                'ar' => $request->input('description_ar'),
+            ]
         ];
     }
     public function setUpdateResource($request, $old_image)
     {
         return [
             'image' => $this->uploadFile(request: $request, old_image: $old_image, path: 'uploads/missions'),
+            'description' => [
+                'en' => $request->input('description_en'),
+                'ar' => $request->input('description_ar'),
+            ]
         ];
     }
 
