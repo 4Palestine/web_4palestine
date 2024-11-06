@@ -19,6 +19,7 @@ class MissionController extends Base5ApiController
 
     public function store(Request $request)
     {
+        dd($request->all());
         $request->validate($this->getRequest()->rules(), $this->getRequest()->messages());
         $model = $this->getModel()::create($this->setCreateAttributes($request));
         if($model)

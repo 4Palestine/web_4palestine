@@ -32,6 +32,7 @@ class MissionResource extends JsonResource
             'random_comment' => $this->comments != null ? $this->getRandomCommentPair($this->getTranslations('comments')) : null,
             'mission_stars' => (int)$this->mission_stars,
             'participants_count' => DB::table('mission_user')->where('mission_id', $this->id)->count(),
+            'done' => auth()->user()->missions->contains('id', $this->id)
         ];
     }
 

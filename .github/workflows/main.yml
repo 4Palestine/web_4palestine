@@ -25,25 +25,10 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        server: ftp.bees4palestine.org
-        username: ${{ secrets.SERVER_USERNAME }}
-        password: ${{ secrets.SERVER_PASSWORD }}
-        server-dir: /application/
-        
+        server: ftp.khaledamoudi.com
+        username: "Bees4Palestine"
+        password: "@Bees4Palestine"
+        # username: ${{ secrets.SERVER_USERNAME }}
+        # password: ${{ secrets.SERVER_PASSWORD }}
+        server-dir: /bees4palestine/
 
-# # Add this step to execute the commands on the server using SSH with a password
-#     - name: 🤖 Execute SSH command on the server
-#       uses: appleboy/ssh-action@v0.1.5
-#       with:
-#         host: bees4palestine.org
-#         username: ${{ secrets.SERVER_USERNAME }}
-#         password: ${{ secrets.SERVER_PASSWORD }}
-#         port: 22  # Default SSH port
-#         script: |
-#           cd application 
-#           /usr/local/bin/ea-php81 /home/beespale/application/artisan optimize
-# #          /usr/local/bin/ea-php81 /home/beespale/application/artisan cache:clear
-#           /usr/local/bin/ea-php81 /home/beespale/application/artisan view:cache
-#           /usr/local/bin/ea-php81 /home/beespale/application/artisan migrate
-
-            
