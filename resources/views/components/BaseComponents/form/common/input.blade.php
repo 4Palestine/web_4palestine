@@ -7,7 +7,7 @@
     'cols' => '6',
 ])
 
-<div class="mb-3 col-12 col-sm-{{ $cols }}">
+<div class="mb-7 col-12 col-sm-{{ $cols }}">
     <label class="form-label" for="{{ $name }}">{{ ucwords($label) }}</label>
     <input type="{{ $type }}" name="{{ $name }}" value="{{ old($name, $model[$name]) }}" id="{{ $name }}" placeholder="{{ $placeholder }}" {{ $attributes->class([
         'form-control',
